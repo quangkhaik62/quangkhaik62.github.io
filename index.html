@@ -181,53 +181,36 @@
         </section>
       </div>
     <div class="main-content">
-<section class="section-light no-padding-top regular-section has-text-centered has-vertically-aligned-content" id="regular-section">
+<section class="section-light no-padding-top regular-section has-text-centered" id="regular-section" style="display: block !important;">
   <div class="container">
-    <div class="columns is-vcentered is-desktop">
+    <div class="columns is-mobile is-vcentered is-centered" style="margin-top: 2rem;">
       
-      <div class="column is-3 is-hidden-touch" data-aos="fade-right" data-aos-duration="1000">
-        <img src="image/3.png" alt="Decoration Left" style="max-height: 450px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+      <div class="column is-3-desktop is-2-mobile" data-aos="fade-right" data-aos-duration="1000">
+        <img src="image/3.png" alt="Deco Left" style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
       </div>
 
-      <div class="column is-6">
+      <div class="column is-6-desktop is-8-mobile">
         <div data-aos="fade-up" data-aos-easing="linear">
-          <img src="image/logo.png" class="bismillah has-text-centered" alt="In the name of Allah">
+          <img src="image/logo.png" class="bismillah has-text-centered" alt="Logo" style="max-height: 50px;">
         </div>
 
-        <p class="bodytext" data-aos="fade-up" data-aos-easing="linear">
-          Peace be upon you and the mercy and blessings of Allah.
+        <p class="bodytext" data-aos="fade-up" data-aos-easing="linear" style="margin: 20px 0;">
+          Thân chào quý khách, gia đình và bạn bè thân thiết.
           <br />
-          By the grace and pleasure of Allah SWT, 
+          Được sự cho phép của hai bên gia đình, 
           <br />
-          we intend to invite you to our wedding ceremony.
+          chúng con trân trọng kính mời quý vị đến dự lễ báo hỷ của chúng con.
         </p>
-
-        <span class="space40px"></span>
 
         <div data-aos="fade-up" data-aos-easing="linear">
           <div class="nama-lengkap">Quang Khải</div>
           <div class="ampersand">&</div>
           <div class="nama-lengkap">Kim Ngân</div>
         </div>
-
-        <style>
-          /* Sửa lỗi font cho tên trong đoạn thân bài */
-          .nama-lengkap, .ampersand {
-            font-family: 'Great Vibes', cursive !important;
-            font-weight: normal !important;
-            font-size: 4rem !important; 
-            line-height: 1.5 !important;
-          }
-          /* Điều chỉnh riêng cho dấu & để cân đối */
-          .ampersand {
-            font-size: 3rem !important;
-            margin: 0 10px;
-          }
-        </style>
       </div>
 
-      <div class="column is-3 is-hidden-touch" data-aos="fade-left" data-aos-duration="1000">
-        <img src="image/4.png" alt="Decoration Right" style="max-height: 450px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+      <div class="column is-3-desktop is-2-mobile" data-aos="fade-left" data-aos-duration="1000">
+        <img src="image/4.png" alt="Deco Right" style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
       </div>
 
     </div>
@@ -240,6 +223,28 @@
       </div>
     </div>
   </div>
+
+  <style>
+    /* CSS nội bộ để đảm bảo font và hiển thị */
+    #regular-section .nama-lengkap {
+      font-family: 'Great Vibes', cursive !important;
+      color: #996E6D !important;
+      font-size: clamp(2.5rem, 8vw, 4rem) !important; /* Tự động co giãn size chữ */
+      line-height: 1.2 !important;
+    }
+    #regular-section .ampersand {
+      font-family: 'Great Vibes', cursive !important;
+      color: #996E6D !important;
+      font-size: clamp(2rem, 6vw, 3rem) !important;
+    }
+    /* Đảm bảo ảnh không quá to trên máy tính */
+    @media (min-width: 1024px) {
+      #regular-section img[src*="3.png"], #regular-section img[src*="4.png"] {
+        max-height: 400px;
+        width: auto !important;
+      }
+    }
+  </style>
 </section>
       
       <section class="section-dark" id="Waktu">
