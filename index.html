@@ -113,13 +113,20 @@
               var harih = '01/11/2026 11:00:00';
 
               $('#hitungmundur').countdown({
-                date: harih, 
-                offset: +7, 
-                day: 'Day',
-                days: 'Days'
-              }, function () {
-                alert('Thank you!');
-              });
+  date: harih,
+  offset: +7,
+  // Thêm các dòng dưới đây để ghi đè tiếng Indonesia thành tiếng Anh
+  day: 'Day',
+  days: 'Days',
+  hour: 'Hour',
+  hours: 'Hours',
+  minute: 'Minute',
+  minutes: 'Minutes',
+  second: 'Second',
+  seconds: 'Seconds'
+}, function () {
+  alert('Thank you!');
+});
             </script>  
           </div>
           </div>
