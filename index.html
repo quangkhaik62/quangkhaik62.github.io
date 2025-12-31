@@ -188,54 +188,66 @@
       </section>
       <section class="section-dark" id="Waktu">
         <div class="container">
-
           <div class="column is-12 regular-section" data-aos="fade-up" data-aos-easing="linear">
             <h1 class="title has-text-centered section-title">Ngày & Giờ</h1>
           </div>
-          <div class="columns is-multiline" data-aos="fade-up" data-aos-easing="linear">
-            <div
-              class="column is-4 has-vertically-aligned-content">
-            
-              <p class="is-larger has-text-centered">
-                  <div class="waktu tanggal-hari has-text-centered">Chủ Nhật</div> 
-                  <div class="waktu tanggal-angka has-text-centered">11</div>
-                  <div class="waktu tanggal-bulan has-text-centered">Tháng 1 2026</div>
-              </p>
-            
+
+          <div class="columns is-centered" data-aos="fade-up" data-aos-easing="linear">
+            <div class="column is-4">
+              <div class="calendar-card" style="background: white; color: #333; border-radius: 12px; padding: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); margin: 0 auto 30px;">
+                <div class="calendar-header" style="text-align: center; font-weight: 700; border-bottom: 2px solid #f4f4f4; padding-bottom: 15px; margin-bottom: 15px; letter-spacing: 2px; color: #BC8887;">
+                  THÁNG 01 / 2026
+                </div>
+                
+                <style>
+                  .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-family: 'Montserrat', sans-serif; }
+                  .weekday { font-weight: 600; font-size: 0.8rem; color: #999; padding-bottom: 10px; }
+                  .day { padding: 8px 0; font-size: 0.9rem; color: #444; position: relative; }
+                  .wedding-day { background: #BC8887; color: white !important; border-radius: 50%; width: 32px; height: 32px; display: inline-block; line-height: 32px; font-weight: bold; box-shadow: 0 4px 10px rgba(188, 136, 135, 0.4); }
+                </style>
+
+                <div class="calendar-grid weekday">
+                  <div>CN</div><div>T2</div><div>T3</div><div>T4</div><div>T5</div><div>T6</div><div>T7</div>
+                </div>
+                <div class="calendar-grid">
+                  <div></div><div></div><div></div><div></div>
+                  <div class="day">1</div><div class="day">2</div><div class="day">3</div>
+                  <div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div><div class="day">10</div>
+                  <div class="day"><span class="wedding-day">11</span></div><div class="day">12</div><div class="day">13</div><div class="day">14</div><div class="day">15</div><div class="day">16</div><div class="day">17</div>
+                  <div class="day">18</div><div class="day">19</div><div class="day">20</div><div class="day">21</div><div class="day">22</div><div class="day">23</div><div class="day">24</div>
+                  <div class="day">25</div><div class="day">26</div><div class="day">27</div><div class="day">28</div><div class="day">29</div><div class="day">30</div><div class="day">31</div>
+                </div>
+              </div>
             </div>
-            <div class="column is-4 has-vertically-aligned-content">
-            
+          </div>
+
+          <div class="columns is-multiline" data-aos="fade-up" data-aos-easing="linear">
+            <div class="column is-6 has-vertically-aligned-content">
+              <p class="waktu is-larger has-text-centered">
+                Đón Khách:
+                <br>
+                <strong style="font-size: 2rem; color: #BC8887;">11:00</strong>
+              </p>
+            </div>
+            <div class="column is-6 has-vertically-aligned-content">
               <p class="waktu is-larger has-text-centered">
                 Khai Tiệc:
                 <br>
-                <strong>12:00</strong>
+                <strong style="font-size: 2rem; color: #BC8887;">12:00</strong>
               </p>
-            
             </div>
-
-            <div class="column is-4 has-vertically-aligned-content">
-              
-              <h1 class="waktu is-larger has-text-centered">
-                Đón Khách:
-                <br>
-                <strong>11:00</strong>
-              </h1>
-              
-              
-            </div>
-
           </div>
         </div>
+
         <div class="space40px"></div>
+        
         <div class="main-content has-text-centered" data-aos="fade-up" data-aos-easing="linear">
-<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Lễ+Báo+Hỷ+Quang+Khải+và+Kim+Ngân&dates=20260111T040000Z/20260111T070000Z&details=Trân+trọng+kính+mời+bạn+đến+dự+Lễ+Báo+Hỷ+của+chúng+mình+tại+Hera+Palace.&location=Hera+Palace,+Dĩ+An,+Bình+Dương&sf=true&output=xml" 
-   target="_blank" 
-   class="button has-tooltip btn-cta" 
-   data-tooltip="Thêm vào lịch" 
-   data-aos="zoom-in">
-    <i class="far fa-calendar-plus"></i>
-    Google Calendar
-</a>
+          <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Lễ+Báo+Hỷ+Quang+Khải+và+Kim+Ngân&dates=20260111T040000Z/20260111T070000Z&details=Trân+trọng+kính+mời+bạn+đến+dự+Lễ+Báo+Hỷ+của+chúng+mình+tại+Hera+Palace.&location=Hera+Palace,+Dĩ+An,+Bình+Dương&sf=true&output=xml" 
+             target="_blank" 
+             class="button has-tooltip btn-cta" 
+             data-tooltip="Thêm vào lịch">
+            <i class="far fa-calendar-plus"></i> &nbsp; Google Calendar
+          </a>
         </div>
       </section>
       <section class="section-darker" id="lokasi" >
