@@ -506,5 +506,71 @@
         duration: 800,
       });
     </script>
+    
+<div id="music-player" onclick="handleMusic()" style="position: fixed; bottom: 80px; left: 20px; z-index: 9999; cursor: pointer;">
+    <div id="music-disk" class="music-disk-style">
+        <i id="music-icon" class="fas fa-music" style="color: white; font-size: 20px;"></i>
+    </div>
+    <audio id="bg-music" loop>
+        <source src="1000.webm" type="audio/webm">
+    </audio>
+</div>
+<style>
+  .music-disk-style {
+    background: #BC8887; 
+    width: 50px; 
+    height: 50px; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    border: 3px solid #fff;
+    transition: all 0.3s ease;
+  }
+
+  /* Hiệu ứng xoay tròn liên tục */
+  .spinning {
+    animation: spin 4s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Hiệu ứng khi nhấn vào */
+  #music-player:active {
+    transform: scale(0.9);
+  }
+</style>
+<script>
+  var myAudio = document.getElementById("bg-music");
+var myDisk = document.getElementById("music-disk");
+var myIcon = document.getElementById("music-icon");
+
+function handleMusic() {
+    if (myAudio.paused) {
+        myAudio.play().catch(function(error) {
+            console.log("Trình duyệt chặn tự động phát: " + error);
+        });
+        myDisk.classList.add("spinning"); // Đĩa bắt đầu xoay
+        myIcon.classList.remove("fa-music");
+        myIcon.classList.add("fa-pause"); 
+    } else {
+        myAudio.pause();
+        myDisk.classList.remove("spinning"); // Đĩa dừng lại ngay lập tức
+        myIcon.classList.remove("fa-pause");
+        myIcon.classList.add("fa-music"); 
+    }
+}
+
+// Gợi ý cho khách phát nhạc khi họ chạm vào màn hình lần đầu
+document.addEventListener('click', function() {
+    // Nếu bạn muốn nhạc tự phát ngay lần click đầu tiên của khách vào bất cứ đâu
+    // if (myAudio.paused) handleMusic(); 
+}, {once: true});
+    </script>
+    
   </body>
 </html>
