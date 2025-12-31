@@ -507,70 +507,85 @@
       });
     </script>
     
-<div id="music-player" onclick="handleMusic()" style="position: fixed; bottom: 80px; left: 20px; z-index: 9999; cursor: pointer;">
-    <div id="music-heart" class="heart-style">
-        <i id="music-icon" class="fas fa-music" style="color: white; font-size: 18px; z-index: 2;"></i>
-        <i class="fas fa-heart" style="color: #BC8887; font-size: 60px; position: absolute; z-index: 1; text-shadow: 0 4px 10px rgba(0,0,0,0.2);"></i>
+<div id="music-player" onclick="handleMusic()" style="position: fixed; bottom: 100px; left: 20px; z-index: 999999; cursor: pointer;">
+    <div id="music-heart" class="heart-container">
+        <span id="music-icon" style="color: white; font-size: 14px; position: relative; z-index: 10; font-weight: bold; font-family: Arial;">♫</span>
+        <div class="heart-shape"></div>
     </div>
     <audio id="bg-music" loop>
         <source src="music/nhac-dam-cuoi.webm" type="audio/webm">
     </audio>
 </div>
+    
 <style>
-  .heart-style {
+.heart-container {
     width: 60px;
     height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    transition: transform 0.3s ease;
-  }
+    /* Đảm bảo nút luôn hiển thị */
+    visibility: visible !important;
+    opacity: 1 !important;
+}
 
-  /* Hiệu ứng xoay tròn khi phát nhạc */
-  .spinning-heart {
+/* Vẽ hình trái tim bằng CSS */
+.heart-shape {
+    position: absolute;
+    width: 50px;
+    height: 45px;
+    background-color: #BC8887; /* Màu hồng tro của bạn */
+}
+.heart-shape:before,
+.heart-shape:after {
+    position: absolute;
+    content: "";
+    left: 25px;
+    top: 0;
+    width: 25px;
+    height: 40px;
+    background-color: #BC8887;
+    border-radius: 25px 25px 0 0;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+}
+.heart-shape:after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+}
+
+/* Hiệu ứng xoay tròn */
+.spinning-heart {
     animation: heartSpin 4s linear infinite;
-  }
+}
 
-  @keyframes heartSpin {
+@keyframes heartSpin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
-  }
+}
 
-  /* Hiệu ứng đập nhẹ (Beat) nếu bạn không muốn xoay thì dùng cái này */
-  .beating-heart {
-    animation: heartBeat 1.2s infinite;
-  }
-
-  @keyframes heartBeat {
-    0% { transform: scale(1); }
-    15% { transform: scale(1.2); }
-    30% { transform: scale(1); }
-    45% { transform: scale(1.1); }
-    60% { transform: scale(1); }
-  }
+/* Đảm bảo nốt nhạc ♫ luôn đứng thẳng dù trái tim xoay */
+.spinning-heart #music-icon {
+    display: inline-block;
+}
 </style>
+    
 <script>
- var myAudio = document.getElementById("bg-music");
-var myHeart = document.getElementById("music-heart");
-var myIcon = document.getElementById("music-icon");
-
 function handleMusic() {
+    var myAudio = document.getElementById("bg-music");
+    var myHeart = document.getElementById("music-heart");
+    var myIcon = document.getElementById("music-icon");
+
     if (myAudio.paused) {
         myAudio.play();
-        myHeart.classList.add("spinning-heart"); // Trái tim bắt đầu xoay
-        // Nếu muốn hiệu ứng trái tim đập thay vì xoay, hãy đổi thành:
-        // myHeart.classList.add("beating-heart");
-        
-        myIcon.classList.remove("fa-music");
-        myIcon.classList.add("fa-pause"); // Đổi nốt nhạc thành nút tạm dừng
+        myHeart.classList.add("spinning-heart");
+        myIcon.innerText = "||"; // Đổi nốt nhạc thành nút tạm dừng
     } else {
         myAudio.pause();
-        myHeart.classList.remove("spinning-heart"); // Trái tim đứng im
-        // myHeart.classList.remove("beating-heart");
-        
-        myIcon.classList.remove("fa-pause");
-        myIcon.classList.add("fa-music"); // Hiện lại nốt nhạc
+        myHeart.classList.remove("spinning-heart");
+        myIcon.innerText = "♫"; // Hiện lại nốt nhạc
     }
 }
     </script>
