@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="https://unpkg.com/bulma-tooltip@0.1.5/dist/bulma-tooltip.min.css" />
     <link rel="stylesheet" type="text/css" href="css/menikah.css" />
     <link rel="stylesheet" type="text/css" href="css/jquery.countdown.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <script
       src="https://kit.fontawesome.com/2828f7885a.js"
       integrity="sha384-WAsFbnLEQcpCk8lM1UTWesAf5rGTCvb2Y+8LvyjAAcxK1c3s5c0L+SYOgxvc6PWG"
@@ -130,6 +133,25 @@
             </script>  
           </div>
           </div>
+        <style>
+  /* Định dạng font thư pháp cho tên chính */
+  h2.title {
+    font-family: 'Great Vibes', cursive !important; /* Font thư pháp sang trọng */
+    font-size: 5rem !important;        /* Tăng kích thước để chữ viết tay dễ đọc */
+    color: #BC8887 !important;         /* Giữ màu hồng tro theo theme */
+    font-weight: normal !important;
+    line-height: 1.5 !important;       /* Tạo không gian cho các dấu tiếng Việt */
+    padding: 20px 0 !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Hiệu ứng đổ bóng nhẹ cho sang trọng */
+  }
+
+  /* Điều chỉnh cho màn hình điện thoại (Mobile) */
+  @media screen and (max-width: 768px) {
+    h2.title {
+      font-size: 3.5rem !important;    /* Giảm size chữ trên điện thoại để không bị tràn dòng */
+    }
+  }
+</style>
         <div class="hero-foot ">
           <div class="hero-foot--wrapper">
             <div class="columns">
