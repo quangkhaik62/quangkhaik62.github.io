@@ -508,68 +508,71 @@
     </script>
     
 <div id="music-player" onclick="handleMusic()" style="position: fixed; bottom: 80px; left: 20px; z-index: 9999; cursor: pointer;">
-    <div id="music-disk" class="music-disk-style">
-        <i id="music-icon" class="fas fa-music" style="color: white; font-size: 20px;"></i>
+    <div id="music-heart" class="heart-style">
+        <i id="music-icon" class="fas fa-music" style="color: white; font-size: 18px; z-index: 2;"></i>
+        <i class="fas fa-heart" style="color: #BC8887; font-size: 60px; position: absolute; z-index: 1; text-shadow: 0 4px 10px rgba(0,0,0,0.2);"></i>
     </div>
     <audio id="bg-music" loop>
-        <source src="1000.webm" type="audio/webm">
+        <source src="music/nhac-dam-cuoi.webm" type="audio/webm">
     </audio>
 </div>
 <style>
-  .music-disk-style {
-    background: #BC8887; 
-    width: 50px; 
-    height: 50px; 
-    border-radius: 50%; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    border: 3px solid #fff;
-    transition: all 0.3s ease;
+  .heart-style {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: transform 0.3s ease;
   }
 
-  /* Hiệu ứng xoay tròn liên tục */
-  .spinning {
-    animation: spin 4s linear infinite;
+  /* Hiệu ứng xoay tròn khi phát nhạc */
+  .spinning-heart {
+    animation: heartSpin 4s linear infinite;
   }
 
-  @keyframes spin {
+  @keyframes heartSpin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   }
 
-  /* Hiệu ứng khi nhấn vào */
-  #music-player:active {
-    transform: scale(0.9);
+  /* Hiệu ứng đập nhẹ (Beat) nếu bạn không muốn xoay thì dùng cái này */
+  .beating-heart {
+    animation: heartBeat 1.2s infinite;
+  }
+
+  @keyframes heartBeat {
+    0% { transform: scale(1); }
+    15% { transform: scale(1.2); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.1); }
+    60% { transform: scale(1); }
   }
 </style>
 <script>
-  var myAudio = document.getElementById("bg-music");
-var myDisk = document.getElementById("music-disk");
+ var myAudio = document.getElementById("bg-music");
+var myHeart = document.getElementById("music-heart");
 var myIcon = document.getElementById("music-icon");
 
 function handleMusic() {
     if (myAudio.paused) {
-        myAudio.play().catch(function(error) {
-            console.log("Trình duyệt chặn tự động phát: " + error);
-        });
-        myDisk.classList.add("spinning"); // Đĩa bắt đầu xoay
+        myAudio.play();
+        myHeart.classList.add("spinning-heart"); // Trái tim bắt đầu xoay
+        // Nếu muốn hiệu ứng trái tim đập thay vì xoay, hãy đổi thành:
+        // myHeart.classList.add("beating-heart");
+        
         myIcon.classList.remove("fa-music");
-        myIcon.classList.add("fa-pause"); 
+        myIcon.classList.add("fa-pause"); // Đổi nốt nhạc thành nút tạm dừng
     } else {
         myAudio.pause();
-        myDisk.classList.remove("spinning"); // Đĩa dừng lại ngay lập tức
+        myHeart.classList.remove("spinning-heart"); // Trái tim đứng im
+        // myHeart.classList.remove("beating-heart");
+        
         myIcon.classList.remove("fa-pause");
-        myIcon.classList.add("fa-music"); 
+        myIcon.classList.add("fa-music"); // Hiện lại nốt nhạc
     }
 }
-
-// Gợi ý cho khách phát nhạc khi họ chạm vào màn hình lần đầu
-document.addEventListener('click', function() {
-    // Nếu bạn muốn nhạc tự phát ngay lần click đầu tiên của khách vào bất cứ đâu
-    // if (myAudio.paused) handleMusic(); 
-}, {once: true});
     </script>
     
   </body>
