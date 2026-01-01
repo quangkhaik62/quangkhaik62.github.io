@@ -9,9 +9,9 @@
 
     <meta property="og:title" content="Lễ Báo Hỷ Quang Khải & Kim Ngân - Chủ Nhật, Ngày 11 Tháng 1 Năm 2026">
     <meta property="og:description" content="Lễ Báo Hỷ Quang Khải & Kim Ngân - Chủ Nhật, Ngày 11 Tháng 1 Năm 2026 tại Hera Palace, Thành Phố Hồ Chí Minh">
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:image" content="https://simple-wedding-invitation.dae.ng/image/samantha-gades-x40Q9jrEVT0-unsplash.jpg">
-    <meta property="og:url" content="http://simple-wedding-invitation.dae.ng/index.html">
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:image" content="https://quangkhaik62.github.io/image/samantha-gades-x40Q9jrEVT0-unsplash.jpg">
+    <meta property="og:url" content="http://quangkhaik62.github.io/index.html">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.8.0/css/bulma.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/bulma-tooltip@0.1.5/dist/bulma-tooltip.min.css" />
@@ -511,9 +511,15 @@
     <div id="music-heart-wrapper" class="">
         <svg id="heart-svg" width="60" height="60" viewBox="0 0 24 24" fill="#BC8887" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-            <path id="note-icon" d="M9 18V5l7-2v13" stroke="white" stroke-width="2" fill="none" />
-            <circle cx="7" cy="18" r="2" fill="white" />
-            <circle cx="14" cy="16" r="2" fill="white" />
+           <g id="note-icon" transform="translate(6.5 6.5) scale(0.6)">
+  <path d="M6 14V4l6-2v10"
+        stroke="white"
+        stroke-width="1.4"
+        fill="none"
+        stroke-linecap="round"/>
+  <circle cx="5" cy="14" r="1.6" fill="white"/>
+  <circle cx="11" cy="12" r="1.6" fill="white"/>
+</g>
         </svg>
     </div>
     <audio id="bg-music" loop>
@@ -522,45 +528,65 @@
 </div>
     
 <style>
-/* Hiệu ứng xoay tròn */
-.spinning-heart {
-    animation: heartSpin 4s linear infinite;
-    transform-origin: center;
-}
+/* ===== MUSIC HEART EFFECT ===== */
 
-@keyframes heartSpin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-/* Hoặc nếu bạn muốn hiệu ứng trái tim ĐẬP (đẹp hơn xoay) thì dùng class này */
+/* Tim đập khi phát nhạc */
 .beating-heart {
-    animation: heartBeat 1.2s infinite;
-    transform-origin: center;
+  animation: heartBeat 1.2s infinite;
+  transform-origin: center;
 }
 
-@keyframes heartBeat {
-    0% { transform: scale(1); }
-    15% { transform: scale(1.15); }
-    30% { transform: scale(1); }
+/* Nốt nhạc bay nhẹ bên trong tim */
+.note-float {
+  animation: noteFloat 1.2s ease-in-out infinite;
+  transform-origin: center;
 }
+
+/* Tim đập */
+@keyframes heartBeat {
+  0%   { transform: scale(1); }
+  15%  { transform: scale(1.15); }
+  30%  { transform: scale(1); }
+}
+
+/* Nốt nhạc nhúc nhích */
+@keyframes noteFloat {
+  0%   { transform: translate(6.5px, 6.5px) scale(0.6); }
+  50%  { transform: translate(6.5px, 5.5px) scale(0.6); }
+  100% { transform: translate(6.5px, 6.5px) scale(0.6); }
+}
+
+/* Nốt nhạc mảnh & tinh tế */
+#note-icon {
+  opacity: 0.9;
+}
+
 </style>
     
 <script>
 function handleMusic() {
-    var myAudio = document.getElementById("bg-music");
-    var mySVG = document.getElementById("heart-svg");
+  const audio = document.getElementById("bg-music");
+  const heart = document.getElementById("heart-svg");
+  const note  = document.getElementById("note-icon");
 
-    if (myAudio.paused) {
-        myAudio.play();
-        mySVG.classList.add("beating-heart"); // Bạn có thể đổi thành "beating-heart" nếu thích
-    } else {
-        myAudio.pause();
-        mySVG.classList.remove("spinning-heart");
-        mySVG.classList.remove("beating-heart");
-    }
+  if (audio.paused) {
+    audio.play();
+
+    // Tim đập
+    heart.classList.add("beating-heart");
+
+    // Nốt nhạc bay nhẹ
+    note.classList.add("note-float");
+
+  } else {
+    audio.pause();
+
+    heart.classList.remove("beating-heart");
+    note.classList.remove("note-float");
+  }
 }
-    </script>
+</script>
+
     
   </body>
 </html>
