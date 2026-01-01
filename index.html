@@ -192,6 +192,100 @@
     color: #6d4c41; /* Màu nâu đỏ đậm giống trong ảnh mẫu */
 }
 
+        /* --- INVITATION SECTION STYLING --- */
+#invitation {
+    background: url('image/pattern-bg.png'); /* Nếu không có ảnh nền thì để màu này */
+    background-color: #faf7f5; /* Màu kem nhẹ làm nền */
+    padding: 80px 0;
+}
+
+.invite-card {
+    background: #fff;
+    padding: 60px 30px;
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+    border: 1px solid rgba(188, 136, 135, 0.2); /* Viền mờ */
+}
+
+/* Họa tiết 4 góc (Vẽ bằng CSS) */
+.corner {
+    position: absolute;
+    width: 30px; height: 30px;
+    border-color: var(--primary);
+    border-style: solid;
+    transition: all 0.5s ease;
+}
+.top-left { top: 15px; left: 15px; border-width: 2px 0 0 2px; }
+.top-right { top: 15px; right: 15px; border-width: 2px 2px 0 0; }
+.bottom-left { bottom: 15px; left: 15px; border-width: 0 0 2px 2px; }
+.bottom-right { bottom: 15px; right: 15px; border-width: 0 2px 2px 0; }
+
+/* Hiệu ứng khi hover vào khung thì góc nở ra */
+.invite-card:hover .corner { width: 50px; height: 50px; }
+
+/* Logo */
+.invite-logo {
+    width: 120px; /* Tăng kích thước logo */
+    height: auto;
+    opacity: 0.9;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
+
+.invite-title {
+    font-family: var(--font-title); /* Font Pinyon Script */
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+/* Quote */
+.quote-box { margin: 30px 0; color: #888; }
+.quote-icon { font-size: 0.8rem; color: var(--primary-light); vertical-align: top; }
+.quote-text {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.3rem;
+    color: #666;
+    display: inline-block;
+    padding: 0 10px;
+    line-height: 1.6;
+}
+
+/* Divider (Đường kẻ có tim ở giữa) */
+.invite-divider {
+    display: flex; align-items: center; justify-content: center; gap: 15px;
+    margin: 30px auto; width: 60%;
+}
+.invite-divider .line {
+    flex: 1; height: 1px; background: #ddd;
+}
+.invite-divider .heart-icon {
+    color: var(--primary); font-size: 0.9rem;
+    animation: heartbeat 2s infinite;
+}
+
+/* Nội dung */
+.invite-body {
+    font-size: 1rem; color: #555; line-height: 1.8; margin-bottom: 30px;
+}
+.invite-signature {
+    font-family: var(--font-script);
+    font-size: 2.5rem;
+    color: var(--primary);
+    transform: rotate(-3deg); /* Nghiêng chữ ký cho tự nhiên */
+    display: inline-block;
+}
+
+/* Responsive mobile */
+@media (max-width: 768px) {
+    .invite-card { padding: 40px 20px; width: 90%; margin: 0 auto; }
+    .invite-logo { width: 100px; }
+    .invite-divider { width: 80%; }
+}
+        
 /* Tiêu đề LỄ BÁO HỶ */
 .wc-title {
     font-family: 'Playfair Display', serif; /* Font có chân sang trọng */
@@ -201,6 +295,17 @@
     margin-bottom: 10px;
     font-weight: 500;
 }
+        /* Style cho dòng Khai Tiệc */
+.wc-party-time {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;       /* Lớn hơn dòng giờ đón khách xíu */
+    color: var(--primary);   /* Dùng màu hồng chủ đạo để nổi bật */
+    font-weight: 600;        /* In đậm hơn */
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: -20px;       /* Kéo lên gần dòng trên */
+    margin-bottom: 30px;     /* Cách dòng ngày tháng ra */
+}
 
 /* Dòng giờ */
 .wc-time {
@@ -208,8 +313,8 @@
     text-transform: uppercase;
     letter-spacing: 3px;
     font-size: 1rem;
-    margin-bottom: 30px;
-    color: #8d6e63;
+    margin-bottom: 10px !important;
+    color: #6d4c41 !important;
 }
 
 /* Layout Tháng - Ngày - Năm */
@@ -402,36 +507,70 @@
         </div>
     </section>
 
-    <section id="invitation" style="background: white;">
-        <div class="container" style="text-align: center;" data-aos="zoom-in">
-            <img src="image/logo.png" style="width: 50px; margin-bottom: 20px; opacity: 0.7;">
-            <p style="font-family: var(--font-serif); font-style: italic; font-size: 1.2rem; color: #777; margin-bottom: 20px;">
-                "Tình yêu không phải là nhìn nhau, mà là cùng nhau nhìn về một hướng."
-            </p>
-            <p style="color: #555; font-size: 0.95rem;">
-                Kính mời bạn đến chung vui cùng gia đình chúng mình.
-            </p>
+<section id="invitation">
+        <div class="container">
+            <div class="invite-card" data-aos="zoom-in" data-aos-duration="1000">
+                
+                <span class="corner top-left"></span>
+                <span class="corner top-right"></span>
+                <span class="corner bottom-left"></span>
+                <span class="corner bottom-right"></span>
+
+                <div class="logo-wrapper">
+                    <img src="image/logo.png" alt="Wedding Logo" class="invite-logo">
+                </div>
+
+                <h3 class="invite-title">Lời Ngỏ</h3>
+
+                <div class="quote-box">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p class="quote-text">
+                        "Tình yêu không phải là nhìn nhau,<br>mà là cùng nhau nhìn về một hướng."
+                    </p>
+                    <i class="fas fa-quote-right quote-icon"></i>
+                </div>
+
+                <div class="invite-divider">
+                    <span class="line"></span>
+                    <span class="heart-icon"><i class="fas fa-heart"></i></span>
+                    <span class="line"></span>
+                </div>
+
+                <p class="invite-body">
+                    Với tất cả sự trân trọng và tình cảm yêu thương.<br>
+                    Gia đình chúng mình vui mừng kính mời bạn đến tham dự<br>
+                    <strong>Lễ Báo Hỷ</strong> chung vui cùng hai đứa.
+                </p>
+                
+                <p class="invite-signature">Quang Khải & Kim Ngân</p>
+            </div>
         </div>
     </section>
 
     <section id="events">
 <div class="container">
-            <div class="wedding-card-design" data-aos="fade-up">
-                
-                <h2 class="wc-title">TIỆC MỪNG LỄ BÁO HỶ</h2>
-                <div class="wc-time">VÀO LÚC 11:00 CHỦ NHẬT</div>
-                
-                <div class="wc-date-row">
-                    <div class="wc-col-side">
-                        <span>THÁNG 01</span>
-                    </div>
-                    <div class="wc-col-center">
-                        11
-                    </div>
-                    <div class="wc-col-side">
-                        <span>NĂM 2026</span>
-                    </div>
-                </div>
+<div class="wedding-card-design" data-aos="fade-up">
+    
+    <h2 class="wc-title">TIỆC MỪNG LỄ BÁO HỶ</h2>
+    
+    <div class="wc-time">ĐÓN KHÁCH LÚC 11:00 CHỦ NHẬT</div>
+    
+    <div class="wc-party-time">KHAI TIỆC LÚC 12:00</div>
+    
+    <div class="wc-date-row">
+        <div class="wc-col-side">
+            <span>THÁNG 01</span>
+        </div>
+        <div class="wc-col-center">
+            11
+        </div>
+        <div class="wc-col-side">
+            <span>NĂM 2026</span>
+        </div>
+    </div>
+
+    <div class="wc-lunar">(Tức ngày 23 tháng 11 năm Ất Tỵ)</div>
+    </div></div>
 
             <div class="calendar-box" data-aos="fade-up">
                 <div style="font-weight: 700; color: var(--primary); margin-bottom: 15px;">THÁNG 01 / 2026</div>
