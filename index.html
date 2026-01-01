@@ -118,7 +118,6 @@
               $('#hitungmundur').countdown({
   date: harih,
   offset: +7,
-  
   day: 'Day',
   days: 'Days',
   hour: 'Hour',
@@ -181,71 +180,141 @@
         </section>
       </div>
     <div class="main-content">
-<section class="section-light no-padding-top regular-section has-text-centered" id="regular-section" style="display: block !important;">
-  <div class="container">
-    <div class="columns is-mobile is-vcentered is-centered" style="margin-top: 2rem;">
-      
-      <div class="column is-3-desktop is-2-mobile" data-aos="fade-right" data-aos-duration="1000">
-        <img src="image/3.jpg" alt="Deco Left" style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-      </div>
+<section class="section-light no-padding-top regular-section has-text-centered"
+         id="regular-section"
+         style="display: block !important;">
 
-      <div class="column is-6-desktop is-8-mobile">
-        <div data-aos="fade-up" data-aos-easing="linear">
-          <img src="image/logo.png" class="bismillah has-text-centered" alt="Logo" style="max-height: 50px;">
+  <div class="container">
+
+    <div class="columns is-mobile is-vcentered is-centered" style="margin-top: 2rem;">
+
+      <!-- ===== LEFT IMAGE ===== -->
+      <div class="column is-3-desktop is-2-mobile"
+           data-aos="fade-right"
+           data-aos-duration="1000">
+
+        <div class="deco-wrapper">
+          <img src="image/3.jpg" alt="Deco Left" class="deco-img">
+
+          <div class="deco-name left-name">
+            Quang Khải
+          </div>
         </div>
 
-        <p class="bodytext" data-aos="fade-up" data-aos-easing="linear" style="margin: 20px 0;">
+      </div>
+
+      <!-- ===== CENTER CONTENT ===== -->
+      <div class="column is-6-desktop is-8-mobile">
+
+        <div data-aos="fade-up" data-aos-easing="linear">
+          <img src="image/logo.png"
+               class="bismillah has-text-centered"
+               alt="Logo"
+               style="max-height: 50px;">
+        </div>
+
+        <p class="bodytext"
+           data-aos="fade-up"
+           data-aos-easing="linear"
+           style="margin: 20px 0;">
           Thân chào quý khách, gia đình và bạn bè thân thiết.
-          <br />
-          Được sự cho phép của hai bên gia đình, 
-          <br />
+          <br>
+          Được sự cho phép của hai bên gia đình,
+          <br>
           chúng con trân trọng kính mời quý vị đến dự lễ báo hỷ của chúng con.
         </p>
 
         <div data-aos="fade-up" data-aos-easing="linear">
-          <div class="nama-lengkap">Quang Khải</div>
           <div class="ampersand">&</div>
-          <div class="nama-lengkap">Kim Ngân</div>
         </div>
+
       </div>
 
-      <div class="column is-3-desktop is-2-mobile" data-aos="fade-left" data-aos-duration="1000">
-        <img src="image/4.jpg" alt="Deco Right" style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+      <!-- ===== RIGHT IMAGE ===== -->
+      <div class="column is-3-desktop is-2-mobile"
+           data-aos="fade-left"
+           data-aos-duration="1000">
+
+        <div class="deco-wrapper">
+          <img src="image/4.jpg" alt="Deco Right" class="deco-img">
+
+          <div class="deco-name right-name">
+            Kim Ngân
+          </div>
+        </div>
+
       </div>
 
     </div>
 
+    <!-- ===== DIVIDER ===== -->
     <div class="columns is-centered">
-      <div class="column is-12" data-aos="fade-up" data-aos-easing="linear">
+      <div class="column is-12"
+           data-aos="fade-up"
+           data-aos-easing="linear">
+
         <span class="space40px"></span>
-        <img src="image/divider-leaves.png" class="divider has-text-centered" alt="~~~">
+        <img src="image/divider-leaves.png"
+             class="divider has-text-centered"
+             alt="~~~">
         <span class="space40px"></span>
+
       </div>
     </div>
+
   </div>
 
+  <!-- ===== SECTION CSS ===== -->
   <style>
-    /* CSS nội bộ để đảm bảo font và hiển thị */
-    #regular-section .nama-lengkap {
-      font-family: 'Great Vibes', cursive !important;
-      color: #996E6D !important;
-      font-size: clamp(2.5rem, 8vw, 4rem) !important; /* Tự động co giãn size chữ */
-      line-height: 1.2 !important;
+    /* ===== NAME ON IMAGE ===== */
+    .deco-wrapper {
+      position: relative;
+      display: inline-block;
     }
+
+    .deco-img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .deco-name {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(1.4rem, 4vw, 2.2rem);
+      color: #ffffff;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.45);
+      pointer-events: none;
+      white-space: nowrap;
+      background: rgba(0,0,0,0.25);
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    /* ===== AMPERSAND ===== */
     #regular-section .ampersand {
       font-family: 'Great Vibes', cursive !important;
       color: #996E6D !important;
       font-size: clamp(2rem, 6vw, 3rem) !important;
+      margin: 0.5rem 0;
+      opacity: 0.7;
     }
-    /* Đảm bảo ảnh không quá to trên máy tính */
+
+    /* ===== DESKTOP IMAGE LIMIT ===== */
     @media (min-width: 1024px) {
-      #regular-section img[src*="3.jpg"], #regular-section img[src*="4.jpg"] {
+      .deco-img {
         max-height: 400px;
-        width: auto !important;
+        width: auto;
       }
     }
   </style>
+
 </section>
+
       
       <section class="section-dark" id="Waktu">
         <div class="container">
