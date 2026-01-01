@@ -98,7 +98,7 @@
         }
         .hero-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('image/2.jpg') center center / cover no-repeat;
+            background: url('image/background1.jpg') center center / cover no-repeat;
             z-index: -1;
             transform: scale(1);
             /* Zoom nhẹ bằng GPU, không dùng animation liên tục để đỡ nóng máy */
@@ -589,25 +589,40 @@
         </div>
     </section>
 
+    <section id="location">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">Địa Điểm Tổ Chức</div>
+            
+            <div class="location-info" data-aos="fade-up">
+                <h3 class="venue-name">Trung Tâm Hội Nghị Tiệc Cưới<br>Hera Palace</h3>
+                <p class="venue-address">
+                    <i class="fas fa-map-marker-alt"></i> Đường Lê Thị Hoa, Phường Dĩ An, TP.HCM
+                </p>
+                <a href="https://maps.app.goo.gl/..." target="_blank" class="btn-direction">
+                    <i class="fas fa-directions"></i> Xem chỉ đường
+                </a>
+            </div>
+
+            <div class="map-frame" data-aos="zoom-in" style="margin-top: 30px;">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.067927074851!2d106.74386299999999!3d10.8824382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d9cd8a22b7db%3A0xff39772c134bea8f!2sNh%C3%A0%20H%C3%A0ng%20Hera%20Palace!5e0!3m2!1svi!2s!4v1767202423847!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+    
     <section id="gallery" style="background: white;">
         <div class="container">
             <div class="section-title" data-aos="fade-up">Album Ảnh</div>
             <div class="gallery-grid">
-                <div class="gal-item" data-aos="fade-up"><img src="image/foto1.jpg"></div>
-                <div class="gal-item" data-aos="fade-up" data-aos-delay="100"><img src="image/foto2.jpg"></div>
-                <div class="gal-item" data-aos="fade-up"><img src="image/foto3.jpg"></div>
-                <div class="gal-item" data-aos="fade-up" data-aos-delay="100"><img src="image/foto4.jpg"></div>
+                <div class="gal-item" data-aos="fade-up"><img src="image/img1.jpg"></div>
+                <div class="gal-item" data-aos="fade-up" data-aos-delay="100"><img src="image/img2.jpg"></div>
+                <div class="gal-item" data-aos="fade-up"><img src="image/img3.jpg"></div>
+                <div class="gal-item" data-aos="fade-up" data-aos-delay="100"><img src="image/img4.jpg"></div>
             </div>
         </div>
     </section>
 
     <section id="rsvp">
         <div class="container">
-            <div class="section-title" data-aos="fade-up">Địa Điểm</div>
-            <div class="map-frame" data-aos="zoom-in">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.067927074851!2d106.74386299999999!3d10.8824382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d9cd8a22b7db%3A0xff39772c134bea8f!2sNh%C3%A0%20H%C3%A0ng%20Hera%20Palace!5e0!3m2!1svi!2s!4v1767202423847!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-            
             <div style="text-align: center; margin-top: 50px;" data-aos="fade-up">
                 <div class="section-title" style="margin-bottom: 20px;">Xác Nhận tham gia</div>
                 <p style="color: #666; margin-bottom: 20px;">Sự hiện diện của bạn là niềm vinh hạnh của chúng mình</p>
