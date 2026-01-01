@@ -91,6 +91,52 @@
         .intro-lebaohy { font-family: var(--font-title); font-size: 3.5rem; color: var(--primary); margin-bottom: 10px; }
         .intro-names { font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 30px; letter-spacing: 2px; text-transform: uppercase; color: #666; }
 
+        /* --- INTRO DATE & COUNTDOWN --- */
+.intro-date {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    color: #888;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+    display: inline-block;
+}
+
+#intro-countdown {
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    font-family: 'Playfair Display', serif;
+    color: var(--primary);
+}
+
+#intro-countdown div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 40px;
+}
+
+#intro-countdown span {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+#intro-countdown small {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-top: 5px;
+    letter-spacing: 1px;
+}
+
         /* --- 3. HERO SECTION (Tối ưu GPU) --- */
         .hero {
             height: 100vh; position: relative; overflow: hidden;
@@ -462,8 +508,21 @@
         <div class="intro-content" data-aos="zoom-out">
             <div class="intro-lebaohy">Lễ Báo Hỷ</div>
             <div class="intro-names">Quang Khải & Kim Ngân</div>
+            
+            <div class="intro-date">CHỦ NHẬT, 11 . 01 . 2026</div>
+
+            <div id="intro-countdown">
+                <div><span id="intro-days">00</span><small>Ngày</small></div>
+                <span>:</span>
+                <div><span id="intro-hours">00</span><small>Giờ</small></div>
+                <span>:</span>
+                <div><span id="intro-minutes">00</span><small>Phút</small></div>
+                <span>:</span>
+                <div><span id="intro-seconds">00</span><small>Giây</small></div>
+            </div>
+
             <button class="btn-main" onclick="openInvitation()">
-                <i class="fas fa-heart"></i>  Mở Thiệp
+                <i class="fas fa-heart"></i>  Mở Thiệp
             </button>
         </div>
     </div>
@@ -730,6 +789,32 @@ function copyToClipboard(text, btnElement) {
         console.error('Không thể sao chép', err);
     });
 }
+
+        // --- JS ĐẾM NGƯỢC (CHẠY CHO CẢ 2 BỘ ĐẾM) ---
+const targetDate = new Date("Jan 11, 2026 11:00:00").getTime();
+
+const countdownInterval = setInterval(function() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Cập nhật bộ đếm ở màn hình Intro (Nếu có)
+    if(document.getElementById("intro-days")) {
+        document.getElementById("intro-days").innerText = d < 10 ? "0" + d : d;
+        document.getElementById("intro-hours").innerText = h < 10 ? "0" + h : h;
+        document.getElementById("intro-minutes").innerText = m < 10 ? "0" + m : m;
+        document.getElementById("intro-seconds").innerText = s < 10 ? "0" + s : s;
+    }
+    if (distance < 0) {
+        clearInterval(countdownInterval);
+        // Xử lý khi hết giờ (Tùy chọn)
+    }
+}, 1000);
+        
     </script>
 </body>
 </html>
