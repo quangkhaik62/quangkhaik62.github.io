@@ -2,11 +2,13 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Lễ Báo Hỷ | Quang Khải & Kim Ngân</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <meta property="og:title" content="Lễ Báo Hỷ Quang Khải & Kim Ngân - 11/01/2026">
+    <meta property="og:description" content="Trân trọng kính mời bạn đến chung vui cùng chúng mình tại Hera Palace.">
+    <meta property="og:image" content="image/2.jpg"> <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Great+Vibes&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -15,193 +17,334 @@
     <style>
         :root {
             --primary-color: #BC8887; /* Hồng tro chủ đạo */
+            --secondary-color: #d4a5a4;
             --bg-color: #FAFAFA;
             --text-color: #4A4A4A;
             --font-main: 'Montserrat', sans-serif;
             --font-script: 'Great Vibes', cursive;
+            --font-title: 'Pinyon Script', cursive;
             --font-serif: 'Playfair Display', serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: var(--font-main); background: var(--bg-color); color: var(--text-color); overflow-x: hidden; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-main); background: var(--bg-color); color: var(--text-color); overflow-x: hidden; line-height: 1.6; }
         
-        /* --- 1. MÀN HÌNH CHỜ (INTRO) --- */
+        /* --- UTILITIES --- */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 100px 0; position: relative; }
+        .section-title {
+            text-align: center; font-family: var(--font-serif); font-size: 2.5rem; color: var(--primary-color);
+            margin-bottom: 60px; position: relative;
+        }
+        .section-title::after {
+            content: "❦"; display: block; font-size: 2rem; color: #e0e0e0; margin-top: 15px; font-family: var(--font-script);
+        }
+        .btn-main {
+            padding: 12px 35px; background: var(--primary-color); color: white; border: none;
+            border-radius: 50px; font-size: 1rem; cursor: pointer; letter-spacing: 1px; font-weight: 600;
+            transition: all 0.3s; box-shadow: 0 5px 15px rgba(188, 136, 135, 0.3); text-decoration: none; display: inline-block;
+        }
+        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(188, 136, 135, 0.5); background: var(--secondary-color); }
+
+        /* --- 1. INTRO OVERLAY --- */
         #intro-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
             background: #fff; z-index: 99999;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
         }
-        .intro-content { text-align: center; animation: fadeIn 2s ease; }
-        .intro-names { font-family: var(--font-serif); font-size: 2rem; margin-bottom: 20px; letter-spacing: 2px; }
-        .intro-date { font-size: 1rem; letter-spacing: 3px; margin-bottom: 40px; color: #888; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 10px 0; display: inline-block; }
-        .btn-open {
-            padding: 12px 30px; background: var(--primary-color); color: white; border: none;
-            border-radius: 30px; font-size: 1rem; cursor: pointer; letter-spacing: 1px;
-            transition: all 0.3s; box-shadow: 0 4px 15px rgba(188, 136, 135, 0.4);
-        }
-        .btn-open:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(188, 136, 135, 0.6); }
+        .intro-content { text-align: center; padding: 30px; }
+        .intro-lebaohy { font-family: var(--font-title); font-size: 4.5rem; color: var(--primary-color); margin-bottom: 15px; line-height: 1.1; }
+        .intro-names { font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 25px; letter-spacing: 3px; text-transform: uppercase; color: #555; }
+        .intro-date { font-size: 1.1rem; letter-spacing: 4px; margin-bottom: 50px; color: #999; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 15px 0; display: inline-block; }
 
-        /* --- 2. HERO SECTION --- */
+        /* --- 2. HERO SECTION (FIXED MOBILE BACKGROUND) --- */
         .hero {
-            height: 100vh; width: 100%;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('image/2.jpg') center/cover no-repeat;
+            position: relative; height: 100vh; min-height: 600px;
             display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white;
-            background-attachment: fixed;
+            overflow: hidden;
         }
-        .hero-title { font-family: var(--font-script); font-size: clamp(3.5rem, 8vw, 6rem); margin-bottom: 10px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-        .hero-subtitle { font-family: var(--font-main); font-weight: 300; letter-spacing: 4px; font-size: 1.1rem; text-transform: uppercase; }
+        /* Sử dụng pseudo-element để làm nền, fix lỗi trên mobile */
+        .hero::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.4)), url('image/2.jpg') center center / cover no-repeat;
+            z-index: -1;
+            /* Nếu muốn hiệu ứng parallax nhẹ trên desktop thì bỏ comment dòng dưới, nhưng mobile có thể bị giật */
+            /* background-attachment: fixed; */ 
+        }
+        .hero-title { font-family: var(--font-script); font-size: clamp(4rem, 10vw, 7rem); margin-bottom: 15px; text-shadow: 0 3px 12px rgba(0,0,0,0.4); line-height: 1.2; }
+        .hero-subtitle { font-family: var(--font-main); font-weight: 300; letter-spacing: 6px; font-size: 1.2rem; text-transform: uppercase; margin-bottom: 20px;}
+        .hero-date { font-size: 1.3rem; border-top: 1px solid rgba(255,255,255,0.6); border-bottom: 1px solid rgba(255,255,255,0.6); padding: 10px 20px; display: inline-block; letter-spacing: 2px;}
 
-        /* --- 3. COMMON SECTIONS --- */
-        section { padding: 80px 20px; position: relative; }
-        .container { max-width: 1000px; margin: 0 auto; }
-        .section-title {
-            text-align: center; font-family: var(--font-serif); font-size: 2.5rem; color: var(--primary-color);
-            margin-bottom: 50px; position: relative; display: inline-block; width: 100%;
+        /* --- 3. COUPLE SECTION --- */
+        .couple-wrapper { display: flex; flex-wrap: wrap; justify-content: center; gap: 60px; align-items: flex-start; margin-top: 40px; }
+        .groom, .bride { text-align: center; flex: 1; min-width: 320px; max-width: 450px; }
+        .avatar-frame {
+            position: relative; width: 280px; height: 380px; margin: 0 auto 30px;
+            border-radius: 150px 150px 20px 20px; overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
         }
-        .section-title::after {
-            content: "❦"; display: block; font-size: 1.5rem; color: #ddd; margin-top: 10px;
+        .avatar-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .avatar-frame:hover .avatar-img { transform: scale(1.05); }
+        .name-highlight { font-family: var(--font-script); font-size: 3.2rem; color: var(--primary-color); margin: 15px 0; }
+        .couple-desc { color: #666; font-size: 1rem; padding: 0 20px; }
+
+        /* --- 4. INVITATION TEXT --- */
+        #invitation { background: white; }
+        .invitation-box {
+            background: #fff; padding: 60px 40px; border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06); text-align: center;
+            border: 1px solid rgba(188, 136, 135, 0.15);
+            position: relative; overflow: hidden;
+        }
+        .invitation-box::before { /* Họa tiết trang trí mờ */
+            content: '❦'; position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+            font-size: 8rem; color: var(--primary-color); opacity: 0.03; font-family: var(--font-script);
+        }
+        .quote { font-family: var(--font-serif); font-style: italic; font-size: 1.4rem; color: #888; margin-bottom: 30px; }
+
+        /* --- 5. CALENDAR & EVENTS --- */
+        #events { background: var(--bg-color); }
+        .event-details { text-align: center; margin-bottom: 50px; }
+        .event-time { font-size: 1.3rem; color: #555; margin-bottom: 10px; }
+        .event-location { font-size: 1.8rem; font-family: var(--font-serif); font-weight: 700; color: var(--primary-color); }
+
+        .calendar-box {
+            background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            max-width: 500px; margin: 0 auto; text-align: center; border-top: 4px solid var(--primary-color);
+        }
+        .calendar-header { font-size: 1.2rem; letter-spacing: 3px; color: var(--primary-color); margin-bottom: 25px; font-weight: 700; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+        .day-name { font-weight: 600; color: #aaa; font-size: 0.9rem; padding-bottom: 10px; }
+        .day-num {
+            padding: 12px; font-size: 1rem; color: #444; border-radius: 50%; transition: all 0.3s;
+            display: flex; align-items: center; justify-content: center; height: 45px; width: 45px; margin: auto;
+        }
+        .special-day {
+            background: var(--primary-color); color: white; font-weight: bold;
+            box-shadow: 0 4px 15px rgba(188, 136, 135, 0.5); transform: scale(1.1);
+        }
+        .empty-day { visibility: hidden; }
+
+        /* --- 6. LOCATION & MAP --- */
+        #location { background: white; }
+        .location-info { text-align: center; margin-bottom: 40px; }
+        .map-frame {
+            border-radius: 20px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            height: 450px; width: 100%; border: 2px solid white;
         }
 
-        /* --- 4. COUPLE SECTION --- */
-        .couple-wrapper { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; align-items: center; }
-        .groom, .bride { text-align: center; flex: 1; min-width: 300px; }
-        .avatar-img {
-            width: 250px; height: 350px; object-fit: cover; border-radius: 150px 150px 20px 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 20px; transition: transform 0.5s;
+        /* --- 7. GALLERY --- */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .gallery-item { border-radius: 15px; overflow: hidden; height: 350px; cursor: pointer; position: relative; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
+        .gallery-item:hover img { transform: scale(1.08); }
+        .gallery-overlay { /* Lớp phủ khi hover */
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(188, 136, 135, 0.3); opacity: 0; transition: opacity 0.3s;
         }
-        .avatar-img:hover { transform: scale(1.02); }
-        .name-highlight { font-family: var(--font-script); font-size: 2.8rem; color: var(--primary-color); margin: 10px 0; }
-        
-        /* --- 5. EVENTS & CALENDAR --- */
-        .event-box {
-            background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-            text-align: center; max-width: 600px; margin: 0 auto; border: 1px solid rgba(188,136,135,0.2);
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+        /* --- 8. RSVP SECTION --- */
+        #rsvp { background: var(--bg-color); text-align: center; }
+        .rsvp-box {
+            background: white; padding: 60px 40px; border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06); max-width: 800px; margin: 0 auto;
         }
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin: 20px 0; font-family: var(--font-main); }
-        .day-name { font-weight: 600; color: #999; font-size: 0.9rem; }
-        .day-num { padding: 10px; font-size: 1rem; color: #555; }
-        .special-day { background: var(--primary-color); color: white; border-radius: 50%; box-shadow: 0 4px 10px rgba(188,136,135,0.5); font-weight: bold;}
+        .rsvp-text { font-size: 1.1rem; color: #666; margin-bottom: 40px; }
+        .rsvp-buttons { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .btn-rsvp {
+            display: inline-flex; align-items: center; gap: 10px; padding: 15px 30px;
+            background: white; color: var(--primary-color); border: 2px solid var(--primary-color);
+            border-radius: 50px; font-size: 1rem; font-weight: 600; text-decoration: none;
+            transition: all 0.3s;
+        }
+        .btn-rsvp:hover { background: var(--primary-color); color: white; box-shadow: 0 5px 15px rgba(188, 136, 135, 0.3); }
+        .btn-rsvp i { font-size: 1.2rem; }
 
-        /* --- 6. GALLERY (GRID) --- */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
-        .gallery-item { border-radius: 10px; overflow: hidden; height: 300px; cursor: pointer; }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-        .gallery-item:hover img { transform: scale(1.1); }
-
-        /* --- 7. MUSIC BUTTON (HEART BEAT SVG) --- */
+        /* --- MUSIC CONTROL --- */
         .music-control {
             position: fixed; bottom: 30px; left: 30px; z-index: 9999; cursor: pointer;
-            width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); transition: transform 0.3s;
         }
+        .music-control:active { transform: scale(0.9); }
         .beating { animation: heartbeat 1.5s infinite; }
         @keyframes heartbeat {
-            0% { transform: scale(1); } 15% { transform: scale(1.2); } 30% { transform: scale(1); }
+            0% { transform: scale(1); } 15% { transform: scale(1.15); } 30% { transform: scale(1); }
         }
 
-        /* --- 8. FOOTER --- */
-        footer { background: #333; color: #bbb; text-align: center; padding: 40px 20px; font-size: 0.9rem; }
-        .heart-icon { color: var(--primary-color); }
+        /* --- FOOTER --- */
+        footer { background: #2a2a2a; color: #bbb; text-align: center; padding: 50px 20px; }
+        .footer-heart { color: var(--primary-color); animation: heartbeat 1.5s infinite; display: inline-block; }
 
-        /* Responsive */
+        /* Responsive adjustments */
         @media (max-width: 768px) {
-            .hero-title { font-size: 4rem; }
-            .intro-names { font-size: 1.5rem; }
+            section { padding: 60px 0; }
+            .hero-title { font-size: 4.5rem; }
+            .intro-lebaohy { font-size: 3.5rem; }
             .section-title { font-size: 2rem; }
+            .couple-wrapper { gap: 40px; }
+            .avatar-frame { width: 240px; height: 320px; }
+            .rsvp-buttons { flex-direction: column; gap: 15px; }
+            .btn-rsvp { width: 100%; justify-content: center; }
+            .day-num { height: 40px; width: 40px; font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
 
     <div id="intro-overlay">
-        <div class="intro-content">
+        <div class="intro-content" data-aos="zoom-out" data-aos-delay="300">
+            <div class="intro-lebaohy">Lễ Báo Hỷ</div>
             <div class="intro-names">Quang Khải & Kim Ngân</div>
             <div class="intro-date">11 . 01 . 2026</div>
-            <button class="btn-open" onclick="openInvitation()">
-                <i class="fas fa-envelope-open-text"></i> Mở Thiệp Mời
+            <button class="btn-main" onclick="openInvitation()">
+                <i class="fas fa-envelope-open"></i>&nbsp; Mở Thiệp Mời
             </button>
         </div>
     </div>
 
     <header class="hero" id="home">
         <div data-aos="fade-up" data-aos-duration="1500">
-            <h2 class="hero-subtitle">Save The Date</h2>
+            <h2 class="hero-subtitle">We Are Getting Married</h2>
             <h1 class="hero-title">Quang Khải & Kim Ngân</h1>
-            <p style="font-size: 1.2rem; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.5); display: inline-block; padding-top: 10px;">
-                11 Tháng 1 Năm 2026
-            </p>
+            <div class="hero-date">Chủ Nhật, 11 Tháng 1 Năm 2026</div>
         </div>
     </header>
 
-    <section id="couple" style="background: white;">
+    <section id="couple">
         <div class="container">
             <div class="section-title" data-aos="fade-up">Cô Dâu & Chú Rể</div>
             <div class="couple-wrapper">
-                <div class="groom" data-aos="fade-right">
-                    <img src="image/3.jpg" alt="Chú Rể" class="avatar-img">
+                <div class="groom" data-aos="fade-right" data-aos-delay="100">
+                    <div class="avatar-frame">
+                        <img src="image/3.jpg" alt="Chú Rể" class="avatar-img">
+                    </div>
                     <h3 class="name-highlight">Quang Khải</h3>
-                    <p>Chàng trai tháng 1. Yêu công nghệ, thích bóng đá và yêu Kim Ngân.</p>
+                    <p class="couple-desc">Chàng trai tháng 1. Yêu công nghệ, thích bóng đá và là bờ vai vững chắc của Kim Ngân.</p>
                 </div>
-                <div class="bride" data-aos="fade-left">
-                    <img src="image/4.jpg" alt="Cô Dâu" class="avatar-img">
+                <div class="bride" data-aos="fade-left" data-aos-delay="300">
+                    <div class="avatar-frame">
+                        <img src="image/4.jpg" alt="Cô Dâu" class="avatar-img">
+                    </div>
                     <h3 class="name-highlight">Kim Ngân</h3>
-                    <p>Cô gái hay cười. Thích nấu ăn, yêu mèo và là cả thế giới của Quang Khải.</p>
+                    <p class="couple-desc">Cô gái hay cười. Thích nấu ăn, yêu mèo và là cả thế giới dịu dàng của Quang Khải.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="invitation" style="background: var(--bg-color); text-align: center;">
-        <div class="container" data-aos="zoom-in">
-            <img src="image/logo.png" style="width: 60px; margin-bottom: 20px; opacity: 0.7;">
-            <p style="font-size: 1.1rem; line-height: 1.8; color: #666; max-width: 700px; margin: 0 auto;">
-                "Yêu là muốn ở bên một người, không phải hiện tại mà là mãi mãi."<br>
-                Được sự cho phép của hai bên gia đình, chúng con trân trọng kính mời quý vị đến dự lễ báo hỷ chung vui cùng gia đình chúng con.
-            </p>
+    <section id="invitation">
+        <div class="container">
+            <div class="invitation-box" data-aos="zoom-in">
+                <img src="image/logo.png" style="width: 70px; margin-bottom: 25px; opacity: 0.8;">
+                <p class="quote">"Hạnh phúc không phải là đích đến, mà là hành trình chúng ta đi cùng nhau."</p>
+                <p style="font-size: 1.15rem; line-height: 1.9; color: #555;">
+                    Với tất cả sự trân trọng, chúng con xin kính mời quý ông bà, cô bác, anh chị và các bạn đến dự bữa tiệc thân mật mừng Lễ Báo Hỷ của chúng con. Sự hiện diện của quý vị là niềm vinh hạnh lớn lao nhất đối với gia đình chúng con.
+                </p>
+                <div style="margin-top: 30px; font-family: var(--font-script); font-size: 2.5rem; color: var(--primary-color);">
+                    Quang Khải & Kim Ngân
+                </div>
+            </div>
         </div>
     </section>
 
     <section id="events">
         <div class="container">
-            <div class="event-box" data-aos="fade-up">
-                <h3 style="font-family: var(--font-serif); font-size: 2rem; color: var(--primary-color);">Lễ Báo Hỷ</h3>
-                <p style="margin: 10px 0; color: #888;"><i class="far fa-clock"></i> 11:00 AM - Chủ Nhật</p>
-                
-                <div style="margin: 30px 0;">
-                    <h4 style="letter-spacing: 2px; margin-bottom: 15px;">THÁNG 01 / 2026</h4>
-                    <div class="calendar-grid">
-                        <div class="day-name">T2</div><div class="day-name">T3</div><div class="day-name">T4</div><div class="day-name">T5</div><div class="day-name">T6</div><div class="day-name">T7</div><div class="day-name">CN</div>
-                        <div class="day-num"></div><div class="day-num"></div><div class="day-num"></div><div class="day-num">1</div><div class="day-num">2</div><div class="day-num">3</div><div class="day-num">4</div>
-                        <div class="day-num">5</div><div class="day-num">6</div><div class="day-num">7</div><div class="day-num">8</div><div class="day-num">9</div><div class="day-num">10</div><div class="day-num special-day">11</div>
-                    </div>
-                </div>
+            <div class="section-title" data-aos="fade-up">Thời Gian & Sự Kiện</div>
+            
+            <div class="event-details" data-aos="fade-up" data-aos-delay="100">
+                <p class="event-time"><i class="far fa-clock"></i> 11:00 AM - Đón Khách & Khai Tiệc</p>
+                <h3 class="event-location">Chủ Nhật, Ngày 11 Tháng 01 Năm 2026</h3>
+            </div>
 
-                <p style="font-weight: 600; font-size: 1.2rem;">Hera Palace</p>
-                <p style="color: #666; margin-bottom: 25px;">Đường Lê Thị Hoa, Phường Dĩ An, TP.HCM</p>
-                
-                <a href="https://maps.google.com" target="_blank" style="text-decoration: none;">
-                    <button class="btn-open" style="padding: 10px 25px; font-size: 0.9rem;">
-                        <i class="fas fa-map-marked-alt"></i> Xem Bản Đồ
-                    </button>
+            <div class="calendar-box" data-aos="zoom-in-up" data-aos-delay="200">
+                <div class="calendar-header">THÁNG 01 / 2026</div>
+                <div class="calendar-grid">
+                    <div class="day-name">CN</div><div class="day-name">T2</div><div class="day-name">T3</div><div class="day-name">T4</div><div class="day-name">T5</div><div class="day-name">T6</div><div class="day-name">T7</div>
+                    
+                    <div class="empty-day"></div><div class="empty-day"></div><div class="empty-day"></div><div class="empty-day"></div>
+                    <div class="day-num">1</div><div class="day-num">2</div><div class="day-num">3</div>
+                    <div class="day-num">4</div><div class="day-num">5</div><div class="day-num">6</div><div class="day-num">7</div><div class="day-num">8</div><div class="day-num">9</div><div class="day-num">10</div>
+                    <div class="day-num special-day">11</div><div class="day-num">12</div><div class="day-num">13</div><div class="day-num">14</div><div class="day-num">15</div><div class="day-num">16</div><div class="day-num">17</div>
+                    <div class="day-num">18</div><div class="day-num">19</div><div class="day-num">20</div><div class="day-num">21</div><div class="day-num">22</div><div class="day-num">23</div><div class="day-num">24</div>
+                    <div class="day-num">25</div><div class="day-num">26</div><div class="day-num">27</div><div class="day-num">28</div><div class="day-num">29</div><div class="day-num">30</div><div class="day-num">31</div>
+                </div>
+                <div style="margin-top: 30px;">
+                    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Lễ+Báo+Hỷ+Quang+Khải+và+Kim+Ngân&dates=20260111T110000Z/20260111T140000Z&details=Tiệc+thân+mật+mừng+Lễ+Báo+Hỷ&location=Hera+Palace,+Dĩ+An,+HCM" target="_blank" class="btn-main">
+                        <i class="far fa-calendar-check"></i>&nbsp; Lưu Vào Lịch
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="location">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">Địa Điểm Tổ Chức</div>
+            <div class="location-info" data-aos="fade-up" data-aos-delay="100">
+                <h3 style="font-size: 1.8rem; color: #333; margin-bottom: 10px;">Trung Tâm Hội Nghị Hera Palace</h3>
+                <p style="font-size: 1.2rem; color: #666;"><i class="fas fa-map-marker-alt" style="color: var(--primary-color);"></i> Đường Lê Thị Hoa, Phường Dĩ An, Thành Phố Hồ Chí Minh</p>
+            </div>
+            
+            <div class="map-frame" data-aos="zoom-in" data-aos-delay="200">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.492808347692!2d106.76999477480602!3d10.850149089303088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317527970a637903%3A0x8c5563011343503!2sHera%20Palace!5e0!3m2!1svi!2s!4v1689000000000!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;" data-aos="fade-up">
+                <a href="https://goo.gl/maps/YOUR_GOOGLE_MAPS_LINK_HERE" target="_blank" class="btn-main">
+                    <i class="fas fa-directions"></i>&nbsp; Chỉ Đường Trên Google Maps
                 </a>
             </div>
         </div>
     </section>
 
-    <section id="gallery" style="background: white;">
+    <section id="gallery" style="background: var(--bg-color);">
         <div class="container">
-            <div class="section-title" data-aos="fade-up">Khoảnh Khắc Hạnh Phúc</div>
+            <div class="section-title" data-aos="fade-up">Album Hình Cưới</div>
             <div class="gallery-grid">
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="0"><img src="image/foto1.jpg" alt="Photo 1"></div>
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100"><img src="image/foto2.jpg" alt="Photo 2"></div>
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200"><img src="image/foto3.jpg" alt="Photo 3"></div>
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="300"><img src="image/foto4.jpg" alt="Photo 4"></div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="0">
+                    <img src="image/foto1.jpg" alt="Photo 1">
+                    <div class="gallery-overlay"></div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="150">
+                    <img src="image/foto2.jpg" alt="Photo 2">
+                    <div class="gallery-overlay"></div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="300">
+                    <img src="image/foto3.jpg" alt="Photo 3">
+                    <div class="gallery-overlay"></div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="450">
+                    <img src="image/foto4.jpg" alt="Photo 4">
+                    <div class="gallery-overlay"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="rsvp">
+        <div class="container">
+            <div class="rsvp-box" data-aos="fade-up">
+                <div class="section-title" style="margin-bottom: 30px;">Xác Nhận Tham Dự</div>
+                <p class="rsvp-text">
+                    Sự hiện diện của quý vị là niềm vinh dự cho gia đình chúng tôi. Vui lòng xác nhận tham dự trước ngày <strong>01/01/2026</strong> để chúng tôi có thể đón tiếp chu đáo nhất.
+                </p>
+                <div class="rsvp-buttons">
+                    <a href="https://m.me/ngan.kim.17449" target="_blank" class="btn-rsvp">
+                        <i class="fab fa-facebook-messenger"></i> Nhắn tin cho Cô Dâu
+                    </a>
+                    <a href="https://m.me/nq.khai.97" target="_blank" class="btn-rsvp">
+                        <i class="fab fa-facebook-messenger"></i> Nhắn tin cho Chú Rể
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
     <div class="music-control" onclick="toggleMusic()">
-        <svg id="heart-svg" class="beating" width="50" height="50" viewBox="0 0 24 24" fill="#BC8887" style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));">
+        <svg id="heart-svg" class="beating" width="60" height="60" viewBox="0 0 24 24" fill="#BC8887">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
             <g transform="translate(7, 7) scale(0.5)">
                 <path d="M9 18V5l7-2v13" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
@@ -215,40 +358,42 @@
     </div>
 
     <footer>
-        <p>Made with <i class="fas fa-heart heart-icon"></i> for Quang Khải & Kim Ngân</p>
-        <p style="margin-top: 5px; opacity: 0.6;">© 2026 Wedding Invitation</p>
+        <p style="font-size: 1.2rem; font-family: var(--font-script); margin-bottom: 10px;">Quang Khải & Kim Ngân</p>
+        <p>Thank you for being part of our big day!</p>
+        <div style="margin-top: 20px; font-size: 0.9rem; opacity: 0.7;">
+            Made with <span class="footer-heart">❤</span> for our wedding.
+        </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // 1. Khởi tạo hiệu ứng cuộn trang
+        // 1. Khởi tạo AOS Animation
         AOS.init({
-            duration: 1000,
-            once: true,
-            offset: 100
+            duration: 1200, /* Thời gian chạy hiệu ứng */
+            once: true,     /* Chỉ chạy 1 lần khi cuộn xuống */
+            offset: 150,    /* Bắt đầu chạy khi cách mép dưới 150px */
+            easing: 'ease-in-out-cubic'
         });
 
-        // 2. Xử lý mở thiệp + Phát nhạc
+        // 2. Xử lý Mở thiệp & Nhạc
         var audio = document.getElementById("bg-music");
         var heart = document.getElementById("heart-svg");
         var overlay = document.getElementById("intro-overlay");
 
         function openInvitation() {
-            // Hiệu ứng trượt lên
             overlay.style.transform = "translateY(-100%)";
-            
-            // Tự động phát nhạc khi mở thiệp (nếu trình duyệt cho phép)
+            // Thử phát nhạc sau khi mở
             setTimeout(function() {
-                playMusic();
-            }, 800);
+                if (audio.paused) playMusic();
+            }, 1000);
         }
 
         function playMusic() {
             audio.play().then(() => {
                 heart.classList.add("beating");
             }).catch(error => {
-                console.log("Autoplay blocked, user needs to interact.");
-                heart.classList.remove("beating"); // Dừng nhịp đập nếu nhạc không phát
+                // Trình duyệt chặn autoplay thì thôi, đợi khách bấm nút tim
+                heart.classList.remove("beating");
             });
         }
 
