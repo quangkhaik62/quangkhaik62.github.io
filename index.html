@@ -183,6 +183,114 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.05); background: #eee;
         }
 
+/* --- WEDDING CARD DESIGN (MẪU MỚI) --- */
+.wedding-card-design {
+    text-align: center;
+    padding: 20px;
+    max-width: 700px;
+    margin: 0 auto;
+    color: #6d4c41; /* Màu nâu đỏ đậm giống trong ảnh mẫu */
+}
+
+/* Tiêu đề LỄ BÁO HỶ */
+.wc-title {
+    font-family: 'Playfair Display', serif; /* Font có chân sang trọng */
+    font-size: 2.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+/* Dòng giờ */
+.wc-time {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 1rem;
+    margin-bottom: 30px;
+    color: #8d6e63;
+}
+
+/* Layout Tháng - Ngày - Năm */
+.wc-date-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* Cột Tháng và Năm (Có gạch trên dưới) */
+.wc-col-side {
+    flex: 1;
+    border-top: 1px solid #6d4c41;    /* Kẻ trên */
+    border-bottom: 1px solid #6d4c41; /* Kẻ dưới */
+    padding: 12px 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    white-space: nowrap; /* Giữ chữ không bị xuống dòng */
+}
+
+/* Cột số Ngày ở giữa (To khổng lồ) */
+.wc-col-center {
+    font-family: 'Playfair Display', serif;
+    font-size: 6rem; /* Kích thước số cực lớn */
+    line-height: 0.8;
+    font-weight: 500;
+    color: var(--primary); /* Dùng màu hồng chủ đạo của bạn */
+    padding: 0 10px;
+}
+
+/* Ngày âm lịch */
+.wc-lunar {
+    font-family: 'Playfair Display', italic;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #888;
+    margin-bottom: 40px;
+}
+
+/* Phần địa điểm phía dưới */
+.wc-location {
+    margin-top: 30px;
+}
+.loc-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+.loc-addr {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+.loc-btn {
+    display: inline-block;
+    padding: 8px 20px;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+.loc-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* Responsive cho điện thoại */
+@media (max-width: 480px) {
+    .wc-col-side { font-size: 1rem; padding: 8px 0; }
+    .wc-col-center { font-size: 4rem; }
+    .wc-title { font-size: 1.8rem; }
+}
+        
         /* --- 6. GALLERY --- */
         .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .gal-item { border-radius: 10px; overflow: hidden; height: 220px; background: #eee; }
@@ -307,13 +415,23 @@
     </section>
 
     <section id="events">
-        <div class="container">
-            <div class="section-title" data-aos="fade-up">Sự Kiện</div>
-            <div style="text-align: center; margin-bottom: 30px;" data-aos="fade-up">
-                <div style="font-size: 1.4rem; font-weight: 700; color: var(--primary);">Hera Palace</div>
-                <div style="color: #666; margin-bottom: 5px;">11:00 AM - Chủ Nhật, 11/01/2026</div>
-                <div style="font-size: 0.9rem; color: #888;">Lê Thị Hoa, Dĩ An, TP.HCM</div>
-            </div>
+<div class="container">
+            <div class="wedding-card-design" data-aos="fade-up">
+                
+                <h2 class="wc-title">TIỆC MỪNG LỄ BÁO HỶ</h2>
+                <div class="wc-time">VÀO LÚC 11:00 CHỦ NHẬT</div>
+                
+                <div class="wc-date-row">
+                    <div class="wc-col-side">
+                        <span>THÁNG 01</span>
+                    </div>
+                    <div class="wc-col-center">
+                        11
+                    </div>
+                    <div class="wc-col-side">
+                        <span>NĂM 2026</span>
+                    </div>
+                </div>
 
             <div class="calendar-box" data-aos="fade-up">
                 <div style="font-weight: 700; color: var(--primary); margin-bottom: 15px;">THÁNG 01 / 2026</div>
