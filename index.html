@@ -442,10 +442,76 @@
     .wc-title { font-size: 1.8rem; }
 }
         
-        /* --- 6. GALLERY --- */
-        .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .gal-item { border-radius: 10px; overflow: hidden; height: 220px; background: #eee; }
-        .gal-item img { width: 100%; height: 100%; object-fit: cover; }
+/* --- GALLERY STYLE --- */
+#gallery {
+    background: #fff5f5; /* Nền hồng phấn siêu nhạt */
+    overflow: hidden;
+    padding: 80px 0;
+}
+
+/* Chữ trang trí nền */
+.bg-deco-text {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%) rotate(-10deg);
+    font-family: 'Great Vibes', cursive;
+    font-size: 6rem; color: rgba(188, 136, 135, 0.05);
+    white-space: nowrap; pointer-events: none; z-index: 0;
+}
+
+.gallery-wall {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
+    padding: 10px; position: relative; z-index: 1;
+}
+
+/* Khung ảnh Polaroid */
+.photo-card {
+    background: white;
+    padding: 10px 10px 35px 10px; /* Chừa chỗ trống bên dưới */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Hiệu ứng nảy */
+    transform: rotate(-2deg);
+    position: relative; border-radius: 2px;
+}
+
+/* Ảnh chẵn nghiêng ngược lại và tụt xuống */
+.photo-card:nth-child(even) { transform: rotate(2deg); }
+.mt-30 { margin-top: 30px; }
+
+/* Hiệu ứng khi chạm/di chuột */
+.photo-card:hover {
+    transform: scale(1.05) rotate(0deg) !important;
+    z-index: 10;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.photo-inner {
+    width: 100%; height: 200px; overflow: hidden; background: #eee;
+}
+.photo-inner img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.6s; filter: sepia(15%);
+}
+.photo-card:hover .photo-inner img { transform: scale(1.1); filter: sepia(0%); }
+
+/* Icon tim nhỏ dưới ảnh */
+.photo-caption {
+    position: absolute; bottom: 8px; width: 100%; left: 0;
+    text-align: center; color: #BC8887; opacity: 0.5; font-size: 0.8rem;
+}
+
+/* Băng dính Washi Tape */
+.tape-strip {
+    width: 70px; height: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    position: absolute; top: -8px; left: 50%;
+    transform: translateX(-50%) rotate(-1deg);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    backdrop-filter: blur(2px);
+    z-index: 5;
+}
+/* Màu băng dính ngẫu nhiên */
+.photo-card:nth-child(odd) .tape-strip { background-color: rgba(246, 229, 141, 0.6); }
+.photo-card:nth-child(even) .tape-strip { background-color: rgba(255, 190, 118, 0.5); }
 
         /* --- 7. MUSIC CONTROL (VINYL) --- */
         .music-control {
@@ -657,7 +723,7 @@
                 <p class="venue-address">
                     <i class="fas fa-map-marker-alt"></i> Đường Lê Thị Hoa, Phường Dĩ An, TP.HCM
                 </p>
-                <a href="https://maps.app.goo.gl/..." target="_blank" class="btn-direction">
+                <a href="https://maps.app.goo.gl/SLFnJ5Ga73G8WKz89" target="_blank" class="btn-direction">
                     <i class="fas fa-directions"></i> Xem chỉ đường
                 </a>
             </div>
@@ -668,17 +734,51 @@
         </div>
     </section>
     
-    <section id="gallery" style="background: white;">
-        <div class="container">
-            <div class="section-title" data-aos="fade-up">Album Ảnh</div>
-            <div class="gallery-grid">
-                <div class="gal-item" data-aos="fade-up"><img src="image/img1.jpg"></div>
-                <div class="gal-item" data-aos="fade-up" data-aos-delay="100"><img src="image/img2.jpg"></div>
-                <div class="gal-item" data-aos="fade-up"><img src="image/img3.jpg"></div>
-                <div class="gal-item" data-aos="fade-up" data-aos-delay="100"><img src="image/img4.jpg"></div>
+   <section id="gallery">
+    <div class="container">
+        <div class="section-title" data-aos="fade-up">Album Hình Cưới</div>
+        
+        <div class="bg-deco-text">Sweet Moments</div>
+
+        <div class="gallery-wall">
+            <div class="photo-card" data-aos="fade-up" data-aos-delay="0">
+                <div class="tape-strip"></div>
+                <div class="photo-inner">
+                    <img src="image/img1.jpg" alt="Wedding Photo 1">
+                </div>
+                <div class="photo-caption"><i class="fas fa-heart"></i></div>
+            </div>
+
+            <div class="photo-card mt-30" data-aos="fade-up" data-aos-delay="150">
+                <div class="tape-strip"></div>
+                <div class="photo-inner">
+                    <img src="image/img2.jpg" alt="Wedding Photo 2">
+                </div>
+                <div class="photo-caption"><i class="fas fa-heart"></i></div>
+            </div>
+
+            <div class="photo-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="tape-strip"></div>
+                <div class="photo-inner">
+                    <img src="image/img3.jpg" alt="Wedding Photo 3">
+                </div>
+                <div class="photo-caption"><i class="fas fa-heart"></i></div>
+            </div>
+
+            <div class="photo-card mt-30" data-aos="fade-up" data-aos-delay="450">
+                <div class="tape-strip"></div>
+                <div class="photo-inner">
+                    <img src="image/img4.jpg" alt="Wedding Photo 4">
+                </div>
+                <div class="photo-caption"><i class="fas fa-heart"></i></div>
             </div>
         </div>
-    </section>
+        
+        <div style="text-align: center; margin-top: 50px;" data-aos="fade-up">
+            <p style="font-family: 'Great Vibes'; font-size: 1.8rem; color: #BC8887;">Hạnh phúc ngày chung đôi</p>
+        </div>
+    </div>
+</section>
 
     <section id="rsvp">
         <div class="container">
