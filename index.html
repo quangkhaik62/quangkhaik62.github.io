@@ -112,19 +112,58 @@
         .hero-date { padding: 8px 25px; border: 1px solid rgba(255,255,255,0.8); font-size: 1rem; letter-spacing: 2px; border-radius: 50px; backdrop-filter: none; /* Bỏ blur cho nhẹ */ }
 
         /* --- 4. COUPLE CARD (Bỏ hiệu ứng float liên tục) --- */
-        .couple-wrapper { display: flex; flex-direction: column; gap: 40px; margin-top: 20px; }
-        .couple-card { 
-            text-align: center; padding: 20px; background: white; border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05); /* Bóng tĩnh, nhẹ */
-        }
-        .avatar-frame {
-            width: 180px; height: 260px; margin: 0 auto 15px;
-            border-radius: 90px 90px 10px 10px; overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .avatar-img { width: 100%; height: 100%; object-fit: cover; }
-        .name-highlight { font-family: var(--font-script); font-size: 2.8rem; color: var(--primary); line-height: 1.2; }
-        .couple-desc { font-size: 0.95rem; color: #666; }
+        /* --- 4. COUPLE CARD (CÓ TRANG TRÍ) --- */
+.couple-wrapper { display: flex; flex-direction: column; gap: 50px; margin-top: 20px; }
+.couple-card { 
+    text-align: center; padding: 30px 20px; background: white; border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative;
+    border: 1px solid rgba(188, 136, 135, 0.1); /* Viền mờ nhẹ */
+}
+
+/* Khung ảnh */
+.avatar-frame {
+    width: 200px; height: 280px; margin: 0 auto 20px; position: relative;
+    /* QUAN TRỌNG: Để icon nổi ra ngoài thì không được ẩn overflow */
+    overflow: visible; 
+    border-radius: 100px 100px 10px 10px;
+    box-shadow: 0 10px 25px rgba(188, 136, 135, 0.2);
+}
+
+.avatar-img { 
+    width: 100%; height: 100%; object-fit: cover; 
+    border-radius: 100px 100px 10px 10px; /* Bo tròn trực tiếp trên ảnh */
+    transition: transform 0.5s;
+    display: block; /* Fix khoảng trắng */
+}
+
+/* ICON TRANG TRÍ (Hoa & Tim) */
+.deco-icon {
+    position: absolute; z-index: 10;
+    width: 45px; height: 45px;
+    background: white; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--primary);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    font-size: 1.2rem;
+    border: 1px solid var(--primary-light);
+}
+
+/* Vị trí icon: Góc trên trái */
+.deco-flower { 
+    top: 10px; left: -15px; 
+    animation: sway 3s ease-in-out infinite; 
+}
+/* Vị trí icon: Góc dưới phải */
+.deco-heart { 
+    bottom: 15px; right: -15px; 
+    animation: pulseHeart 1.5s infinite; 
+}
+
+@keyframes sway { 0%, 100% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } }
+@keyframes pulseHeart { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
+
+.name-highlight { font-family: var(--font-script); font-size: 3rem; color: var(--primary); line-height: 1.2; margin-top: 10px;}
+.couple-desc { font-size: 0.95rem; color: #666; padding: 0 10px; }
 
         /* --- 5. CALENDAR & LOCATION --- */
         .calendar-box {
@@ -168,6 +207,32 @@
         .spinning { animation: vinylSpin 3s linear infinite; }
         @keyframes vinylSpin { 100% { transform: rotate(360deg); } }
 
+        /* --- 8. GIFT BOX (QR CODE) --- */
+#gift { background: #fdfdfd; } /* Nền trắng kem nhẹ */
+.gift-grid { 
+    display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 30px; 
+}
+.gift-card {
+    background: white; padding: 30px; border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08); text-align: center;
+    flex: 1; min-width: 300px; max-width: 400px;
+    border: 1px solid rgba(188, 136, 135, 0.2); transition: transform 0.3s;
+}
+.gift-card:hover { transform: translateY(-5px); }
+.qr-img { 
+    width: 200px; height: 200px; object-fit: contain; 
+    border: 1px solid #eee; padding: 10px; border-radius: 10px; margin-bottom: 15px;
+}
+.bank-title { font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 5px; }
+.bank-name { font-size: 0.9rem; color: #888; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+.copy-btn {
+    background: #f0f0f0; color: #555; padding: 8px 15px; border-radius: 5px;
+    font-size: 0.9rem; cursor: pointer; display: inline-block; margin-top: 10px;
+    transition: all 0.2s; border: 1px solid #ddd;
+}
+.copy-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+.copy-btn i { margin-right: 5px; }
+
         /* --- FOOTER --- */
         footer { background: #fff; padding: 40px 20px; text-align: center; color: #999; font-size: 0.8rem; }
     </style>
@@ -204,16 +269,27 @@
         <div class="container">
             <div class="section-title" data-aos="fade-up">Cô Dâu & Chú Rể</div>
             <div class="couple-wrapper">
+                
                 <div class="couple-card" data-aos="fade-up">
-                    <div class="avatar-frame"><img src="image/3.jpg" alt="Chú Rể" class="avatar-img"></div>
+                    <div class="avatar-frame">
+                        <img src="image/3.jpg" alt="Chú Rể" class="avatar-img">
+                        <div class="deco-icon deco-flower"><i class="fas fa-leaf"></i></div>
+                        <div class="deco-icon deco-heart"><i class="fas fa-heart"></i></div>
+                    </div>
                     <h3 class="name-highlight">Quang Khải</h3>
                     <p class="couple-desc">Chàng trai Gia Lai yêu công nghệ, điềm tĩnh, thích bóng chuyền, bờ vai vững chắc của Ngân.</p>
                 </div>
+
                 <div class="couple-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="avatar-frame"><img src="image/4.jpg" alt="Cô Dâu" class="avatar-img"></div>
+                    <div class="avatar-frame">
+                        <img src="image/4.jpg" alt="Cô Dâu" class="avatar-img">
+                         <div class="deco-icon deco-flower"><i class="fas fa-spa"></i></div>
+                         <div class="deco-icon deco-heart"><i class="fas fa-heart"></i></div>
+                    </div>
                     <h3 class="name-highlight">Kim Ngân</h3>
                     <p class="couple-desc">Cô nàng Bình Định xinh đẹp, sâu sắc, thích gọn gàn. Là cả thế giới của Khải.</p>
                 </div>
+
             </div>
         </div>
     </section>
@@ -276,8 +352,8 @@
             </div>
             
             <div style="text-align: center; margin-top: 50px;" data-aos="fade-up">
-                <div class="section-title" style="margin-bottom: 20px;">Xác Nhận</div>
-                <p style="color: #666; margin-bottom: 20px;">Vui lòng xác nhận trước <strong>01/01/2026</strong></p>
+                <div class="section-title" style="margin-bottom: 20px;">Xác Nhận tham gia</div>
+                <p style="color: #666; margin-bottom: 20px;">Sự hiện diện của bạn là niềm vinh hạnh của chúng mình</p>
                 <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
                     <a href="https://m.me/ngan.kim.17449" class="btn-main" style="background: #0084FF; box-shadow: 0 4px 10px rgba(0, 132, 255, 0.3); width: 80%;">
                         <i class="fab fa-facebook-messenger"></i> Nhắn tin Cô Dâu
@@ -290,18 +366,54 @@
         </div>
     </section>
 
+    <section id="gift">
+    <div class="container">
+        <div class="section-title" data-aos="fade-up">Hộp Mừng Cưới</div>
+        <div style="text-align: center; max-width: 600px; margin: 0 auto; color: #666;" data-aos="fade-up">
+            Nếu không thể tham dự, bạn vẫn có thể gửi gắm tình cảm và lời chúc phúc đến chúng mình qua hộp mừng cưới này nhé!
+        </div>
+
+        <div class="gift-grid">
+            <div class="gift-card" data-aos="fade-right">
+                <div class="bank-title">Mừng Cưới Chú Rể</div>
+                <img src="image/qrkhai.jpg" alt="QR Chú Rể" class="qr-img">
+                <div class="bank-name">Ngân Hàng BIDV</div>
+                <div style="font-weight: 600; color: #333; font-size: 1.1rem;">NGUYEN QUANG KHAI</div>
+                
+                <div class="copy-btn" onclick="copyToClipboard('0389456349', this)">
+                    <i class="far fa-copy"></i> 0389456349
+                </div>
+            </div>
+
+            <div class="gift-card" data-aos="fade-left" data-aos-delay="100">
+                <div class="bank-title">Mừng Cưới Cô Dâu</div>
+                <img src="image/qr-bride.jpg" alt="QR Cô Dâu" class="qr-img">
+                <div class="bank-name">Ngân Hàng Vietcombank</div>
+                <div style="font-weight: 600; color: #333; font-size: 1.1rem;">LE THI KIM NGAN</div>
+                
+                <div class="copy-btn" onclick="copyToClipboard('9876543210', this)">
+                    <i class="far fa-copy"></i> 9876543210
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
     <div class="music-control" onclick="toggleMusic()">
         <div class="vinyl" id="vinyl">
             <div class="vinyl-label"><i class="fas fa-music vinyl-icon"></i></div>
         </div>
         <audio id="bg-music" loop>
-            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            <source src="1000.webm" type="audio/webm">
         </audio>
     </div>
 
     <footer>
-        <p style="font-family: var(--font-script); font-size: 1.5rem; color: var(--primary);">Quang Khải & Kim Ngân</p>
-        <p>Hẹn gặp bạn tại bữa tiệc!</p>
+        <p style="font-size: 1.2rem; font-family: var(--font-script); margin-bottom: 10px;">Quang Khải & Kim Ngân</p>
+        <p>Thank you for being part of our big day!</p>
+        <div style="margin-top: 20px; font-size: 0.9rem; opacity: 0.7;">
+            Made with <span class="footer-heart">❤</span> for our wedding.
+        </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -327,6 +439,25 @@
         function toggleMusic() {
             if (audio.paused) playMusic(); else { audio.pause(); vinyl.classList.remove("spinning"); }
         }
+
+        // Hàm copy số tài khoản
+function copyToClipboard(text, btnElement) {
+    navigator.clipboard.writeText(text).then(function() {
+        // Đổi màu nút tạm thời để báo thành công
+        let originalText = btnElement.innerHTML;
+        btnElement.innerHTML = '<i class="fas fa-check"></i> Đã sao chép';
+        btnElement.style.background = "#4CAF50";
+        btnElement.style.color = "#fff";
+        
+        setTimeout(function() {
+            btnElement.innerHTML = originalText;
+            btnElement.style.background = "#f0f0f0";
+            btnElement.style.color = "#555";
+        }, 2000);
+    }, function(err) {
+        console.error('Không thể sao chép', err);
+    });
+}
     </script>
 </body>
 </html>
