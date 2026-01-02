@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta property="og:title" content="Thiệp mời lễ báo hỷ" />
+    <meta property="og:title" content="Thiệp mời Online" />
     <meta property="og:description" content="Lễ Báo Hỷ Quang Khải & Kim Ngân" />
     <meta property="og:image" content="image/2w4a8494_optimized.jpg" />
     <meta property="og:url" content="https://khainganwedding.vercel.app" />
@@ -29,10 +29,28 @@
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html { scroll-behavior: smooth; overflow-x: hidden; }
         body { 
-            font-family: var(--font-main); 
-            background: var(--bg-body); 
-            color: #444; 
-            overflow-x: hidden;
+            /* 1. Cấu hình Body để căn giữa khung */
+body {
+    font-family: var(--font-main);
+    background: #e0e0e0; /* Màu nền xám cho màn hình máy tính */
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center; /* Căn giữa chiều ngang */
+    align-items: flex-start;
+}
+
+/* 2. Tạo khung Mobile (Quan trọng nhất) */
+.mobile-container {
+    width: 100%;
+    max-width: 450px; /* Giới hạn chiều rộng tối đa như điện thoại */
+    background: #faf9f9; /* Màu nền của thiệp */
+    min-height: 100vh;
+    position: relative; /* Để giữ các thành phần con nằm trong khung này */
+    box-shadow: 0 0 20px rgba(0,0,0,0.1); /* Đổ bóng cho đẹp */
+    overflow-x: hidden; /* Cắt bỏ phần thừa ngang */
+}
         }
 
         /* --- 1. HOA RƠI BẰNG CSS THUẦN (ĐÃ SỬA MÀU ĐỎ) --- */
@@ -576,7 +594,7 @@
     </style>
 </head>
 <body>
-
+<div class="mobile-container">
     <div class="falling-leaves">
         <div class="leaf"></div><div class="leaf"></div>
         <div class="leaf"></div><div class="leaf"></div>
@@ -857,7 +875,8 @@
             Made with <span class="footer-heart">❤</span> for our wedding.
         </div>
     </footer>
-
+</div>
+    
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // AOS
