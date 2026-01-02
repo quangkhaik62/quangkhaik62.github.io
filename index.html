@@ -112,71 +112,74 @@
         .btn-main:active { transform: scale(0.95); }
 
         /* --- 2. INTRO OVERLAY --- */
-        #intro-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: #fff; z-index: 99999;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: transform 0.8s ease-in-out; /* Tăng tốc độ mở */
-            will-change: transform;
-        }
-            /* --- TRANG TRÍ RÈM INTRO --- */
+        /* --- CẤU TRÚC OVERLAY --- */
+#intro-overlay {
+    position: absolute; /* Bám theo khung mobile */
+    top: 0; left: 0; width: 100%; height: 100vh;
+    background: transparent; /* KHÔNG ĐỂ MÀU NỀN Ở ĐÂY */
+    z-index: 99999;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    overflow: hidden; 
+    pointer-events: auto; /* Để bấm được nút */
+}
 
-/* 1. Hoa văn nền mờ (Pattern chấm bi hoặc lưới) */
+/* Khi đã mở, cho phép bấm xuyên qua để dùng web bên dưới */
+#intro-overlay.is-open {
+    pointer-events: none;
+}
+
+/* --- THIẾT KẾ 2 CÁNH RÈM --- */
+.curtain-panel {
+    position: absolute;
+    top: 0; height: 100%; width: 51%; /* 51% để che kín khe hở ở giữa */
+    background: #fff; /* MÀU NỀN TRẮNG NẰM Ở ĐÂY */
+    z-index: -1; /* Nằm sau chữ */
+    transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1); /* Tốc độ trượt */
+    will-change: transform;
+}
+
+.curtain-left {
+    left: 0;
+    border-right: 1px solid #eee; /* Kẻ mờ giữa 2 rèm */
+}
+
+.curtain-right {
+    right: 0;
+}
+
+/* --- HIỆU ỨNG TRƯỢT KHI CÓ CLASS .IS-OPEN --- */
+#intro-overlay.is-open .curtain-left {
+    transform: translateX(-100%); /* Trượt hết sang trái */
+}
+#intro-overlay.is-open .curtain-right {
+    transform: translateX(100%); /* Trượt hết sang phải */
+}
+
+/* --- XỬ LÝ NỘI DUNG CHỮ --- */
+.intro-content {
+    z-index: 10;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+/* Khi mở rèm, chữ mờ dần và nhỏ lại */
+#intro-overlay.is-open .intro-content {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+/* --- TRANG TRÍ HỌA TIẾT (TÙY CHỌN) --- */
 .curtain-pattern {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    /* Tạo hiệu ứng giấy mỹ thuật */
     background-image: radial-gradient(#d63031 0.5px, transparent 0.5px);
-    background-size: 20px 20px; /* Khoảng cách các chấm */
-    opacity: 0.05; /* Rất mờ để không rối mắt */
+    background-size: 20px 20px; opacity: 0.05;
 }
-
-/* 2. Họa tiết góc (Vẽ khung viền sang trọng) */
 .corner-deco {
-    position: absolute;
-    width: 60px; height: 60px; /* Kích thước góc */
-    border: 2px solid #BC8887; /* Màu viền (Hồng đất hoặc Đỏ tùy bạn) */
-    z-index: 1;
+    position: absolute; width: 60px; height: 60px;
+    border: 2px solid #BC8887; z-index: 1;
 }
-
-/* Tạo thêm một lớp viền phụ để ra hiệu ứng khung đôi (Double border) */
-.corner-deco::after {
-    content: ""; position: absolute;
-    width: 70%; height: 70%;
-    border: 1px solid #d63031; /* Viền trong màu đỏ */
-}
-
-/* Căn chỉnh từng góc cho khớp với rèm trái/phải */
-
-/* Góc trên trái (Của rèm trái) */
-.curtain-left .top-left {
-    top: 20px; left: 20px;
-    border-right: none; border-bottom: none; /* Chỉ lấy cạnh trên và trái */
-}
-.curtain-left .top-left::after { top: 5px; left: 5px; border-right: none; border-bottom: none; }
-
-/* Góc dưới trái (Của rèm trái) */
-.curtain-left .bottom-left {
-    bottom: 20px; left: 20px;
-    border-right: none; border-top: none;
-}
-.curtain-left .bottom-left::after { bottom: 5px; left: 5px; border-right: none; border-top: none; }
-
-/* Góc trên phải (Của rèm phải) */
-.curtain-right .top-right {
-    top: 20px; right: 20px;
-    border-left: none; border-bottom: none;
-}
-.curtain-right .top-right::after { top: 5px; right: 5px; border-left: none; border-bottom: none; }
-
-/* Góc dưới phải (Của rèm phải) */
-.curtain-right .bottom-right {
-    bottom: 20px; right: 20px;
-    border-left: none; border-top: none;
-}
-.curtain-right .bottom-right::after { bottom: 5px; right: 5px; border-left: none; border-top: none; }
-            
-        .intro-lebaohy { font-family: var(--font-title); font-size: 3.5rem; color: var(--primary); margin-bottom: 10px; }
-        .intro-names { font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 30px; letter-spacing: 2px; text-transform: uppercase; color: #666; }
+.curtain-left .top-left { top: 20px; left: 20px; border-right: 0; border-bottom: 0; }
+.curtain-left .bottom-left { bottom: 20px; left: 20px; border-right: 0; border-top: 0; }
+.curtain-right .top-right { top: 20px; right: 20px; border-left: 0; border-bottom: 0; }
+.curtain-right .bottom-right { bottom: 20px; right: 20px; border-left: 0; border-top: 0; }
 
         /* --- INTRO DATE & COUNTDOWN --- */
         .intro-date {
@@ -659,12 +662,14 @@
     <div id="intro-overlay">
     
     <div class="curtain-panel curtain-left">
-        <span class="curtain-pattern"></span> <span class="corner-deco top-left"></span>
+        <span class="curtain-pattern"></span>
+        <span class="corner-deco top-left"></span>
         <span class="corner-deco bottom-left"></span>
     </div>
 
     <div class="curtain-panel curtain-right">
-        <span class="curtain-pattern"></span> <span class="corner-deco top-right"></span>
+        <span class="curtain-pattern"></span>
+        <span class="corner-deco top-right"></span>
         <span class="corner-deco bottom-right"></span>
     </div>
 
@@ -672,12 +677,14 @@
         <div class="intro-lebaohy">Lễ Báo Hỷ</div>
         <div class="intro-names">Quang Khải & Kim Ngân</div>
         <div class="intro-date">CHỦ NHẬT, 11 . 01 . 2026</div>
+        
         <div id="intro-countdown">
             <div><span id="intro-days">00</span><small>Ngày</small></div><span>:</span>
             <div><span id="intro-hours">00</span><small>Giờ</small></div><span>:</span>
             <div><span id="intro-minutes">00</span><small>Phút</small></div><span>:</span>
             <div><span id="intro-seconds">00</span><small>Giây</small></div>
         </div>
+
         <button class="btn-main" onclick="openInvitation()">
             <i class="fas fa-heart"></i>  Mở Thiệp
         </button>
