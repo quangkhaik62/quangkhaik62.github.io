@@ -2,7 +2,7 @@
 
 Chào mừng đến với website thiệp mời đám cưới điện tử của **Quang Khải & Kim Ngân**.
 
-🔗 **Xem Demo:** [https://quangkhaik62.github.io](https://quangkhaik62.github.io)
+🔗 **Xem Demo:** [https://khainganwedding.vercel.app](https://khainganwedding.vercel.app)
 
 ## 📂 Cấu Trúc Thư Mục
 
