@@ -122,6 +122,46 @@
     overflow: hidden; 
     pointer-events: auto; /* Để bấm được nút */
 }
+        /* --- PHỤC HỒI FONT CHỮ CHO MÀN HÌNH CHÀO --- */
+
+/* 1. Chữ "Lễ Báo Hỷ" - Dùng font Pinyon Script (Thư pháp sang trọng) */
+.intro-lebaohy { 
+    font-family: 'Pinyon Script', cursive; /* Quan trọng nhất */
+    font-size: 3.5rem; 
+    color: var(--primary); 
+    margin-bottom: 10px; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Thêm chút bóng cho nổi */
+}
+
+/* 2. Tên "Quang Khải & Kim Ngân" */
+.intro-names { 
+    /* Bạn có 2 lựa chọn, hãy chọn 1 trong 2 dòng dưới đây */
+    
+    /* Lựa chọn A: Font chữ in hoa có chân sang trọng (như bản gốc) */
+    font-family: 'Playfair Display', serif; 
+    text-transform: uppercase; letter-spacing: 3px; font-size: 1.2rem;
+
+    /* Lựa chọn B: Font thư pháp uốn lượn (Nếu bạn thích kiểu này thì bỏ comment dòng dưới) */
+    /* font-family: 'Great Vibes', cursive; font-size: 2.5rem; text-transform: none; */
+
+    margin-bottom: 30px; 
+    color: #555; 
+    font-weight: 600;
+}
+
+/* 3. Chữ Ngày tháng */
+.intro-date {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 4px; /* Giãn chữ rộng ra cho thoáng */
+    color: #888;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 12px 0;
+    display: inline-block;
+}
 
 /* Khi đã mở, cho phép bấm xuyên qua để dùng web bên dưới */
 #intro-overlay.is-open {
@@ -531,76 +571,88 @@
             .wc-title { font-size: 1.8rem; }
         }
         
-        /* --- GALLERY STYLE --- */
-        #gallery {
-            background: #fff5f5; /* Nền hồng phấn siêu nhạt */
-            overflow: hidden;
-            padding: 80px 0;
-        }
+       /* --- GALLERY STYLE (CHẾ ĐỘ 1 CỘT - ẢNH TO RÕ) --- */
+#gallery { 
+    background: #fff5f5; 
+    overflow: hidden; 
+    padding: 60px 0; 
+}
 
-        /* Chữ trang trí nền */
-        .bg-deco-text {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%) rotate(-10deg);
-            font-family: 'Great Vibes', cursive;
-            font-size: 6rem; color: rgba(188, 136, 135, 0.05);
-            white-space: nowrap; pointer-events: none; z-index: 0;
-        }
+/* Chữ trang trí nền */
+.bg-deco-text { 
+    position: absolute; top: 50%; left: 50%; 
+    transform: translate(-50%, -50%) rotate(-10deg); 
+    font-family: 'Great Vibes', cursive; 
+    font-size: 6rem; color: rgba(188, 136, 135, 0.05); 
+    white-space: nowrap; pointer-events: none; z-index: 0; 
+}
 
-        .gallery-wall {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
-            padding: 10px; position: relative; z-index: 1;
-        }
+/* Bố cục: Xếp dọc 1 hàng */
+.gallery-wall { 
+    display: flex; 
+    flex-direction: column; /* Quan trọng: Xếp theo chiều dọc */
+    gap: 40px; /* Khoảng cách giữa các ảnh */
+    padding: 10px; 
+    position: relative; z-index: 1; 
+}
 
-        /* Khung ảnh Polaroid */
-        .photo-card {
-            background: white;
-            padding: 10px 10px 35px 10px; /* Chừa chỗ trống bên dưới */
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Hiệu ứng nảy */
-            transform: rotate(-2deg);
-            position: relative; border-radius: 2px;
-        }
+/* Khung ảnh Polaroid */
+.photo-card { 
+    background: white; 
+    padding: 12px 12px 50px 12px; /* Chừa phần dưới rộng để ghi chú/icon */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+    position: relative; 
+    border-radius: 2px;
+    width: 100%; /* Ảnh bung to hết cỡ chiều ngang */
+    transition: transform 0.3s ease;
+}
 
-        /* Ảnh chẵn nghiêng ngược lại và tụt xuống */
-        .photo-card:nth-child(even) { transform: rotate(2deg); }
-        .mt-30 { margin-top: 30px; }
+/* Tạo hiệu ứng nghiêng ngẫu nhiên cho tự nhiên */
+.photo-card:nth-child(odd) { transform: rotate(-2deg); } /* Ảnh lẻ nghiêng trái */
+.photo-card:nth-child(even) { transform: rotate(2deg); }  /* Ảnh chẵn nghiêng phải */
 
-        /* Hiệu ứng khi chạm/di chuột */
-        .photo-card:hover {
-            transform: scale(1.05) rotate(0deg) !important;
-            z-index: 10;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        }
+/* Khi chạm vào thì ảnh thẳng lại và nổi lên */
+.photo-card:hover { 
+    transform: scale(1.02) rotate(0deg) !important; 
+    z-index: 10; 
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2); 
+}
 
-        .photo-inner {
-            width: 100%; height: 200px; overflow: hidden; background: #eee;
-        }
-        .photo-inner img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform 0.6s; filter: sepia(15%);
-        }
-        .photo-card:hover .photo-inner img { transform: scale(1.1); filter: sepia(0%); }
+/* Phần chứa ảnh */
+.photo-inner { 
+    width: 100%; 
+    /* Mẹo: Dùng aspect-ratio để ảnh luôn có tỷ lệ đẹp (ví dụ 3:4 hoặc 4:3) dù ảnh gốc kích thước nào */
+    /* aspect-ratio: 3/4; */ 
+    overflow: hidden; 
+    background: #eee; 
+}
 
-        /* Icon tim nhỏ dưới ảnh */
-        .photo-caption {
-            position: absolute; bottom: 8px; width: 100%; left: 0;
-            text-align: center; color: #BC8887; opacity: 0.5; font-size: 0.8rem;
-        }
+.photo-inner img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; /* Đảm bảo ảnh đầy khung không bị méo */
+    transition: transform 0.6s; 
+}
 
-        /* Băng dính Washi Tape */
-        .tape-strip {
-            width: 70px; height: 20px;
-            background-color: rgba(255, 255, 255, 0.5);
-            position: absolute; top: -8px; left: 50%;
-            transform: translateX(-50%) rotate(-1deg);
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-            backdrop-filter: blur(2px);
-            z-index: 5;
-        }
-        /* Màu băng dính ngẫu nhiên */
-        .photo-card:nth-child(odd) .tape-strip { background-color: rgba(246, 229, 141, 0.6); }
-        .photo-card:nth-child(even) .tape-strip { background-color: rgba(255, 190, 118, 0.5); }
+.photo-card:hover .photo-inner img { transform: scale(1.1); }
+
+/* Icon tim nhỏ dưới ảnh */
+.photo-caption { 
+    position: absolute; bottom: 15px; width: 100%; left: 0; 
+    text-align: center; color: #BC8887; font-size: 1.2rem; 
+}
+
+/* Băng dính Washi Tape */
+.tape-strip { 
+    width: 100px; height: 25px; 
+    background-color: rgba(255, 255, 255, 0.5); 
+    position: absolute; top: -10px; left: 50%; 
+    transform: translateX(-50%) rotate(-2deg); 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    backdrop-filter: blur(2px); z-index: 5; 
+}
+.photo-card:nth-child(odd) .tape-strip { background-color: rgba(246, 229, 141, 0.7); }
+.photo-card:nth-child(even) .tape-strip { background-color: rgba(255, 190, 118, 0.6); }
 
         /* --- 7. MUSIC CONTROL (VINYL) --- */
         .music-control {
@@ -830,14 +882,15 @@
         </div>
     </section>
     
-   <section id="gallery">
+<section id="gallery">
     <div class="container">
         <div class="section-title" data-aos="fade-up">Album Hình Cưới</div>
         
         <div class="bg-deco-text">Sweet Moments</div>
 
         <div class="gallery-wall">
-            <div class="photo-card" data-aos="fade-up" data-aos-delay="0">
+            
+            <div class="photo-card" data-aos="fade-up">
                 <div class="tape-strip"></div>
                 <div class="photo-inner">
                     <img src="image/img1.jpg" alt="Wedding Photo 1">
@@ -845,7 +898,7 @@
                 <div class="photo-caption"><i class="fas fa-heart"></i></div>
             </div>
 
-            <div class="photo-card mt-30" data-aos="fade-up" data-aos-delay="150">
+            <div class="photo-card" data-aos="fade-up">
                 <div class="tape-strip"></div>
                 <div class="photo-inner">
                     <img src="image/img2.jpg" alt="Wedding Photo 2">
@@ -853,7 +906,7 @@
                 <div class="photo-caption"><i class="fas fa-heart"></i></div>
             </div>
 
-            <div class="photo-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="photo-card" data-aos="fade-up">
                 <div class="tape-strip"></div>
                 <div class="photo-inner">
                     <img src="image/img3.jpg" alt="Wedding Photo 3">
@@ -861,13 +914,14 @@
                 <div class="photo-caption"><i class="fas fa-heart"></i></div>
             </div>
 
-            <div class="photo-card mt-30" data-aos="fade-up" data-aos-delay="450">
+            <div class="photo-card" data-aos="fade-up">
                 <div class="tape-strip"></div>
                 <div class="photo-inner">
                     <img src="image/img4.jpg" alt="Wedding Photo 4">
                 </div>
                 <div class="photo-caption"><i class="fas fa-heart"></i></div>
             </div>
+
         </div>
         
         <div style="text-align: center; margin-top: 50px;" data-aos="fade-up">
