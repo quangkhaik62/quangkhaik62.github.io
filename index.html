@@ -53,20 +53,23 @@
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 1; overflow: hidden;
         }
-        .leaf {
-            position: absolute; top: -10%;
-            width: 15px; height: 15px;
-            background: var(--primary);
-            border-radius: 150% 0 150% 0;
-            opacity: 0.5;
-            animation: falling linear infinite;
-        }
+       .leaf {
+    position: absolute; top: -10%;
+    width: 15px; height: 15px;
+    background: #d63031; /* Màu đỏ thắm */
+    border-radius: 150% 0 150% 0;
+    opacity: 0.8; /* Tăng độ đậm một chút cho rõ màu đỏ */
+    animation: falling linear infinite;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1); /* Thêm chút đổ bóng cho sinh động */
+}
         .leaf:nth-child(1) { left: 10%; animation-duration: 8s; animation-delay: 0s; }
         .leaf:nth-child(2) { left: 30%; animation-duration: 12s; animation-delay: 2s; width: 10px; height: 10px; }
         .leaf:nth-child(3) { left: 70%; animation-duration: 10s; animation-delay: 4s; }
         .leaf:nth-child(4) { left: 50%; animation-duration: 15s; animation-delay: 1s; width: 12px; height: 12px; }
         .leaf:nth-child(5) { left: 85%; animation-duration: 9s; animation-delay: 3s; }
         .leaf:nth-child(6) { left: 15%; animation-duration: 11s; animation-delay: 5s; }
+        .leaf:nth-child(odd) { background: #b71c1c; }  /* Đỏ đậm hơn */
+        .leaf:nth-child(even) { background: #ff7675; } /* Đỏ nhạt/hồng hào */
 
         @keyframes falling {
             0% { transform: translate(0, -10vh) rotate(0deg); opacity: 0; }
