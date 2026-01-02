@@ -32,58 +32,66 @@
         /* --- CẤU HÌNH BODY ĐỂ CĂN GIỮA MÀN HÌNH --- */
         body { 
             font-family: var(--font-main); 
-            background: #e0e0e0; /* Nền xám cho desktop */
+            background: #e0e0e0; 
             color: #444; 
             min-height: 100vh;
             display: flex;
-            justify-content: center; /* Căn giữa */
+            justify-content: center; 
             align-items: flex-start;
             overflow-x: hidden;
         }
 
-        /* --- KHUNG MOBILE CONTAINER (QUAN TRỌNG NHẤT) --- */
+        /* --- KHUNG MOBILE CONTAINER --- */
         .mobile-container {
             width: 100%;
-            max-width: 450px; /* Giới hạn chiều rộng */
+            max-width: 450px; 
             background: var(--bg-body);
             min-height: 100vh;
-            position: relative; /* Để các phần tử absolute bám theo khung này */
-            box-shadow: 0 0 20px rgba(0,0,0,0.1); /* Bóng đổ cho đẹp */
+            position: relative; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.1); 
             overflow-x: hidden;
         }
 
-        /* --- 1. HOA RƠI --- */
+        /* --- 1. HOA RƠI (ĐÃ TĂNG SỐ LƯỢNG VÀ ĐỘ DÀY) --- */
         .falling-leaves {
-            position: absolute; /* Đổi từ fixed sang absolute */
+            position: absolute; 
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 1; overflow: hidden;
         }
         .leaf {
             position: absolute; top: -10%;
             width: 15px; height: 15px;
-            
-            /* ĐÃ SỬA THÀNH MÀU ĐỎ */
-            background: #d63031; 
-            
+            background: #d63031; /* Màu đỏ thắm */
             border-radius: 150% 0 150% 0;
             opacity: 0.8;
             animation: falling linear infinite;
             box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
         }
         
-        /* Thêm sắc thái đỏ đậm nhạt */
-        .leaf:nth-child(even) { background: #b71c1c; }
+        /* Màu sắc đa dạng */
+        .leaf:nth-child(2n) { background: #b71c1c; } /* Đỏ đậm */
+        .leaf:nth-child(3n) { background: #ff7675; } /* Đỏ nhạt */
 
-        .leaf:nth-child(1) { left: 10%; animation-duration: 8s; animation-delay: 0s; }
-        .leaf:nth-child(2) { left: 30%; animation-duration: 12s; animation-delay: 2s; width: 10px; height: 10px; }
-        .leaf:nth-child(3) { left: 70%; animation-duration: 10s; animation-delay: 4s; }
-        .leaf:nth-child(4) { left: 50%; animation-duration: 15s; animation-delay: 1s; width: 12px; height: 12px; }
-        .leaf:nth-child(5) { left: 85%; animation-duration: 9s; animation-delay: 3s; }
-        .leaf:nth-child(6) { left: 15%; animation-duration: 11s; animation-delay: 5s; }
+        /* Cấu hình vị trí và tốc độ rơi cho 15 cánh hoa */
+        .leaf:nth-child(1) { left: 5%; animation-duration: 10s; animation-delay: -1s; }
+        .leaf:nth-child(2) { left: 20%; animation-duration: 12s; animation-delay: -5s; width: 10px; height: 10px; }
+        .leaf:nth-child(3) { left: 35%; animation-duration: 8s; animation-delay: -3s; }
+        .leaf:nth-child(4) { left: 50%; animation-duration: 15s; animation-delay: -7s; width: 12px; height: 12px; }
+        .leaf:nth-child(5) { left: 65%; animation-duration: 11s; animation-delay: -2s; }
+        .leaf:nth-child(6) { left: 80%; animation-duration: 9s; animation-delay: -6s; }
+        .leaf:nth-child(7) { left: 90%; animation-duration: 13s; animation-delay: -4s; }
+        .leaf:nth-child(8) { left: 10%; animation-duration: 14s; animation-delay: -8s; }
+        .leaf:nth-child(9) { left: 25%; animation-duration: 7s; animation-delay: -2s; }
+        .leaf:nth-child(10) { left: 45%; animation-duration: 10s; animation-delay: -5s; }
+        .leaf:nth-child(11) { left: 60%; animation-duration: 12s; animation-delay: -1s; }
+        .leaf:nth-child(12) { left: 75%; animation-duration: 9s; animation-delay: -9s; }
+        .leaf:nth-child(13) { left: 85%; animation-duration: 11s; animation-delay: -3s; }
+        .leaf:nth-child(14) { left: 15%; animation-duration: 16s; animation-delay: -6s; }
+        .leaf:nth-child(15) { left: 55%; animation-duration: 8s; animation-delay: -4s; }
 
         @keyframes falling {
             0% { transform: translate(0, -10vh) rotate(0deg); opacity: 0; }
-            20% { opacity: 0.6; }
+            20% { opacity: 0.8; }
             100% { transform: translate(20px, 110vh) rotate(360deg); opacity: 0; }
         }
 
@@ -110,7 +118,7 @@
 
         /* --- 2. INTRO OVERLAY --- */
         #intro-overlay {
-            position: absolute; /* Đổi từ fixed sang absolute */
+            position: absolute; 
             top: 0; left: 0; width: 100%; height: 100vh;
             background: #fff; z-index: 99999;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -179,6 +187,17 @@
         .special-day { background: var(--primary); color: white; font-weight: bold; box-shadow: 0 2px 8px rgba(188, 136, 135, 0.4); }
         .map-frame { border-radius: 15px; overflow: hidden; height: 300px; width: 100%; box-shadow: 0 5px 15px rgba(0,0,0,0.05); background: #eee; }
         .wedding-card-design { text-align: center; padding: 20px; margin: 0 auto; color: #6d4c41; }
+        .wc-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-weight: 500; }
+        .wc-party-time { font-family: 'Montserrat', sans-serif; font-size: 1.1rem; color: var(--primary); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-top: 20px; margin-bottom: 30px; }
+        .wc-time { font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 3px; font-size: 1rem; margin-bottom: 10px !important; color: #6d4c41 !important; }
+        .wc-date-row { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px; }
+        .wc-col-side { flex: 1; border-top: 1px solid #6d4c41; border-bottom: 1px solid #6d4c41; padding: 12px 0; font-family: 'Playfair Display', serif; font-size: 1.5rem; text-transform: uppercase; white-space: nowrap; }
+        .wc-col-center { font-family: 'Playfair Display', serif; font-size: 6rem; line-height: 0.8; font-weight: 500; color: var(--primary); padding: 0 10px; }
+        .wc-lunar { font-family: 'Playfair Display', italic; font-style: italic; font-size: 1.1rem; color: #888; margin-bottom: 40px; }
+        .location-info .venue-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 5px; }
+        .location-info .venue-address { font-size: 1rem; color: #555; margin-bottom: 15px; }
+        .location-info .btn-direction { display: inline-block; padding: 8px 20px; border: 1px solid var(--primary); color: var(--primary); border-radius: 30px; text-decoration: none; font-size: 0.9rem; transition: all 0.3s; }
+        .location-info .btn-direction:hover { background: var(--primary); color: white; }
 
         /* --- INVITATION SECTION --- */
         #invitation { background: url('image/pattern-bg.png'); background-color: #faf7f5; padding: 80px 0; }
@@ -200,20 +219,6 @@
         .invite-body { font-size: 1rem; color: #555; line-height: 1.8; margin-bottom: 30px; }
         .invite-signature { font-family: var(--font-script); font-size: 2.5rem; color: var(--primary); transform: rotate(-3deg); display: inline-block; }
 
-        /* Typography */
-        .wc-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-weight: 500; }
-        .wc-party-time { font-family: 'Montserrat', sans-serif; font-size: 1.1rem; color: var(--primary); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-top: 20px; margin-bottom: 30px; }
-        .wc-time { font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 3px; font-size: 1rem; margin-bottom: 10px !important; color: #6d4c41 !important; }
-        .wc-date-row { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px; }
-        .wc-col-side { flex: 1; border-top: 1px solid #6d4c41; border-bottom: 1px solid #6d4c41; padding: 12px 0; font-family: 'Playfair Display', serif; font-size: 1.5rem; text-transform: uppercase; white-space: nowrap; }
-        .wc-col-center { font-family: 'Playfair Display', serif; font-size: 6rem; line-height: 0.8; font-weight: 500; color: var(--primary); padding: 0 10px; }
-        .wc-lunar { font-family: 'Playfair Display', italic; font-style: italic; font-size: 1.1rem; color: #888; margin-bottom: 40px; }
-        .wc-location { margin-top: 30px; }
-        .loc-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 5px; }
-        .loc-addr { font-size: 1rem; color: #555; margin-bottom: 15px; }
-        .loc-btn { display: inline-block; padding: 8px 20px; border: 1px solid var(--primary); color: var(--primary); border-radius: 30px; text-decoration: none; font-size: 0.9rem; transition: all 0.3s; }
-        .loc-btn:hover { background: var(--primary); color: white; }
-
         /* --- GALLERY STYLE --- */
         #gallery { background: #fff5f5; overflow: hidden; padding: 80px 0; }
         .bg-deco-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-10deg); font-family: 'Great Vibes', cursive; font-size: 6rem; color: rgba(188, 136, 135, 0.05); white-space: nowrap; pointer-events: none; z-index: 0; }
@@ -232,7 +237,7 @@
 
         /* --- 7. MUSIC CONTROL (VINYL) --- */
         .music-control {
-            position: absolute; /* Đổi từ fixed sang absolute */
+            position: absolute; /* Đổi từ fixed sang absolute để bám vào khung mobile */
             bottom: 20px; left: 20px; z-index: 9999; cursor: pointer;
             border-radius: 50%;
         }
@@ -263,7 +268,11 @@
     <div class="mobile-container">
 
         <div class="falling-leaves">
-            <div class="leaf"></div><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div>
+            <div class="leaf"></div><div class="leaf"></div><div class="leaf"></div>
+            <div class="leaf"></div><div class="leaf"></div><div class="leaf"></div>
+            <div class="leaf"></div><div class="leaf"></div><div class="leaf"></div>
+            <div class="leaf"></div><div class="leaf"></div><div class="leaf"></div>
+            <div class="leaf"></div><div class="leaf"></div><div class="leaf"></div>
         </div>
 
         <div id="intro-overlay">
