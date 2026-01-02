@@ -51,6 +51,11 @@
     box-shadow: 0 0 20px rgba(0,0,0,0.1); /* Đổ bóng 2 bên */
     overflow-x: hidden;
 }}
+        /* --- CLASS KHÓA CUỘN (KHI CHƯA MỞ THIỆP) --- */
+body.no-scroll {
+    overflow: hidden; /* Ẩn thanh cuộn */
+    height: 100vh;    /* Cố định chiều cao bằng màn hình */
+}
 
         /* --- 1. HOA RƠI BẰNG CSS THUẦN (ĐÃ SỬA MÀU ĐỎ) --- */
         /* Chỉ dùng 6-10 phần tử cố định thay vì sinh ra liên tục bằng JS */
@@ -704,6 +709,7 @@
     </style>
 </head>
 <body>
+    <body class="no-scroll">
 <div class="mobile-container">
     <div class="falling-leaves">
         <div class="leaf"></div><div class="leaf"></div>
@@ -1008,11 +1014,16 @@
         var vinyl = document.getElementById("vinyl");
         var overlay = document.getElementById("intro-overlay");
 
-        function openInvitation() {
-            document.getElementById("intro-overlay").classList.add("is-open");
-            //overlay.style.transform = "translateY(-100%)";
-            setTimeout(() => { if (audio.paused) playMusic(); }, 600);
-        }
+       function openInvitation() {
+   
+    document.getElementById("intro-overlay").classList.add("is-open");
+    document.body.classList.remove("no-scroll");
+
+    // 3. Phát nhạc
+    setTimeout(() => { 
+        if (audio.paused) playMusic(); 
+    }, 600);
+}
 
         function playMusic() {
             audio.play().then(() => { vinyl.classList.add("spinning"); })
