@@ -30,7 +30,6 @@
         html { scroll-behavior: smooth; overflow-x: hidden; }
         body { 
             /* 1. Cấu hình Body để căn giữa khung */
-body { 
     font-family: var(--font-main); 
     background: #e0e0e0; /* Màu nền xám bên ngoài */
     margin: 0;
@@ -41,7 +40,6 @@ body {
     display: flex;
     justify-content: center; 
     align-items: flex-start; 
-}
 
 /* 2. Cấu hình Khung Mobile */
 .mobile-container {
@@ -52,7 +50,7 @@ body {
     position: relative; 
     box-shadow: 0 0 20px rgba(0,0,0,0.1); /* Đổ bóng 2 bên */
     overflow-x: hidden;
-}
+}}
 
         /* --- 1. HOA RƠI BẰNG CSS THUẦN (ĐÃ SỬA MÀU ĐỎ) --- */
         /* Chỉ dùng 6-10 phần tử cố định thay vì sinh ra liên tục bằng JS */
@@ -951,7 +949,7 @@ body {
 
         function openInvitation() {
             document.getElementById("intro-overlay").classList.add("is-open");
-            overlay.style.transform = "translateY(-100%)";
+            //overlay.style.transform = "translateY(-100%)";
             setTimeout(() => { if (audio.paused) playMusic(); }, 600);
         }
 
