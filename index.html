@@ -30,28 +30,29 @@
         html { scroll-behavior: smooth; overflow-x: hidden; }
         body { 
             /* 1. Cấu hình Body để căn giữa khung */
-body {
-    font-family: var(--font-main);
-    background: #e0e0e0; /* Màu nền xám cho màn hình máy tính */
+body { 
+    font-family: var(--font-main); 
+    background: #e0e0e0; /* Màu nền xám bên ngoài */
     margin: 0;
     padding: 0;
     min-height: 100vh;
+    
+    /* 3 DÒNG QUAN TRỌNG ĐỂ CĂN GIỮA */
     display: flex;
-    justify-content: center; /* Căn giữa chiều ngang */
-    align-items: flex-start;
+    justify-content: center; 
+    align-items: flex-start; 
 }
 
-/* 2. Tạo khung Mobile (Quan trọng nhất) */
+/* 2. Cấu hình Khung Mobile */
 .mobile-container {
     width: 100%;
-    max-width: 450px; /* Giới hạn chiều rộng tối đa như điện thoại */
-    background: #faf9f9; /* Màu nền của thiệp */
+    max-width: 450px; /* Kích thước chuẩn khung điện thoại */
+    background: var(--bg-body);
     min-height: 100vh;
-    position: relative; /* Để giữ các thành phần con nằm trong khung này */
-    box-shadow: 0 0 20px rgba(0,0,0,0.1); /* Đổ bóng cho đẹp */
-    overflow-x: hidden; /* Cắt bỏ phần thừa ngang */
+    position: relative; 
+    box-shadow: 0 0 20px rgba(0,0,0,0.1); /* Đổ bóng 2 bên */
+    overflow-x: hidden;
 }
-        }
 
         /* --- 1. HOA RƠI BẰNG CSS THUẦN (ĐÃ SỬA MÀU ĐỎ) --- */
         /* Chỉ dùng 6-10 phần tử cố định thay vì sinh ra liên tục bằng JS */
