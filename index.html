@@ -2,11 +2,6 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta property="og:title" content="Thiệp mời lễ báo hỷ" />
-    <meta property="og:description" content="Lễ Báo Hỷ Quang Khải & Kim Ngân" />
-    <meta property="og:image" content="image/2w4a8494_optimized.jpg" />
-    <meta property="og:url" content="https://khainganwedding.vercel.app" />
-    <meta property="og:type" content="website" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Lễ Báo Hỷ | Quang Khải & Kim Ngân</title>
     
@@ -28,37 +23,35 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html { scroll-behavior: smooth; overflow-x: hidden; }
-        body {
-            font-family: var(--font-main);
-            background: var(--bg-body);
-            color: #444;
+        
+        /* Cấu hình body để căn giữa mobile container */
+        body { 
+            font-family: var(--font-main); 
+            background: #e0e0e0; /* Màu nền cho phần thừa trên máy tính */
+            color: #444; 
             min-height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
-            padding: 20px; /* thêm khoảng cách khi viewport nhỏ */
+            align-items: flex-start;
+            overflow-x: hidden;
         }
 
-        /* --- MOBILE CONTAINER (KHUNG ĐIỆN THOẠI) --- */
+        /* --- MOBILE CONTAINER --- */
         .mobile-container {
             width: 100%;
-            max-width: 450px; /* yêu cầu: tối đa 450px */
-            height: 100vh;    /* chiếm màn hình (để Intro che phủ toàn bộ khung) */
-            background: transparent;
-            position: relative; /* tất cả phần tử absolute bên trong bám vào khung này */
-            overflow: auto;     /* cho phép cuộn nội dung dài */
-            border-radius: 12px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-            -webkit-overflow-scrolling: touch;
-            background-color: #fff; /* giữ nền trong suốt/ trắng để nhìn giống khung thiệp */
+            max-width: 450px; /* Chiều rộng tối đa chuẩn mobile */
+            background: var(--bg-body);
+            min-height: 100vh;
+            position: relative; /* Quan trọng để các phần tử absolute bám theo */
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            overflow-x: hidden;
         }
 
-        /* giữ nguyên phần lớn CSS gốc nhưng chuyển các fixed -> absolute bên trong .mobile-container */
-
         /* --- 1. HOA RƠI BẰNG CSS THUẦN (SIÊU NHẸ) --- */
-        .mobile-container .falling-leaves {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 5; overflow: hidden;
+        .falling-leaves {
+            position: absolute; /* Đổi từ fixed sang absolute để nằm trong mobile-container */
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1; overflow: hidden;
         }
         .leaf {
             position: absolute; top: -10%;
@@ -68,6 +61,7 @@
             opacity: 0.5;
             animation: falling linear infinite;
         }
+        /* Cấu hình từng cánh hoa rơi lệch nhau để tự nhiên */
         .leaf:nth-child(1) { left: 10%; animation-duration: 8s; animation-delay: 0s; }
         .leaf:nth-child(2) { left: 30%; animation-duration: 12s; animation-delay: 2s; width: 10px; height: 10px; }
         .leaf:nth-child(3) { left: 70%; animation-duration: 10s; animation-delay: 4s; }
@@ -82,7 +76,7 @@
         }
 
         /* --- UTILITIES --- */
-        .container { max-width: 800px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 2; }
+        .container { padding: 0 20px; position: relative; z-index: 2; }
         section { padding: 60px 0; position: relative; }
         
         .section-title {
@@ -98,21 +92,25 @@
             display: inline-block; padding: 12px 35px; 
             background: var(--primary); color: white; border-radius: 50px; 
             text-decoration: none; font-weight: 600; border: none; cursor: pointer;
-            box-shadow: 0 4px 10px rgba(188, 136, 135, 0.3);
+            box-shadow: 0 4px 10px rgba(188, 136, 135, 0.3); /* Bóng nhẹ hơn */
             transition: transform 0.2s;
         }
         .btn-main:active { transform: scale(0.95); }
 
         /* --- 2. INTRO OVERLAY --- */
         #intro-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: #fff; z-index: 9999;
+            position: absolute; /* Đổi từ fixed sang absolute để nằm trong mobile-container */
+            top: 0; left: 0; width: 100%; height: 100vh; /* height 100vh sẽ bằng chiều cao viewport nhưng trong container absolute nó sẽ phủ hết phần nhìn thấy ban đầu */
+            /* Tuy nhiên với absolute trong container có min-height 100vh, ta cần đảm bảo nó phủ kín */
+            background: #fff; z-index: 99999;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: transform 0.8s ease-in-out; will-change: transform;
+            transition: transform 0.8s ease-in-out; /* Tăng tốc độ mở */
+            will-change: transform;
         }
         .intro-lebaohy { font-family: var(--font-title); font-size: 3.5rem; color: var(--primary); margin-bottom: 10px; }
         .intro-names { font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 30px; letter-spacing: 2px; text-transform: uppercase; color: #666; }
 
+        /* --- INTRO DATE & COUNTDOWN --- */
         .intro-date {
             font-family: 'Montserrat', sans-serif;
             font-size: 0.9rem;
@@ -128,7 +126,7 @@
 
         #intro-countdown {
             display: flex;
-            align-items: center;
+            align-items: center; /* Căn giữa theo chiều dọc */
             justify-content: center;
             gap: 10px;
             margin-bottom: 30px;
@@ -160,7 +158,7 @@
 
         /* --- 3. HERO SECTION (Tối ưu GPU) --- */
         .hero {
-            min-height: 100vh; position: relative; overflow: hidden;
+            height: 100vh; position: relative; overflow: hidden;
             display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white;
         }
         .hero-bg {
@@ -168,6 +166,7 @@
             background: url('image/background1.jpg') center center / cover no-repeat;
             z-index: -1;
             transform: scale(1);
+            /* Zoom nhẹ bằng GPU, không dùng animation liên tục để đỡ nóng máy */
             will-change: transform; 
         }
         .hero-overlay {
@@ -175,18 +174,20 @@
             background: rgba(0,0,0,0.3);
         }
         .hero-title { font-family: var(--font-script); font-size: 4.5rem; margin-bottom: 10px; line-height: 1.1; text-shadow: 0 2px 5px rgba(0,0,0,0.3); }
-        .hero-date { padding: 8px 25px; border: 1px solid rgba(255,255,255,0.8); font-size: 1rem; letter-spacing: 2px; border-radius: 50px; backdrop-filter: none; }
+        .hero-date { padding: 8px 25px; border: 1px solid rgba(255,255,255,0.8); font-size: 1rem; letter-spacing: 2px; border-radius: 50px; backdrop-filter: none; /* Bỏ blur cho nhẹ */ }
 
-        /* --- 4. COUPLE CARD --- */
+        /* --- 4. COUPLE CARD (CÓ TRANG TRÍ) --- */
         .couple-wrapper { display: flex; flex-direction: column; gap: 50px; margin-top: 20px; }
         .couple-card { 
             text-align: center; padding: 30px 20px; background: white; border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative;
-            border: 1px solid rgba(188, 136, 135, 0.1);
+            border: 1px solid rgba(188, 136, 135, 0.1); /* Viền mờ nhẹ */
         }
 
+        /* Khung ảnh */
         .avatar-frame {
             width: 200px; height: 280px; margin: 0 auto 20px; position: relative;
+            /* QUAN TRỌNG: Để icon nổi ra ngoài thì không được ẩn overflow */
             overflow: visible; 
             border-radius: 100px 100px 10px 10px;
             box-shadow: 0 10px 25px rgba(188, 136, 135, 0.2);
@@ -194,11 +195,12 @@
 
         .avatar-img { 
             width: 100%; height: 100%; object-fit: cover; 
-            border-radius: 100px 100px 10px 10px;
+            border-radius: 100px 100px 10px 10px; /* Bo tròn trực tiếp trên ảnh */
             transition: transform 0.5s;
-            display: block;
+            display: block; /* Fix khoảng trắng */
         }
 
+        /* ICON TRANG TRÍ (Hoa & Tim) */
         .deco-icon {
             position: absolute; z-index: 10;
             width: 45px; height: 45px;
@@ -207,11 +209,19 @@
             color: var(--primary);
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             font-size: 1.2rem;
-            border: 1px solid rgba(188,136,135,0.15);
+            border: 1px solid var(--primary-light);
         }
 
-        .deco-flower { top: 10px; left: -15px; animation: sway 3s ease-in-out infinite; }
-        .deco-heart { bottom: 15px; right: -15px; animation: pulseHeart 1.5s infinite; }
+        /* Vị trí icon: Góc trên trái */
+        .deco-flower { 
+            top: 10px; left: -15px; 
+            animation: sway 3s ease-in-out infinite; 
+        }
+        /* Vị trí icon: Góc dưới phải */
+        .deco-heart { 
+            bottom: 15px; right: -15px; 
+            animation: pulseHeart 1.5s infinite; 
+        }
 
         @keyframes sway { 0%, 100% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } }
         @keyframes pulseHeart { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
@@ -237,31 +247,33 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.05); background: #eee;
         }
 
+        /* --- WEDDING CARD DESIGN (MẪU MỚI) --- */
         .wedding-card-design {
             text-align: center;
             padding: 20px;
-            max-width: 700px;
+            /* max-width: 700px; bỏ max-width này vì đã có mobile container */
             margin: 0 auto;
-            color: #6d4c41;
+            color: #6d4c41; /* Màu nâu đỏ đậm giống trong ảnh mẫu */
         }
 
         /* --- INVITATION SECTION STYLING --- */
         #invitation {
-            background: url('image/pattern-bg.png');
-            background-color: #faf7f5;
+            background: url('image/pattern-bg.png'); /* Nếu không có ảnh nền thì để màu này */
+            background-color: #faf7f5; /* Màu kem nhẹ làm nền */
             padding: 80px 0;
         }
 
         .invite-card {
             background: #fff;
             padding: 60px 30px;
-            max-width: 700px;
+            /* max-width: 700px; bỏ max-width này vì đã có mobile container */
             margin: 0 auto;
             position: relative;
             box-shadow: 0 15px 40px rgba(0,0,0,0.05);
-            border: 1px solid rgba(188, 136, 135, 0.2);
+            border: 1px solid rgba(188, 136, 135, 0.2); /* Viền mờ */
         }
 
+        /* Họa tiết 4 góc (Vẽ bằng CSS) */
         .corner {
             position: absolute;
             width: 30px; height: 30px;
@@ -273,10 +285,13 @@
         .top-right { top: 15px; right: 15px; border-width: 2px 2px 0 0; }
         .bottom-left { bottom: 15px; left: 15px; border-width: 0 0 2px 2px; }
         .bottom-right { bottom: 15px; right: 15px; border-width: 0 2px 2px 0; }
+
+        /* Hiệu ứng khi hover vào khung thì góc nở ra */
         .invite-card:hover .corner { width: 50px; height: 50px; }
 
+        /* Logo */
         .invite-logo {
-            width: 120px;
+            width: 120px; /* Tăng kích thước logo */
             height: auto;
             opacity: 0.9;
             margin-bottom: 20px;
@@ -284,14 +299,15 @@
         }
 
         .invite-title {
-            font-family: var(--font-title);
+            font-family: var(--font-title); /* Font Pinyon Script */
             font-size: 3rem;
             color: var(--primary);
             margin-bottom: 20px;
         }
 
+        /* Quote */
         .quote-box { margin: 30px 0; color: #888; }
-        .quote-icon { font-size: 0.8rem; color: var(--primary); vertical-align: top; }
+        .quote-icon { font-size: 0.8rem; color: var(--primary-light); vertical-align: top; }
         .quote-text {
             font-family: var(--font-serif);
             font-style: italic;
@@ -302,16 +318,30 @@
             line-height: 1.6;
         }
 
+        /* Divider (Đường kẻ có tim ở giữa) */
         .invite-divider {
             display: flex; align-items: center; justify-content: center; gap: 15px;
             margin: 30px auto; width: 60%;
         }
-        .invite-divider .line { flex: 1; height: 1px; background: #ddd; }
-        .invite-divider .heart-icon { color: var(--primary); font-size: 0.9rem; animation: heartbeat 2s infinite; }
-        @keyframes heartbeat { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+        .invite-divider .line {
+            flex: 1; height: 1px; background: #ddd;
+        }
+        .invite-divider .heart-icon {
+            color: var(--primary); font-size: 0.9rem;
+            animation: heartbeat 2s infinite;
+        }
 
-        .invite-body { font-size: 1rem; color: #555; line-height: 1.8; margin-bottom: 30px; }
-        .invite-signature { font-family: var(--font-script); font-size: 2.5rem; color: var(--primary); transform: rotate(-3deg); display: inline-block; }
+        /* Nội dung */
+        .invite-body {
+            font-size: 1rem; color: #555; line-height: 1.8; margin-bottom: 30px;
+        }
+        .invite-signature {
+            font-family: var(--font-script);
+            font-size: 2.5rem;
+            color: var(--primary);
+            transform: rotate(-3deg); /* Nghiêng chữ ký cho tự nhiên */
+            display: inline-block;
+        }
 
         /* Responsive mobile */
         @media (max-width: 768px) {
@@ -319,25 +349,29 @@
             .invite-logo { width: 100px; }
             .invite-divider { width: 80%; }
         }
-            
+        
+        /* Tiêu đề LỄ BÁO HỶ */
         .wc-title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Playfair Display', serif; /* Font có chân sang trọng */
             font-size: 2.2rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 10px;
             font-weight: 500;
         }
+        /* Style cho dòng Khai Tiệc */
         .wc-party-time {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.1rem;
-            color: var(--primary);
-            font-weight: 600;
+            font-size: 1.1rem;       /* Lớn hơn dòng giờ đón khách xíu */
+            color: var(--primary);   /* Dùng màu hồng chủ đạo để nổi bật */
+            font-weight: 600;        /* In đậm hơn */
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin-top: 20px;
-            margin-bottom: 30px;
+            margin-top: 20px;       /* Kéo lên gần dòng trên */
+            margin-bottom: 30px;     /* Cách dòng ngày tháng ra */
         }
+
+        /* Dòng giờ */
         .wc-time {
             font-family: 'Montserrat', sans-serif;
             text-transform: uppercase;
@@ -346,6 +380,8 @@
             margin-bottom: 10px !important;
             color: #6d4c41 !important;
         }
+
+        /* Layout Tháng - Ngày - Năm */
         .wc-date-row {
             display: flex;
             align-items: center;
@@ -353,24 +389,30 @@
             gap: 15px;
             margin-bottom: 20px;
         }
+
+        /* Cột Tháng và Năm (Có gạch trên dưới) */
         .wc-col-side {
             flex: 1;
-            border-top: 1px solid #6d4c41;
-            border-bottom: 1px solid #6d4c41;
+            border-top: 1px solid #6d4c41;    /* Kẻ trên */
+            border-bottom: 1px solid #6d4c41; /* Kẻ dưới */
             padding: 12px 0;
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
             text-transform: uppercase;
-            white-space: nowrap;
+            white-space: nowrap; /* Giữ chữ không bị xuống dòng */
         }
+
+        /* Cột số Ngày ở giữa (To khổng lồ) */
         .wc-col-center {
             font-family: 'Playfair Display', serif;
-            font-size: 6rem;
+            font-size: 6rem; /* Kích thước số cực lớn */
             line-height: 0.8;
             font-weight: 500;
-            color: var(--primary);
+            color: var(--primary); /* Dùng màu hồng chủ đạo của bạn */
             padding: 0 10px;
         }
+
+        /* Ngày âm lịch */
         .wc-lunar {
             font-family: 'Playfair Display', italic;
             font-style: italic;
@@ -378,25 +420,54 @@
             color: #888;
             margin-bottom: 40px;
         }
-        .wc-location { margin-top: 30px; }
-        .loc-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 5px; }
-        .loc-addr { font-size: 1rem; color: #555; margin-bottom: 15px; }
-        .loc-btn { display: inline-block; padding: 8px 20px; border: 1px solid var(--primary); color: var(--primary); border-radius: 30px; text-decoration: none; font-size: 0.9rem; transition: all 0.3s; }
-        .loc-btn:hover { background: var(--primary); color: white; }
 
+        /* Phần địa điểm phía dưới */
+        .wc-location {
+            margin-top: 30px;
+        }
+        .loc-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        .loc-addr {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .loc-btn {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .loc-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Responsive cho điện thoại */
         @media (max-width: 480px) {
             .wc-col-side { font-size: 1rem; padding: 8px 0; }
             .wc-col-center { font-size: 4rem; }
             .wc-title { font-size: 1.8rem; }
         }
-            
-        /* --- GALLERY STYLE (CHỈNH CHO HIỆU ỨNG LẦN LƯỢT) --- */
+        
+        /* --- GALLERY STYLE --- */
         #gallery {
-            background: #fff5f5;
+            background: #fff5f5; /* Nền hồng phấn siêu nhạt */
             overflow: hidden;
             padding: 80px 0;
         }
 
+        /* Chữ trang trí nền */
         .bg-deco-text {
             position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%) rotate(-10deg);
@@ -410,28 +481,26 @@
             padding: 10px; position: relative; z-index: 1;
         }
 
+        /* Khung ảnh Polaroid */
         .photo-card {
             background: white;
-            padding: 10px 10px 35px 10px;
+            padding: 10px 10px 35px 10px; /* Chừa chỗ trống bên dưới */
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Hiệu ứng nảy */
             transform: rotate(-2deg);
             position: relative; border-radius: 2px;
-            /* initial state for staggered reveal */
-            opacity: 0;
-            transform: translateY(20px) scale(0.98) rotate(-2deg);
         }
 
-        .photo-card:nth-child(even) { transform: translateY(20px) scale(0.98) rotate(2deg); }
+        /* Ảnh chẵn nghiêng ngược lại và tụt xuống */
+        .photo-card:nth-child(even) { transform: rotate(2deg); }
+        .mt-30 { margin-top: 30px; }
 
-        .photo-card.show {
-            opacity: 1;
-            transform: translateY(0) scale(1) rotate(0deg);
+        /* Hiệu ứng khi chạm/di chuột */
+        .photo-card:hover {
+            transform: scale(1.05) rotate(0deg) !important;
             z-index: 10;
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
-
-        .mt-30 { margin-top: 30px; }
 
         .photo-inner {
             width: 100%; height: 200px; overflow: hidden; background: #eee;
@@ -440,13 +509,15 @@
             width: 100%; height: 100%; object-fit: cover;
             transition: transform 0.6s; filter: sepia(15%);
         }
-        .photo-card.show .photo-inner img { transform: scale(1.1); filter: sepia(0%); }
+        .photo-card:hover .photo-inner img { transform: scale(1.1); filter: sepia(0%); }
 
+        /* Icon tim nhỏ dưới ảnh */
         .photo-caption {
             position: absolute; bottom: 8px; width: 100%; left: 0;
             text-align: center; color: #BC8887; opacity: 0.5; font-size: 0.8rem;
         }
 
+        /* Băng dính Washi Tape */
         .tape-strip {
             width: 70px; height: 20px;
             background-color: rgba(255, 255, 255, 0.5);
@@ -456,12 +527,15 @@
             backdrop-filter: blur(2px);
             z-index: 5;
         }
+        /* Màu băng dính ngẫu nhiên */
         .photo-card:nth-child(odd) .tape-strip { background-color: rgba(246, 229, 141, 0.6); }
         .photo-card:nth-child(even) .tape-strip { background-color: rgba(255, 190, 118, 0.5); }
 
-        /* --- 7. MUSIC CONTROL (VINYL) - đặt vào khung */ 
-        .mobile-container .music-control {
-            position: absolute; bottom: 20px; left: 20px; z-index: 9999; cursor: pointer;
+        /* --- 7. MUSIC CONTROL (VINYL) --- */
+        .music-control {
+            position: absolute; /* Đổi từ fixed sang absolute để nằm trong mobile-container */
+            bottom: 20px; left: 20px; z-index: 9999; cursor: pointer;
+            /* Bỏ filter drop-shadow nặng, dùng box-shadow nhẹ */
             border-radius: 50%;
         }
         .vinyl {
@@ -478,16 +552,21 @@
         @keyframes vinylSpin { 100% { transform: rotate(360deg); } }
 
         /* --- 8. GIFT BOX (QR CODE) --- */
-        #gift { background: #fdfdfd; }
-        .gift-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 30px; }
+        #gift { background: #fdfdfd; } /* Nền trắng kem nhẹ */
+        .gift-grid { 
+            display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 30px; 
+        }
         .gift-card {
             background: white; padding: 30px; border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08); text-align: center;
-            flex: 1; min-width: 300px; max-width: 400px;
+            flex: 1; min-width: 100%; /* Trên mobile grid cần full width */
             border: 1px solid rgba(188, 136, 135, 0.2); transition: transform 0.3s;
         }
         .gift-card:hover { transform: translateY(-5px); }
-        .qr-img { width: 200px; height: 200px; object-fit: contain; border: 1px solid #eee; padding: 10px; border-radius: 10px; margin-bottom: 15px; }
+        .qr-img { 
+            width: 200px; height: 200px; object-fit: contain; 
+            border: 1px solid #eee; padding: 10px; border-radius: 10px; margin-bottom: 15px;
+        }
         .bank-title { font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 5px; }
         .bank-name { font-size: 0.9rem; color: #888; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
         .copy-btn {
@@ -498,27 +577,20 @@
         .copy-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
         .copy-btn i { margin-right: 5px; }
 
-        /* FOOTER */
-        footer { background: #fff; padding: 40px 20px; text-align: center; color: #999; font-size: 0.8rem; position: relative; z-index: 2; }
-
-        /* Nếu màn hình rất nhỏ thì cho khung chiếm gần toàn bộ */
-        @media (max-width: 460px) {
-            .mobile-container { border-radius: 0; height: 100vh; padding-bottom: 80px; }
-        }
-
+        /* --- FOOTER --- */
+        footer { background: #fff; padding: 40px 20px; text-align: center; color: #999; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
-    <div class="mobile-container" id="mobileContainer">
-        <!-- Falling leaves: bám vào mobile-container -->
+    <div class="mobile-container">
+
         <div class="falling-leaves">
             <div class="leaf"></div><div class="leaf"></div>
             <div class="leaf"></div><div class="leaf"></div>
             <div class="leaf"></div><div class="leaf"></div>
         </div>
 
-        <!-- Intro overlay: absolute trong mobile container -->
         <div id="intro-overlay">
             <div class="intro-content" data-aos="zoom-out">
                 <div class="intro-lebaohy">Lễ Báo Hỷ</div>
@@ -542,7 +614,6 @@
             </div>
         </div>
 
-        <!-- Nội dung chính (vẫn giữ nguyên cấu trúc) -->
         <header class="hero" id="home">
             <div class="hero-bg"></div>
             <div class="hero-overlay"></div>
@@ -661,7 +732,6 @@
                         <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Lễ+Báo+Hỷ+Quang+Khải+Kim+Ngân" target="_blank" class="btn-main" style="font-size: 0.9rem;">Lưu Lịch</a>
                     </div>
                 </div>
-
             </div>
         </section>
 
@@ -781,7 +851,6 @@
             </div>
         </section>
 
-        <!-- Music control (bám vào khung) -->
         <div class="music-control" onclick="toggleMusic()">
             <div class="vinyl" id="vinyl">
                 <div class="vinyl-label"><i class="fas fa-music vinyl-icon"></i></div>
@@ -799,9 +868,7 @@
             </div>
         </footer>
 
-    </div> <!-- end mobile-container -->
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    </div> <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // AOS
         AOS.init({ duration: 800, once: true, offset: 100 });
@@ -810,10 +877,8 @@
         var audio = document.getElementById("bg-music");
         var vinyl = document.getElementById("vinyl");
         var overlay = document.getElementById("intro-overlay");
-        var mobileContainer = document.getElementById("mobileContainer");
 
         function openInvitation() {
-            // translateY(-100%) để ẩn overlay lên trên khung mobile-container
             overlay.style.transform = "translateY(-100%)";
             setTimeout(() => { if (audio.paused) playMusic(); }, 600);
         }
@@ -830,6 +895,7 @@
         // Hàm copy số tài khoản
         function copyToClipboard(text, btnElement) {
             navigator.clipboard.writeText(text).then(function() {
+                // Đổi màu nút tạm thời để báo thành công
                 let originalText = btnElement.innerHTML;
                 btnElement.innerHTML = '<i class="fas fa-check"></i> Đã sao chép';
                 btnElement.style.background = "#4CAF50";
@@ -857,6 +923,7 @@
             const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const s = Math.floor((distance % (1000 * 60)) / 1000);
 
+            // Cập nhật bộ đếm ở màn hình Intro (Nếu có)
             if(document.getElementById("intro-days")) {
                 document.getElementById("intro-days").innerText = d < 10 ? "0" + d : d;
                 document.getElementById("intro-hours").innerText = h < 10 ? "0" + h : h;
@@ -865,43 +932,10 @@
             }
             if (distance < 0) {
                 clearInterval(countdownInterval);
+                // Xử lý khi hết giờ (Tùy chọn)
             }
         }, 1000);
-
-        // --- GALLERY: hiện từng ảnh khi gallery visible (stagger) ---
-        (function() {
-            const gallery = document.getElementById('gallery');
-            if (!gallery) return;
-            const photoCards = gallery.querySelectorAll('.photo-card');
-
-            // Nếu trình duyệt hỗ trợ IntersectionObserver -> kích hoạt khi section gallery vào view
-            if ('IntersectionObserver' in window) {
-                const io = new IntersectionObserver(entries => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            photoCards.forEach((el, i) => {
-                                setTimeout(() => el.classList.add('show'), i * 300); // mỗi ảnh cách nhau 300ms
-                            });
-                            io.disconnect();
-                        }
-                    });
-                }, { root: mobileContainer, threshold: 0.15 });
-                io.observe(gallery);
-            } else {
-                // fallback: nếu không có IO thì bật stagger sau 600ms
-                setTimeout(() => { photoCards.forEach((el, i) => setTimeout(()=> el.classList.add('show'), i*300)); }, 600);
-            }
-        })();
-
-        // Optional: nếu muốn tự động đóng overlay khi user scroll trong khung (ví dụ kéo lên)
-        mobileContainer.addEventListener('scroll', function() {
-            // nếu user scroll (và overlay vẫn ở vị trí ban đầu) -> ẩn overlay
-            if (overlay && overlay.style.transform === '') {
-                // không ép buộc, chỉ làm khi scroll trên container và overlay vẫn che
-                overlay.style.transform = "translateY(-100%)";
-            }
-        }, { passive: true });
-
+        
     </script>
 </body>
 </html>
