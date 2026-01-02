@@ -28,18 +28,37 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html { scroll-behavior: smooth; overflow-x: hidden; }
-        body { 
-            font-family: var(--font-main); 
-            background: var(--bg-body); 
-            color: #444; 
-            overflow-x: hidden;
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-body);
+            color: #444;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px; /* thêm khoảng cách khi viewport nhỏ */
         }
 
+        /* --- MOBILE CONTAINER (KHUNG ĐIỆN THOẠI) --- */
+        .mobile-container {
+            width: 100%;
+            max-width: 450px; /* yêu cầu: tối đa 450px */
+            height: 100vh;    /* chiếm màn hình (để Intro che phủ toàn bộ khung) */
+            background: transparent;
+            position: relative; /* tất cả phần tử absolute bên trong bám vào khung này */
+            overflow: auto;     /* cho phép cuộn nội dung dài */
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            -webkit-overflow-scrolling: touch;
+            background-color: #fff; /* giữ nền trong suốt/ trắng để nhìn giống khung thiệp */
+        }
+
+        /* giữ nguyên phần lớn CSS gốc nhưng chuyển các fixed -> absolute bên trong .mobile-container */
+
         /* --- 1. HOA RƠI BẰNG CSS THUẦN (SIÊU NHẸ) --- */
-        /* Chỉ dùng 6-10 phần tử cố định thay vì sinh ra liên tục bằng JS */
-        .falling-leaves {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 1; overflow: hidden;
+        .mobile-container .falling-leaves {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 5; overflow: hidden;
         }
         .leaf {
             position: absolute; top: -10%;
@@ -49,7 +68,6 @@
             opacity: 0.5;
             animation: falling linear infinite;
         }
-        /* Cấu hình từng cánh hoa rơi lệch nhau để tự nhiên */
         .leaf:nth-child(1) { left: 10%; animation-duration: 8s; animation-delay: 0s; }
         .leaf:nth-child(2) { left: 30%; animation-duration: 12s; animation-delay: 2s; width: 10px; height: 10px; }
         .leaf:nth-child(3) { left: 70%; animation-duration: 10s; animation-delay: 4s; }
@@ -80,71 +98,69 @@
             display: inline-block; padding: 12px 35px; 
             background: var(--primary); color: white; border-radius: 50px; 
             text-decoration: none; font-weight: 600; border: none; cursor: pointer;
-            box-shadow: 0 4px 10px rgba(188, 136, 135, 0.3); /* Bóng nhẹ hơn */
+            box-shadow: 0 4px 10px rgba(188, 136, 135, 0.3);
             transition: transform 0.2s;
         }
         .btn-main:active { transform: scale(0.95); }
 
         /* --- 2. INTRO OVERLAY --- */
         #intro-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: #fff; z-index: 99999;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: #fff; z-index: 9999;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: transform 0.8s ease-in-out; /* Tăng tốc độ mở */
-            will-change: transform;
+            transition: transform 0.8s ease-in-out; will-change: transform;
         }
         .intro-lebaohy { font-family: var(--font-title); font-size: 3.5rem; color: var(--primary); margin-bottom: 10px; }
         .intro-names { font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 30px; letter-spacing: 2px; text-transform: uppercase; color: #666; }
 
-        /* --- INTRO DATE & COUNTDOWN --- */
-.intro-date {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.9rem;
-    letter-spacing: 3px;
-    color: #888;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-    padding: 10px 0;
-    display: inline-block;
-}
+        .intro-date {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            color: #888;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+            display: inline-block;
+        }
 
-#intro-countdown {
-    display: flex;
-    align-items: center; /* Căn giữa theo chiều dọc */
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 30px;
-    font-family: 'Playfair Display', serif;
-    color: var(--primary);
-}
+        #intro-countdown {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-family: 'Playfair Display', serif;
+            color: var(--primary);
+        }
 
-#intro-countdown div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 40px;
-}
+        #intro-countdown div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 40px;
+        }
 
-#intro-countdown span {
-    font-size: 1.8rem;
-    font-weight: 700;
-    line-height: 1;
-}
+        #intro-countdown span {
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1;
+        }
 
-#intro-countdown small {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    color: #aaa;
-    margin-top: 5px;
-    letter-spacing: 1px;
-}
+        #intro-countdown small {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            color: #aaa;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
 
         /* --- 3. HERO SECTION (Tối ưu GPU) --- */
         .hero {
-            height: 100vh; position: relative; overflow: hidden;
+            min-height: 100vh; position: relative; overflow: hidden;
             display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white;
         }
         .hero-bg {
@@ -152,7 +168,6 @@
             background: url('image/background1.jpg') center center / cover no-repeat;
             z-index: -1;
             transform: scale(1);
-            /* Zoom nhẹ bằng GPU, không dùng animation liên tục để đỡ nóng máy */
             will-change: transform; 
         }
         .hero-overlay {
@@ -160,61 +175,49 @@
             background: rgba(0,0,0,0.3);
         }
         .hero-title { font-family: var(--font-script); font-size: 4.5rem; margin-bottom: 10px; line-height: 1.1; text-shadow: 0 2px 5px rgba(0,0,0,0.3); }
-        .hero-date { padding: 8px 25px; border: 1px solid rgba(255,255,255,0.8); font-size: 1rem; letter-spacing: 2px; border-radius: 50px; backdrop-filter: none; /* Bỏ blur cho nhẹ */ }
+        .hero-date { padding: 8px 25px; border: 1px solid rgba(255,255,255,0.8); font-size: 1rem; letter-spacing: 2px; border-radius: 50px; backdrop-filter: none; }
 
-        /* --- 4. COUPLE CARD (Bỏ hiệu ứng float liên tục) --- */
-        /* --- 4. COUPLE CARD (CÓ TRANG TRÍ) --- */
-.couple-wrapper { display: flex; flex-direction: column; gap: 50px; margin-top: 20px; }
-.couple-card { 
-    text-align: center; padding: 30px 20px; background: white; border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative;
-    border: 1px solid rgba(188, 136, 135, 0.1); /* Viền mờ nhẹ */
-}
+        /* --- 4. COUPLE CARD --- */
+        .couple-wrapper { display: flex; flex-direction: column; gap: 50px; margin-top: 20px; }
+        .couple-card { 
+            text-align: center; padding: 30px 20px; background: white; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative;
+            border: 1px solid rgba(188, 136, 135, 0.1);
+        }
 
-/* Khung ảnh */
-.avatar-frame {
-    width: 200px; height: 280px; margin: 0 auto 20px; position: relative;
-    /* QUAN TRỌNG: Để icon nổi ra ngoài thì không được ẩn overflow */
-    overflow: visible; 
-    border-radius: 100px 100px 10px 10px;
-    box-shadow: 0 10px 25px rgba(188, 136, 135, 0.2);
-}
+        .avatar-frame {
+            width: 200px; height: 280px; margin: 0 auto 20px; position: relative;
+            overflow: visible; 
+            border-radius: 100px 100px 10px 10px;
+            box-shadow: 0 10px 25px rgba(188, 136, 135, 0.2);
+        }
 
-.avatar-img { 
-    width: 100%; height: 100%; object-fit: cover; 
-    border-radius: 100px 100px 10px 10px; /* Bo tròn trực tiếp trên ảnh */
-    transition: transform 0.5s;
-    display: block; /* Fix khoảng trắng */
-}
+        .avatar-img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            border-radius: 100px 100px 10px 10px;
+            transition: transform 0.5s;
+            display: block;
+        }
 
-/* ICON TRANG TRÍ (Hoa & Tim) */
-.deco-icon {
-    position: absolute; z-index: 10;
-    width: 45px; height: 45px;
-    background: white; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--primary);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    font-size: 1.2rem;
-    border: 1px solid var(--primary-light);
-}
+        .deco-icon {
+            position: absolute; z-index: 10;
+            width: 45px; height: 45px;
+            background: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--primary);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            font-size: 1.2rem;
+            border: 1px solid rgba(188,136,135,0.15);
+        }
 
-/* Vị trí icon: Góc trên trái */
-.deco-flower { 
-    top: 10px; left: -15px; 
-    animation: sway 3s ease-in-out infinite; 
-}
-/* Vị trí icon: Góc dưới phải */
-.deco-heart { 
-    bottom: 15px; right: -15px; 
-    animation: pulseHeart 1.5s infinite; 
-}
+        .deco-flower { top: 10px; left: -15px; animation: sway 3s ease-in-out infinite; }
+        .deco-heart { bottom: 15px; right: -15px; animation: pulseHeart 1.5s infinite; }
 
-@keyframes sway { 0%, 100% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } }
-@keyframes pulseHeart { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
+        @keyframes sway { 0%, 100% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } }
+        @keyframes pulseHeart { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
 
-.name-highlight { font-family: var(--font-script); font-size: 3rem; color: var(--primary); line-height: 1.2; margin-top: 10px;}
-.couple-desc { font-size: 0.95rem; color: #666; padding: 0 10px; }
+        .name-highlight { font-family: var(--font-script); font-size: 3rem; color: var(--primary); line-height: 1.2; margin-top: 10px;}
+        .couple-desc { font-size: 0.95rem; color: #666; padding: 0 10px; }
 
         /* --- 5. CALENDAR & LOCATION --- */
         .calendar-box {
@@ -234,294 +237,231 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.05); background: #eee;
         }
 
-/* --- WEDDING CARD DESIGN (MẪU MỚI) --- */
-.wedding-card-design {
-    text-align: center;
-    padding: 20px;
-    max-width: 700px;
-    margin: 0 auto;
-    color: #6d4c41; /* Màu nâu đỏ đậm giống trong ảnh mẫu */
-}
+        .wedding-card-design {
+            text-align: center;
+            padding: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #6d4c41;
+        }
 
         /* --- INVITATION SECTION STYLING --- */
-#invitation {
-    background: url('image/pattern-bg.png'); /* Nếu không có ảnh nền thì để màu này */
-    background-color: #faf7f5; /* Màu kem nhẹ làm nền */
-    padding: 80px 0;
-}
+        #invitation {
+            background: url('image/pattern-bg.png');
+            background-color: #faf7f5;
+            padding: 80px 0;
+        }
 
-.invite-card {
-    background: #fff;
-    padding: 60px 30px;
-    max-width: 700px;
-    margin: 0 auto;
-    position: relative;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.05);
-    border: 1px solid rgba(188, 136, 135, 0.2); /* Viền mờ */
-}
+        .invite-card {
+            background: #fff;
+            padding: 60px 30px;
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            border: 1px solid rgba(188, 136, 135, 0.2);
+        }
 
-/* Họa tiết 4 góc (Vẽ bằng CSS) */
-.corner {
-    position: absolute;
-    width: 30px; height: 30px;
-    border-color: var(--primary);
-    border-style: solid;
-    transition: all 0.5s ease;
-}
-.top-left { top: 15px; left: 15px; border-width: 2px 0 0 2px; }
-.top-right { top: 15px; right: 15px; border-width: 2px 2px 0 0; }
-.bottom-left { bottom: 15px; left: 15px; border-width: 0 0 2px 2px; }
-.bottom-right { bottom: 15px; right: 15px; border-width: 0 2px 2px 0; }
+        .corner {
+            position: absolute;
+            width: 30px; height: 30px;
+            border-color: var(--primary);
+            border-style: solid;
+            transition: all 0.5s ease;
+        }
+        .top-left { top: 15px; left: 15px; border-width: 2px 0 0 2px; }
+        .top-right { top: 15px; right: 15px; border-width: 2px 2px 0 0; }
+        .bottom-left { bottom: 15px; left: 15px; border-width: 0 0 2px 2px; }
+        .bottom-right { bottom: 15px; right: 15px; border-width: 0 2px 2px 0; }
+        .invite-card:hover .corner { width: 50px; height: 50px; }
 
-/* Hiệu ứng khi hover vào khung thì góc nở ra */
-.invite-card:hover .corner { width: 50px; height: 50px; }
+        .invite-logo {
+            width: 120px;
+            height: auto;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
 
-/* Logo */
-.invite-logo {
-    width: 120px; /* Tăng kích thước logo */
-    height: auto;
-    opacity: 0.9;
-    margin-bottom: 20px;
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
-}
+        .invite-title {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
 
-.invite-title {
-    font-family: var(--font-title); /* Font Pinyon Script */
-    font-size: 3rem;
-    color: var(--primary);
-    margin-bottom: 20px;
-}
+        .quote-box { margin: 30px 0; color: #888; }
+        .quote-icon { font-size: 0.8rem; color: var(--primary); vertical-align: top; }
+        .quote-text {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.3rem;
+            color: #666;
+            display: inline-block;
+            padding: 0 10px;
+            line-height: 1.6;
+        }
 
-/* Quote */
-.quote-box { margin: 30px 0; color: #888; }
-.quote-icon { font-size: 0.8rem; color: var(--primary-light); vertical-align: top; }
-.quote-text {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 1.3rem;
-    color: #666;
-    display: inline-block;
-    padding: 0 10px;
-    line-height: 1.6;
-}
+        .invite-divider {
+            display: flex; align-items: center; justify-content: center; gap: 15px;
+            margin: 30px auto; width: 60%;
+        }
+        .invite-divider .line { flex: 1; height: 1px; background: #ddd; }
+        .invite-divider .heart-icon { color: var(--primary); font-size: 0.9rem; animation: heartbeat 2s infinite; }
+        @keyframes heartbeat { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
 
-/* Divider (Đường kẻ có tim ở giữa) */
-.invite-divider {
-    display: flex; align-items: center; justify-content: center; gap: 15px;
-    margin: 30px auto; width: 60%;
-}
-.invite-divider .line {
-    flex: 1; height: 1px; background: #ddd;
-}
-.invite-divider .heart-icon {
-    color: var(--primary); font-size: 0.9rem;
-    animation: heartbeat 2s infinite;
-}
+        .invite-body { font-size: 1rem; color: #555; line-height: 1.8; margin-bottom: 30px; }
+        .invite-signature { font-family: var(--font-script); font-size: 2.5rem; color: var(--primary); transform: rotate(-3deg); display: inline-block; }
 
-/* Nội dung */
-.invite-body {
-    font-size: 1rem; color: #555; line-height: 1.8; margin-bottom: 30px;
-}
-.invite-signature {
-    font-family: var(--font-script);
-    font-size: 2.5rem;
-    color: var(--primary);
-    transform: rotate(-3deg); /* Nghiêng chữ ký cho tự nhiên */
-    display: inline-block;
-}
+        /* Responsive mobile */
+        @media (max-width: 768px) {
+            .invite-card { padding: 40px 20px; width: 90%; margin: 0 auto; }
+            .invite-logo { width: 100px; }
+            .invite-divider { width: 80%; }
+        }
+            
+        .wc-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        .wc-party-time {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        .wc-time {
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 1rem;
+            margin-bottom: 10px !important;
+            color: #6d4c41 !important;
+        }
+        .wc-date-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .wc-col-side {
+            flex: 1;
+            border-top: 1px solid #6d4c41;
+            border-bottom: 1px solid #6d4c41;
+            padding: 12px 0;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .wc-col-center {
+            font-family: 'Playfair Display', serif;
+            font-size: 6rem;
+            line-height: 0.8;
+            font-weight: 500;
+            color: var(--primary);
+            padding: 0 10px;
+        }
+        .wc-lunar {
+            font-family: 'Playfair Display', italic;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #888;
+            margin-bottom: 40px;
+        }
+        .wc-location { margin-top: 30px; }
+        .loc-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 5px; }
+        .loc-addr { font-size: 1rem; color: #555; margin-bottom: 15px; }
+        .loc-btn { display: inline-block; padding: 8px 20px; border: 1px solid var(--primary); color: var(--primary); border-radius: 30px; text-decoration: none; font-size: 0.9rem; transition: all 0.3s; }
+        .loc-btn:hover { background: var(--primary); color: white; }
 
-/* Responsive mobile */
-@media (max-width: 768px) {
-    .invite-card { padding: 40px 20px; width: 90%; margin: 0 auto; }
-    .invite-logo { width: 100px; }
-    .invite-divider { width: 80%; }
-}
-        
-/* Tiêu đề LỄ BÁO HỶ */
-.wc-title {
-    font-family: 'Playfair Display', serif; /* Font có chân sang trọng */
-    font-size: 2.2rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 10px;
-    font-weight: 500;
-}
-        /* Style cho dòng Khai Tiệc */
-.wc-party-time {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.1rem;       /* Lớn hơn dòng giờ đón khách xíu */
-    color: var(--primary);   /* Dùng màu hồng chủ đạo để nổi bật */
-    font-weight: 600;        /* In đậm hơn */
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-top: 20px;       /* Kéo lên gần dòng trên */
-    margin-bottom: 30px;     /* Cách dòng ngày tháng ra */
-}
+        @media (max-width: 480px) {
+            .wc-col-side { font-size: 1rem; padding: 8px 0; }
+            .wc-col-center { font-size: 4rem; }
+            .wc-title { font-size: 1.8rem; }
+        }
+            
+        /* --- GALLERY STYLE (CHỈNH CHO HIỆU ỨNG LẦN LƯỢT) --- */
+        #gallery {
+            background: #fff5f5;
+            overflow: hidden;
+            padding: 80px 0;
+        }
 
-/* Dòng giờ */
-.wc-time {
-    font-family: 'Montserrat', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    font-size: 1rem;
-    margin-bottom: 10px !important;
-    color: #6d4c41 !important;
-}
+        .bg-deco-text {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-10deg);
+            font-family: 'Great Vibes', cursive;
+            font-size: 6rem; color: rgba(188, 136, 135, 0.05);
+            white-space: nowrap; pointer-events: none; z-index: 0;
+        }
 
-/* Layout Tháng - Ngày - Năm */
-.wc-date-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
-}
+        .gallery-wall {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
+            padding: 10px; position: relative; z-index: 1;
+        }
 
-/* Cột Tháng và Năm (Có gạch trên dưới) */
-.wc-col-side {
-    flex: 1;
-    border-top: 1px solid #6d4c41;    /* Kẻ trên */
-    border-bottom: 1px solid #6d4c41; /* Kẻ dưới */
-    padding: 12px 0;
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    white-space: nowrap; /* Giữ chữ không bị xuống dòng */
-}
+        .photo-card {
+            background: white;
+            padding: 10px 10px 35px 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: rotate(-2deg);
+            position: relative; border-radius: 2px;
+            /* initial state for staggered reveal */
+            opacity: 0;
+            transform: translateY(20px) scale(0.98) rotate(-2deg);
+        }
 
-/* Cột số Ngày ở giữa (To khổng lồ) */
-.wc-col-center {
-    font-family: 'Playfair Display', serif;
-    font-size: 6rem; /* Kích thước số cực lớn */
-    line-height: 0.8;
-    font-weight: 500;
-    color: var(--primary); /* Dùng màu hồng chủ đạo của bạn */
-    padding: 0 10px;
-}
+        .photo-card:nth-child(even) { transform: translateY(20px) scale(0.98) rotate(2deg); }
 
-/* Ngày âm lịch */
-.wc-lunar {
-    font-family: 'Playfair Display', italic;
-    font-style: italic;
-    font-size: 1.1rem;
-    color: #888;
-    margin-bottom: 40px;
-}
+        .photo-card.show {
+            opacity: 1;
+            transform: translateY(0) scale(1) rotate(0deg);
+            z-index: 10;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
 
-/* Phần địa điểm phía dưới */
-.wc-location {
-    margin-top: 30px;
-}
-.loc-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--primary);
-    text-transform: uppercase;
-    margin-bottom: 5px;
-}
-.loc-addr {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 15px;
-}
-.loc-btn {
-    display: inline-block;
-    padding: 8px 20px;
-    border: 1px solid var(--primary);
-    color: var(--primary);
-    border-radius: 30px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: all 0.3s;
-}
-.loc-btn:hover {
-    background: var(--primary);
-    color: white;
-}
+        .mt-30 { margin-top: 30px; }
 
-/* Responsive cho điện thoại */
-@media (max-width: 480px) {
-    .wc-col-side { font-size: 1rem; padding: 8px 0; }
-    .wc-col-center { font-size: 4rem; }
-    .wc-title { font-size: 1.8rem; }
-}
-        
-/* --- GALLERY STYLE --- */
-#gallery {
-    background: #fff5f5; /* Nền hồng phấn siêu nhạt */
-    overflow: hidden;
-    padding: 80px 0;
-}
+        .photo-inner {
+            width: 100%; height: 200px; overflow: hidden; background: #eee;
+        }
+        .photo-inner img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s; filter: sepia(15%);
+        }
+        .photo-card.show .photo-inner img { transform: scale(1.1); filter: sepia(0%); }
 
-/* Chữ trang trí nền */
-.bg-deco-text {
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%) rotate(-10deg);
-    font-family: 'Great Vibes', cursive;
-    font-size: 6rem; color: rgba(188, 136, 135, 0.05);
-    white-space: nowrap; pointer-events: none; z-index: 0;
-}
+        .photo-caption {
+            position: absolute; bottom: 8px; width: 100%; left: 0;
+            text-align: center; color: #BC8887; opacity: 0.5; font-size: 0.8rem;
+        }
 
-.gallery-wall {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
-    padding: 10px; position: relative; z-index: 1;
-}
+        .tape-strip {
+            width: 70px; height: 20px;
+            background-color: rgba(255, 255, 255, 0.5);
+            position: absolute; top: -8px; left: 50%;
+            transform: translateX(-50%) rotate(-1deg);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            backdrop-filter: blur(2px);
+            z-index: 5;
+        }
+        .photo-card:nth-child(odd) .tape-strip { background-color: rgba(246, 229, 141, 0.6); }
+        .photo-card:nth-child(even) .tape-strip { background-color: rgba(255, 190, 118, 0.5); }
 
-/* Khung ảnh Polaroid */
-.photo-card {
-    background: white;
-    padding: 10px 10px 35px 10px; /* Chừa chỗ trống bên dưới */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Hiệu ứng nảy */
-    transform: rotate(-2deg);
-    position: relative; border-radius: 2px;
-}
-
-/* Ảnh chẵn nghiêng ngược lại và tụt xuống */
-.photo-card:nth-child(even) { transform: rotate(2deg); }
-.mt-30 { margin-top: 30px; }
-
-/* Hiệu ứng khi chạm/di chuột */
-.photo-card:hover {
-    transform: scale(1.05) rotate(0deg) !important;
-    z-index: 10;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-}
-
-.photo-inner {
-    width: 100%; height: 200px; overflow: hidden; background: #eee;
-}
-.photo-inner img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 0.6s; filter: sepia(15%);
-}
-.photo-card:hover .photo-inner img { transform: scale(1.1); filter: sepia(0%); }
-
-/* Icon tim nhỏ dưới ảnh */
-.photo-caption {
-    position: absolute; bottom: 8px; width: 100%; left: 0;
-    text-align: center; color: #BC8887; opacity: 0.5; font-size: 0.8rem;
-}
-
-/* Băng dính Washi Tape */
-.tape-strip {
-    width: 70px; height: 20px;
-    background-color: rgba(255, 255, 255, 0.5);
-    position: absolute; top: -8px; left: 50%;
-    transform: translateX(-50%) rotate(-1deg);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-    backdrop-filter: blur(2px);
-    z-index: 5;
-}
-/* Màu băng dính ngẫu nhiên */
-.photo-card:nth-child(odd) .tape-strip { background-color: rgba(246, 229, 141, 0.6); }
-.photo-card:nth-child(even) .tape-strip { background-color: rgba(255, 190, 118, 0.5); }
-
-        /* --- 7. MUSIC CONTROL (VINYL) --- */
-        .music-control {
-            position: fixed; bottom: 20px; left: 20px; z-index: 9999; cursor: pointer;
-            /* Bỏ filter drop-shadow nặng, dùng box-shadow nhẹ */
+        /* --- 7. MUSIC CONTROL (VINYL) - đặt vào khung */ 
+        .mobile-container .music-control {
+            position: absolute; bottom: 20px; left: 20px; z-index: 9999; cursor: pointer;
             border-radius: 50%;
         }
         .vinyl {
@@ -538,317 +478,328 @@
         @keyframes vinylSpin { 100% { transform: rotate(360deg); } }
 
         /* --- 8. GIFT BOX (QR CODE) --- */
-#gift { background: #fdfdfd; } /* Nền trắng kem nhẹ */
-.gift-grid { 
-    display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 30px; 
-}
-.gift-card {
-    background: white; padding: 30px; border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08); text-align: center;
-    flex: 1; min-width: 300px; max-width: 400px;
-    border: 1px solid rgba(188, 136, 135, 0.2); transition: transform 0.3s;
-}
-.gift-card:hover { transform: translateY(-5px); }
-.qr-img { 
-    width: 200px; height: 200px; object-fit: contain; 
-    border: 1px solid #eee; padding: 10px; border-radius: 10px; margin-bottom: 15px;
-}
-.bank-title { font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 5px; }
-.bank-name { font-size: 0.9rem; color: #888; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
-.copy-btn {
-    background: #f0f0f0; color: #555; padding: 8px 15px; border-radius: 5px;
-    font-size: 0.9rem; cursor: pointer; display: inline-block; margin-top: 10px;
-    transition: all 0.2s; border: 1px solid #ddd;
-}
-.copy-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
-.copy-btn i { margin-right: 5px; }
+        #gift { background: #fdfdfd; }
+        .gift-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 30px; }
+        .gift-card {
+            background: white; padding: 30px; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); text-align: center;
+            flex: 1; min-width: 300px; max-width: 400px;
+            border: 1px solid rgba(188, 136, 135, 0.2); transition: transform 0.3s;
+        }
+        .gift-card:hover { transform: translateY(-5px); }
+        .qr-img { width: 200px; height: 200px; object-fit: contain; border: 1px solid #eee; padding: 10px; border-radius: 10px; margin-bottom: 15px; }
+        .bank-title { font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 5px; }
+        .bank-name { font-size: 0.9rem; color: #888; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .copy-btn {
+            background: #f0f0f0; color: #555; padding: 8px 15px; border-radius: 5px;
+            font-size: 0.9rem; cursor: pointer; display: inline-block; margin-top: 10px;
+            transition: all 0.2s; border: 1px solid #ddd;
+        }
+        .copy-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        .copy-btn i { margin-right: 5px; }
 
-        /* --- FOOTER --- */
-        footer { background: #fff; padding: 40px 20px; text-align: center; color: #999; font-size: 0.8rem; }
+        /* FOOTER */
+        footer { background: #fff; padding: 40px 20px; text-align: center; color: #999; font-size: 0.8rem; position: relative; z-index: 2; }
+
+        /* Nếu màn hình rất nhỏ thì cho khung chiếm gần toàn bộ */
+        @media (max-width: 460px) {
+            .mobile-container { border-radius: 0; height: 100vh; padding-bottom: 80px; }
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="falling-leaves">
-        <div class="leaf"></div><div class="leaf"></div>
-        <div class="leaf"></div><div class="leaf"></div>
-        <div class="leaf"></div><div class="leaf"></div>
-    </div>
-
-    <div id="intro-overlay">
-        <div class="intro-content" data-aos="zoom-out">
-            <div class="intro-lebaohy">Lễ Báo Hỷ</div>
-            <div class="intro-names">Quang Khải & Kim Ngân</div>
-            
-            <div class="intro-date">CHỦ NHẬT, 11 . 01 . 2026</div>
-
-            <div id="intro-countdown">
-                <div><span id="intro-days">00</span><small>Ngày</small></div>
-                <span>:</span>
-                <div><span id="intro-hours">00</span><small>Giờ</small></div>
-                <span>:</span>
-                <div><span id="intro-minutes">00</span><small>Phút</small></div>
-                <span>:</span>
-                <div><span id="intro-seconds">00</span><small>Giây</small></div>
-            </div>
-
-            <button class="btn-main" onclick="openInvitation()">
-                <i class="fas fa-heart"></i>  Mở Thiệp
-            </button>
+    <div class="mobile-container" id="mobileContainer">
+        <!-- Falling leaves: bám vào mobile-container -->
+        <div class="falling-leaves">
+            <div class="leaf"></div><div class="leaf"></div>
+            <div class="leaf"></div><div class="leaf"></div>
+            <div class="leaf"></div><div class="leaf"></div>
         </div>
-    </div>
 
-    <header class="hero" id="home">
-        <div class="hero-bg"></div>
-        <div class="hero-overlay"></div>
-        <div class="hero-content" data-aos="fade-up" data-aos-delay="200">
-            <div style="text-transform: uppercase; letter-spacing: 3px; font-size: 0.9rem; margin-bottom: 10px;">Save The Date</div>
-            <div class="hero-title">Quang Khải <br> <span style="font-size: 2.5rem; font-family: var(--font-main);">&</span> Kim Ngân</div>
-            <div class="hero-date">11 . 01 . 2026</div>
-        </div>
-    </header>
-
-    <section id="couple">
-        <div class="container">
-            <div class="section-title" data-aos="fade-up">Cô Dâu & Chú Rể</div>
-            <div class="couple-wrapper">
+        <!-- Intro overlay: absolute trong mobile container -->
+        <div id="intro-overlay">
+            <div class="intro-content" data-aos="zoom-out">
+                <div class="intro-lebaohy">Lễ Báo Hỷ</div>
+                <div class="intro-names">Quang Khải & Kim Ngân</div>
                 
-                <div class="couple-card" data-aos="fade-up">
-                    <div class="avatar-frame">
-                        <img src="image/3.jpg" alt="Chú Rể" class="avatar-img">
-                        <div class="deco-icon deco-flower"><i class="fas fa-leaf"></i></div>
-                        <div class="deco-icon deco-heart"><i class="fas fa-heart"></i></div>
-                    </div>
-                    <h3 class="name-highlight">Quang Khải</h3>
-                    <p class="couple-desc">Chàng trai Gia Lai yêu công nghệ, điềm tĩnh, thích bóng chuyền, bờ vai vững chắc của Ngân.</p>
+                <div class="intro-date">CHỦ NHẬT, 11 . 01 . 2026</div>
+
+                <div id="intro-countdown">
+                    <div><span id="intro-days">00</span><small>Ngày</small></div>
+                    <span>:</span>
+                    <div><span id="intro-hours">00</span><small>Giờ</small></div>
+                    <span>:</span>
+                    <div><span id="intro-minutes">00</span><small>Phút</small></div>
+                    <span>:</span>
+                    <div><span id="intro-seconds">00</span><small>Giây</small></div>
                 </div>
 
-                <div class="couple-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="avatar-frame">
-                        <img src="image/4.jpg" alt="Cô Dâu" class="avatar-img">
-                         <div class="deco-icon deco-flower"><i class="fas fa-spa"></i></div>
-                         <div class="deco-icon deco-heart"><i class="fas fa-heart"></i></div>
-                    </div>
-                    <h3 class="name-highlight">Kim Ngân</h3>
-                    <p class="couple-desc">Cô nàng Bình Định xinh đẹp, sâu sắc, thích gọn gàn. Là cả thế giới của Khải.</p>
-                </div>
-
+                <button class="btn-main" onclick="openInvitation()">
+                    <i class="fas fa-heart"></i>  Mở Thiệp
+                </button>
             </div>
         </div>
-    </section>
 
-<section id="invitation">
-        <div class="container">
-            <div class="invite-card" data-aos="zoom-in" data-aos-duration="1000">
-                
-                <span class="corner top-left"></span>
-                <span class="corner top-right"></span>
-                <span class="corner bottom-left"></span>
-                <span class="corner bottom-right"></span>
+        <!-- Nội dung chính (vẫn giữ nguyên cấu trúc) -->
+        <header class="hero" id="home">
+            <div class="hero-bg"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content" data-aos="fade-up" data-aos-delay="200">
+                <div style="text-transform: uppercase; letter-spacing: 3px; font-size: 0.9rem; margin-bottom: 10px;">Save The Date</div>
+                <div class="hero-title">Quang Khải <br> <span style="font-size: 2.5rem; font-family: var(--font-main);">&</span> Kim Ngân</div>
+                <div class="hero-date">11 . 01 . 2026</div>
+            </div>
+        </header>
 
-                <div class="logo-wrapper">
-                    <img src="image/logo.png" alt="Wedding Logo" class="invite-logo">
+        <section id="couple">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">Cô Dâu & Chú Rể</div>
+                <div class="couple-wrapper">
+                    
+                    <div class="couple-card" data-aos="fade-up">
+                        <div class="avatar-frame">
+                            <img src="image/3.jpg" alt="Chú Rể" class="avatar-img">
+                            <div class="deco-icon deco-flower"><i class="fas fa-leaf"></i></div>
+                            <div class="deco-icon deco-heart"><i class="fas fa-heart"></i></div>
+                        </div>
+                        <h3 class="name-highlight">Quang Khải</h3>
+                        <p class="couple-desc">Chàng trai Gia Lai yêu công nghệ, điềm tĩnh, thích bóng chuyền, bờ vai vững chắc của Ngân.</p>
+                    </div>
+
+                    <div class="couple-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="avatar-frame">
+                            <img src="image/4.jpg" alt="Cô Dâu" class="avatar-img">
+                             <div class="deco-icon deco-flower"><i class="fas fa-spa"></i></div>
+                             <div class="deco-icon deco-heart"><i class="fas fa-heart"></i></div>
+                        </div>
+                        <h3 class="name-highlight">Kim Ngân</h3>
+                        <p class="couple-desc">Cô nàng Bình Định xinh đẹp, sâu sắc, thích gọn gàn. Là cả thế giới của Khải.</p>
+                    </div>
+
                 </div>
+            </div>
+        </section>
 
-                <h3 class="invite-title">Lời Ngỏ</h3>
+        <section id="invitation">
+            <div class="container">
+                <div class="invite-card" data-aos="zoom-in" data-aos-duration="1000">
+                    
+                    <span class="corner top-left"></span>
+                    <span class="corner top-right"></span>
+                    <span class="corner bottom-left"></span>
+                    <span class="corner bottom-right"></span>
 
-                <div class="quote-box">
-                    <i class="fas fa-quote-left quote-icon"></i>
-                    <p class="quote-text">
-                        "Tình yêu không phải là nhìn nhau,<br>mà là cùng nhau nhìn về một hướng."
+                    <div class="logo-wrapper">
+                        <img src="image/logo.png" alt="Wedding Logo" class="invite-logo">
+                    </div>
+
+                    <h3 class="invite-title">Lời Ngỏ</h3>
+
+                    <div class="quote-box">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <p class="quote-text">
+                            "Tình yêu không phải là nhìn nhau,<br>mà là cùng nhau nhìn về một hướng."
+                        </p>
+                        <i class="fas fa-quote-right quote-icon"></i>
+                    </div>
+
+                    <div class="invite-divider">
+                        <span class="line"></span>
+                        <span class="heart-icon"><i class="fas fa-heart"></i></span>
+                        <span class="line"></span>
+                    </div>
+
+                    <p class="invite-body">
+                        Với tất cả sự trân trọng và tình cảm yêu thương.<br>
+                        Gia đình chúng mình vui mừng kính mời bạn đến tham dự<br>
+                        <strong>Lễ Báo Hỷ</strong> chung vui tiệc rượu với chúng mình!
                     </p>
-                    <i class="fas fa-quote-right quote-icon"></i>
+                    
+                    <p class="invite-signature">Quang Khải & Kim Ngân</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="events">
+            <div class="container">
+                <div class="wedding-card-design" data-aos="fade-up">
+                    
+                    <h2 class="wc-title">TIỆC MỪNG LỄ BÁO HỶ</h2>
+                    
+                    <div class="wc-time">ĐÓN KHÁCH LÚC 11:00 CHỦ NHẬT</div>
+                    
+                    <div class="wc-party-time">KHAI TIỆC LÚC 12:00</div>
+                    
+                    <div class="wc-date-row">
+                        <div class="wc-col-side">
+                            <span>THÁNG 01</span>
+                        </div>
+                        <div class="wc-col-center">
+                            11
+                        </div>
+                        <div class="wc-col-side">
+                            <span>NĂM 2026</span>
+                        </div>
+                    </div>
+
+                    <div class="wc-lunar">(Tức ngày 23 tháng 11 năm Ất Tỵ)</div>
                 </div>
 
-                <div class="invite-divider">
-                    <span class="line"></span>
-                    <span class="heart-icon"><i class="fas fa-heart"></i></span>
-                    <span class="line"></span>
+                <div class="calendar-box" data-aos="fade-up">
+                    <div style="font-weight: 700; color: var(--primary); margin-bottom: 15px;">THÁNG 01 / 2026</div>
+                    <div class="cal-grid">
+                        <div class="cal-head">CN</div><div class="cal-head">T2</div><div class="cal-head">T3</div><div class="cal-head">T4</div><div class="cal-head">T5</div><div class="cal-head">T6</div><div class="cal-head">T7</div>
+                        <div class="cal-day"></div><div class="cal-day"></div><div class="cal-day"></div><div class="cal-day"></div><div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div>
+                        <div class="cal-day">4</div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div><div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day">10</div>
+                        <div class="cal-day special-day">11</div><div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day">17</div>
+                        <div class="cal-day">18</div><div class="cal-day">19</div><div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day">24</div>
+                        <div class="cal-day">25</div><div class="cal-day">26</div><div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day">31</div>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Lễ+Báo+Hỷ+Quang+Khải+Kim+Ngân" target="_blank" class="btn-main" style="font-size: 0.9rem;">Lưu Lịch</a>
+                    </div>
                 </div>
 
-                <p class="invite-body">
-                    Với tất cả sự trân trọng và tình cảm yêu thương.<br>
-                    Gia đình chúng mình vui mừng kính mời bạn đến tham dự<br>
-                    <strong>Lễ Báo Hỷ</strong> chung vui tiệc rượu với chúng mình!
-                </p>
+            </div>
+        </section>
+
+        <section id="location">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">Địa Điểm Tổ Chức</div>
                 
-                <p class="invite-signature">Quang Khải & Kim Ngân</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="events">
-<div class="container">
-<div class="wedding-card-design" data-aos="fade-up">
-    
-    <h2 class="wc-title">TIỆC MỪNG LỄ BÁO HỶ</h2>
-    
-    <div class="wc-time">ĐÓN KHÁCH LÚC 11:00 CHỦ NHẬT</div>
-    
-    <div class="wc-party-time">KHAI TIỆC LÚC 12:00</div>
-    
-    <div class="wc-date-row">
-        <div class="wc-col-side">
-            <span>THÁNG 01</span>
-        </div>
-        <div class="wc-col-center">
-            11
-        </div>
-        <div class="wc-col-side">
-            <span>NĂM 2026</span>
-        </div>
-    </div>
-
-    <div class="wc-lunar">(Tức ngày 23 tháng 11 năm Ất Tỵ)</div>
-    </div> <div class="calendar-box" data-aos="fade-up">
-        <div style="font-weight: 700; color: var(--primary); margin-bottom: 15px;">THÁNG 01 / 2026</div>
-        <div class="cal-grid">
-            <div class="cal-head">CN</div><div class="cal-head">T2</div><div class="cal-head">T3</div><div class="cal-head">T4</div><div class="cal-head">T5</div><div class="cal-head">T6</div><div class="cal-head">T7</div>
-            <div class="cal-day"></div><div class="cal-day"></div><div class="cal-day"></div><div class="cal-day"></div><div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div>
-            <div class="cal-day">4</div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div><div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day">10</div>
-            <div class="cal-day special-day">11</div><div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day">17</div>
-            <div class="cal-day">18</div><div class="cal-day">19</div><div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day">24</div>
-            <div class="cal-day">25</div><div class="cal-day">26</div><div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day">31</div>
-        </div>
-        <div style="margin-top: 20px;">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Lễ+Báo+Hỷ+Quang+Khải+Kim+Ngân" target="_blank" class="btn-main" style="font-size: 0.9rem;">Lưu Lịch</a>
-        </div>
-    </div>
-
-</div> </section>
-
-    <section id="location">
-        <div class="container">
-            <div class="section-title" data-aos="fade-up">Địa Điểm Tổ Chức</div>
-            
-            <div class="location-info" data-aos="fade-up">
-                <h3 class="venue-name">Trung Tâm Hội Nghị Tiệc Cưới<br>Hera Palace</h3>
-                <p class="venue-address">
-                    <i class="fas fa-map-marker-alt"></i> Đường Lê Thị Hoa, Phường Dĩ An, TP.HCM
-                </p>
-                <a href="https://maps.app.goo.gl/SLFnJ5Ga73G8WKz89" target="_blank" class="btn-direction">
-                    <i class="fas fa-directions"></i> Xem chỉ đường
-                </a>
-            </div>
-
-            <div class="map-frame" data-aos="zoom-in" style="margin-top: 30px;">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.067927074851!2d106.74386299999999!3d10.8824382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d9cd8a22b7db%3A0xff39772c134bea8f!2sNh%C3%A0%20H%C3%A0ng%20Hera%20Palace!5e0!3m2!1svi!2s!4v1767202423847!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-        </div>
-    </section>
-    
-   <section id="gallery">
-    <div class="container">
-        <div class="section-title" data-aos="fade-up">Album Hình Cưới</div>
-        
-        <div class="bg-deco-text">Sweet Moments</div>
-
-        <div class="gallery-wall">
-            <div class="photo-card" data-aos="fade-up" data-aos-delay="0">
-                <div class="tape-strip"></div>
-                <div class="photo-inner">
-                    <img src="image/img1.jpg" alt="Wedding Photo 1">
-                </div>
-                <div class="photo-caption"><i class="fas fa-heart"></i></div>
-            </div>
-
-            <div class="photo-card mt-30" data-aos="fade-up" data-aos-delay="150">
-                <div class="tape-strip"></div>
-                <div class="photo-inner">
-                    <img src="image/img2.jpg" alt="Wedding Photo 2">
-                </div>
-                <div class="photo-caption"><i class="fas fa-heart"></i></div>
-            </div>
-
-            <div class="photo-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="tape-strip"></div>
-                <div class="photo-inner">
-                    <img src="image/img3.jpg" alt="Wedding Photo 3">
-                </div>
-                <div class="photo-caption"><i class="fas fa-heart"></i></div>
-            </div>
-
-            <div class="photo-card mt-30" data-aos="fade-up" data-aos-delay="450">
-                <div class="tape-strip"></div>
-                <div class="photo-inner">
-                    <img src="image/img4.jpg" alt="Wedding Photo 4">
-                </div>
-                <div class="photo-caption"><i class="fas fa-heart"></i></div>
-            </div>
-        </div>
-        
-        <div style="text-align: center; margin-top: 50px;" data-aos="fade-up">
-            <p style="font-family: 'Great Vibes'; font-size: 1.8rem; color: #BC8887;">Hạnh phúc ngày chung đôi</p>
-        </div>
-    </div>
-</section>
-
-    <section id="rsvp">
-        <div class="container">
-            <div style="text-align: center; margin-top: 50px;" data-aos="fade-up">
-                <div class="section-title" style="margin-bottom: 20px;">Xác Nhận tham gia</div>
-                <p style="color: #666; margin-bottom: 20px;">Sự hiện diện của bạn là niềm vinh hạnh của chúng mình</p>
-                <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
-                    <a href="https://m.me/ngan.kim.17449" class="btn-main" style="background: #0084FF; box-shadow: 0 4px 10px rgba(0, 132, 255, 0.3); width: 80%;">
-                        <i class="fab fa-facebook-messenger"></i> Nhắn tin Cô Dâu
-                    </a>
-                    <a href="https://m.me/nq.khai.97" class="btn-main" style="background: #0084FF; box-shadow: 0 4px 10px rgba(0, 132, 255, 0.3); width: 80%;">
-                        <i class="fab fa-facebook-messenger"></i> Nhắn tin Chú Rể
+                <div class="location-info" data-aos="fade-up">
+                    <h3 class="venue-name">Trung Tâm Hội Nghị Tiệc Cưới<br>Hera Palace</h3>
+                    <p class="venue-address">
+                        <i class="fas fa-map-marker-alt"></i> Đường Lê Thị Hoa, Phường Dĩ An, TP.HCM
+                    </p>
+                    <a href="https://maps.app.goo.gl/SLFnJ5Ga73G8WKz89" target="_blank" class="btn-direction">
+                        <i class="fas fa-directions"></i> Xem chỉ đường
                     </a>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="gift">
-    <div class="container">
-        <div class="section-title" data-aos="fade-up">Hộp Mừng Cưới</div>
-        <div style="text-align: center; max-width: 600px; margin: 0 auto; color: #666;" data-aos="fade-up">
-            Nếu không thể tham dự, bạn vẫn có thể gửi gắm tình cảm và lời chúc phúc đến chúng mình qua hộp mừng cưới này nhé!
-        </div>
-
-        <div class="gift-grid">
-            <div class="gift-card" data-aos="fade-right">
-                <div class="bank-title">Mừng Cưới Chú Rể</div>
-                <img src="image/qrkhai.jpg" alt="QR Chú Rể" class="qr-img">
-                <div class="bank-name">Ngân Hàng BIDV</div>
-                <div style="font-weight: 600; color: #333; font-size: 1.1rem;">NGUYEN QUANG KHAI</div>
-                
-                <div class="copy-btn" onclick="copyToClipboard('0389456349', this)">
-                    <i class="far fa-copy"></i> 0389456349
+                <div class="map-frame" data-aos="zoom-in" style="margin-top: 30px;">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.067927074851!2d106.74386299999999!3d10.8824382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d9cd8a22b7db%3A0xff39772c134bea8f!2sNh%C3%A0%20H%C3%A0ng%20Hera%20Palace!5e0!3m2!1svi!2s!4v1767202423847!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
-
-            <div class="gift-card" data-aos="fade-left" data-aos-delay="100">
-                <div class="bank-title">Mừng Cưới Cô Dâu</div>
-                <img src="image/qrngan.jpeg" alt="QR Cô Dâu" class="qr-img">
-                <div class="bank-name">Ngân Hàng BIDV</div>
-                <div style="font-weight: 600; color: #333; font-size: 1.1rem;">LE KIM NGAN</div>
+        </section>
+        
+        <section id="gallery">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">Album Hình Cưới</div>
                 
-                <div class="copy-btn" onclick="copyToClipboard('9876543210', this)">
-                    <i class="far fa-copy"></i> 6513108193
+                <div class="bg-deco-text">Sweet Moments</div>
+
+                <div class="gallery-wall">
+                    <div class="photo-card" data-aos="fade-up" data-aos-delay="0">
+                        <div class="tape-strip"></div>
+                        <div class="photo-inner">
+                            <img src="image/img1.jpg" alt="Wedding Photo 1">
+                        </div>
+                        <div class="photo-caption"><i class="fas fa-heart"></i></div>
+                    </div>
+
+                    <div class="photo-card mt-30" data-aos="fade-up" data-aos-delay="150">
+                        <div class="tape-strip"></div>
+                        <div class="photo-inner">
+                            <img src="image/img2.jpg" alt="Wedding Photo 2">
+                        </div>
+                        <div class="photo-caption"><i class="fas fa-heart"></i></div>
+                    </div>
+
+                    <div class="photo-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="tape-strip"></div>
+                        <div class="photo-inner">
+                            <img src="image/img3.jpg" alt="Wedding Photo 3">
+                        </div>
+                        <div class="photo-caption"><i class="fas fa-heart"></i></div>
+                    </div>
+
+                    <div class="photo-card mt-30" data-aos="fade-up" data-aos-delay="450">
+                        <div class="tape-strip"></div>
+                        <div class="photo-inner">
+                            <img src="image/img4.jpg" alt="Wedding Photo 4">
+                        </div>
+                        <div class="photo-caption"><i class="fas fa-heart"></i></div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 50px;" data-aos="fade-up">
+                    <p style="font-family: 'Great Vibes'; font-size: 1.8rem; color: #BC8887;">Hạnh phúc ngày chung đôi</p>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
 
-    <div class="music-control" onclick="toggleMusic()">
-        <div class="vinyl" id="vinyl">
-            <div class="vinyl-label"><i class="fas fa-music vinyl-icon"></i></div>
-        </div>
-        <audio id="bg-music" loop>
-            <source src="1000.webm" type="audio/webm">
-        </audio>
-    </div>
+        <section id="rsvp">
+            <div class="container">
+                <div style="text-align: center; margin-top: 50px;" data-aos="fade-up">
+                    <div class="section-title" style="margin-bottom: 20px;">Xác Nhận tham gia</div>
+                    <p style="color: #666; margin-bottom: 20px;">Sự hiện diện của bạn là niềm vinh hạnh của chúng mình</p>
+                    <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
+                        <a href="https://m.me/ngan.kim.17449" class="btn-main" style="background: #0084FF; box-shadow: 0 4px 10px rgba(0, 132, 255, 0.3); width: 80%;">
+                            <i class="fab fa-facebook-messenger"></i> Nhắn tin Cô Dâu
+                        </a>
+                        <a href="https://m.me/nq.khai.97" class="btn-main" style="background: #0084FF; box-shadow: 0 4px 10px rgba(0, 132, 255, 0.3); width: 80%;">
+                            <i class="fab fa-facebook-messenger"></i> Nhắn tin Chú Rể
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <footer>
-        <p style="font-size: 1.2rem; font-family: var(--font-script); margin-bottom: 10px;">Quang Khải & Kim Ngân</p>
-        <p>Thank you for being part of our big day!</p>
-        <div style="margin-top: 20px; font-size: 0.9rem; opacity: 0.7;">
-            Made with <span class="footer-heart">❤</span> for our wedding.
+        <section id="gift">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">Hộp Mừng Cưới</div>
+                <div style="text-align: center; max-width: 600px; margin: 0 auto; color: #666;" data-aos="fade-up">
+                    Nếu không thể tham dự, bạn vẫn có thể gửi gắm tình cảm và lời chúc phúc đến chúng mình qua hộp mừng cưới này nhé!
+                </div>
+
+                <div class="gift-grid">
+                    <div class="gift-card" data-aos="fade-right">
+                        <div class="bank-title">Mừng Cưới Chú Rể</div>
+                        <img src="image/qrkhai.jpg" alt="QR Chú Rể" class="qr-img">
+                        <div class="bank-name">Ngân Hàng BIDV</div>
+                        <div style="font-weight: 600; color: #333; font-size: 1.1rem;">NGUYEN QUANG KHAI</div>
+                        
+                        <div class="copy-btn" onclick="copyToClipboard('0389456349', this)">
+                            <i class="far fa-copy"></i> 0389456349
+                        </div>
+                    </div>
+
+                    <div class="gift-card" data-aos="fade-left" data-aos-delay="100">
+                        <div class="bank-title">Mừng Cưới Cô Dâu</div>
+                        <img src="image/qrngan.jpeg" alt="QR Cô Dâu" class="qr-img">
+                        <div class="bank-name">Ngân Hàng BIDV</div>
+                        <div style="font-weight: 600; color: #333; font-size: 1.1rem;">LE KIM NGAN</div>
+                        
+                        <div class="copy-btn" onclick="copyToClipboard('9876543210', this)">
+                            <i class="far fa-copy"></i> 6513108193
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Music control (bám vào khung) -->
+        <div class="music-control" onclick="toggleMusic()">
+            <div class="vinyl" id="vinyl">
+                <div class="vinyl-label"><i class="fas fa-music vinyl-icon"></i></div>
+            </div>
+            <audio id="bg-music" loop>
+                <source src="1000.webm" type="audio/webm">
+            </audio>
         </div>
-    </footer>
+
+        <footer>
+            <p style="font-size: 1.2rem; font-family: var(--font-script); margin-bottom: 10px;">Quang Khải & Kim Ngân</p>
+            <p>Thank you for being part of our big day!</p>
+            <div style="margin-top: 20px; font-size: 0.9rem; opacity: 0.7;">
+                Made with <span class="footer-heart">❤</span> for our wedding.
+            </div>
+        </footer>
+
+    </div> <!-- end mobile-container -->
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -859,8 +810,10 @@
         var audio = document.getElementById("bg-music");
         var vinyl = document.getElementById("vinyl");
         var overlay = document.getElementById("intro-overlay");
+        var mobileContainer = document.getElementById("mobileContainer");
 
         function openInvitation() {
+            // translateY(-100%) để ẩn overlay lên trên khung mobile-container
             overlay.style.transform = "translateY(-100%)";
             setTimeout(() => { if (audio.paused) playMusic(); }, 600);
         }
@@ -875,49 +828,80 @@
         }
 
         // Hàm copy số tài khoản
-function copyToClipboard(text, btnElement) {
-    navigator.clipboard.writeText(text).then(function() {
-        // Đổi màu nút tạm thời để báo thành công
-        let originalText = btnElement.innerHTML;
-        btnElement.innerHTML = '<i class="fas fa-check"></i> Đã sao chép';
-        btnElement.style.background = "#4CAF50";
-        btnElement.style.color = "#fff";
-        
-        setTimeout(function() {
-            btnElement.innerHTML = originalText;
-            btnElement.style.background = "#f0f0f0";
-            btnElement.style.color = "#555";
-        }, 2000);
-    }, function(err) {
-        console.error('Không thể sao chép', err);
-    });
-}
+        function copyToClipboard(text, btnElement) {
+            navigator.clipboard.writeText(text).then(function() {
+                let originalText = btnElement.innerHTML;
+                btnElement.innerHTML = '<i class="fas fa-check"></i> Đã sao chép';
+                btnElement.style.background = "#4CAF50";
+                btnElement.style.color = "#fff";
+                
+                setTimeout(function() {
+                    btnElement.innerHTML = originalText;
+                    btnElement.style.background = "#f0f0f0";
+                    btnElement.style.color = "#555";
+                }, 2000);
+            }, function(err) {
+                console.error('Không thể sao chép', err);
+            });
+        }
 
         // --- JS ĐẾM NGƯỢC (CHẠY CHO CẢ 2 BỘ ĐẾM) ---
-const targetDate = new Date("Jan 11, 2026 11:00:00").getTime();
+        const targetDate = new Date("Jan 11, 2026 11:00:00").getTime();
 
-const countdownInterval = setInterval(function() {
-    const now = new Date().getTime();
-    const distance = targetDate - now;
+        const countdownInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
 
-    const d = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const s = Math.floor((distance % (1000 * 60)) / 1000);
+            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((distance % (1000 * 60)) / 1000);
 
-    // Cập nhật bộ đếm ở màn hình Intro (Nếu có)
-    if(document.getElementById("intro-days")) {
-        document.getElementById("intro-days").innerText = d < 10 ? "0" + d : d;
-        document.getElementById("intro-hours").innerText = h < 10 ? "0" + h : h;
-        document.getElementById("intro-minutes").innerText = m < 10 ? "0" + m : m;
-        document.getElementById("intro-seconds").innerText = s < 10 ? "0" + s : s;
-    }
-    if (distance < 0) {
-        clearInterval(countdownInterval);
-        // Xử lý khi hết giờ (Tùy chọn)
-    }
-}, 1000);
-        
+            if(document.getElementById("intro-days")) {
+                document.getElementById("intro-days").innerText = d < 10 ? "0" + d : d;
+                document.getElementById("intro-hours").innerText = h < 10 ? "0" + h : h;
+                document.getElementById("intro-minutes").innerText = m < 10 ? "0" + m : m;
+                document.getElementById("intro-seconds").innerText = s < 10 ? "0" + s : s;
+            }
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+            }
+        }, 1000);
+
+        // --- GALLERY: hiện từng ảnh khi gallery visible (stagger) ---
+        (function() {
+            const gallery = document.getElementById('gallery');
+            if (!gallery) return;
+            const photoCards = gallery.querySelectorAll('.photo-card');
+
+            // Nếu trình duyệt hỗ trợ IntersectionObserver -> kích hoạt khi section gallery vào view
+            if ('IntersectionObserver' in window) {
+                const io = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            photoCards.forEach((el, i) => {
+                                setTimeout(() => el.classList.add('show'), i * 300); // mỗi ảnh cách nhau 300ms
+                            });
+                            io.disconnect();
+                        }
+                    });
+                }, { root: mobileContainer, threshold: 0.15 });
+                io.observe(gallery);
+            } else {
+                // fallback: nếu không có IO thì bật stagger sau 600ms
+                setTimeout(() => { photoCards.forEach((el, i) => setTimeout(()=> el.classList.add('show'), i*300)); }, 600);
+            }
+        })();
+
+        // Optional: nếu muốn tự động đóng overlay khi user scroll trong khung (ví dụ kéo lên)
+        mobileContainer.addEventListener('scroll', function() {
+            // nếu user scroll (và overlay vẫn ở vị trí ban đầu) -> ẩn overlay
+            if (overlay && overlay.style.transform === '') {
+                // không ép buộc, chỉ làm khi scroll trên container và overlay vẫn che
+                overlay.style.transform = "translateY(-100%)";
+            }
+        }, { passive: true });
+
     </script>
 </body>
 </html>
