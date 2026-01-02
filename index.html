@@ -272,25 +272,50 @@ body.no-scroll {
             letter-spacing: 1px;
         }
 
-        /* --- 3. HERO SECTION (Tối ưu GPU) --- */
-        .hero {
-            height: 100vh; position: relative; overflow: hidden;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white;
-        }
-        .hero-bg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('image/background1.jpg') center center / cover no-repeat;
-            z-index: -1;
-            transform: scale(1);
-            /* Zoom nhẹ bằng GPU, không dùng animation liên tục để đỡ nóng máy */
-            will-change: transform; 
-        }
-        .hero-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.3);
-        }
-        .hero-title { font-family: var(--font-script); font-size: 4.5rem; margin-bottom: 10px; line-height: 1.1; text-shadow: 0 2px 5px rgba(0,0,0,0.3); }
-        .hero-date { padding: 8px 25px; border: 1px solid rgba(255,255,255,0.8); font-size: 1rem; letter-spacing: 2px; border-radius: 50px; backdrop-filter: none; /* Bỏ blur cho nhẹ */ }
+        /* --- 3. HERO SECTION (Đã sửa lỗi hiển thị ảnh) --- */
+.hero {
+    height: 100vh; 
+    position: relative; 
+    overflow: hidden;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    text-align: center; 
+    color: white;
+}
+
+.hero-bg {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    /* Kiểm tra kỹ đường dẫn ảnh của bạn */
+    background: url('image/background1.jpg') center center / cover no-repeat;
+    
+    /* --- SỬA DÒNG NÀY --- */
+    z-index: 0; /* Đổi từ -1 thành 0 */
+    /* -------------------- */
+    
+    transform: scale(1);
+    will-change: transform; 
+}
+
+.hero-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.3);
+    
+    /* --- THÊM DÒNG NÀY --- */
+    z-index: 1; /* Nằm đè lên ảnh */
+    /* -------------------- */
+}
+
+/* Thêm class này để chữ nổi lên trên cùng */
+.hero-content {
+    position: relative;
+    z-index: 2; /* Cao nhất */
+}
+
+/* Các phần chữ giữ nguyên */
+.hero-title { font-family: var(--font-script); font-size: 4.5rem; margin-bottom: 10px; line-height: 1.1; text-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+.hero-date { padding: 8px 25px; border: 1px solid rgba(255,255,255,0.8); font-size: 1rem; letter-spacing: 2px; border-radius: 50px; }
 
         /* --- 4. COUPLE CARD (CÓ TRANG TRÍ) --- */
         .couple-wrapper { display: flex; flex-direction: column; gap: 50px; margin-top: 20px; }
@@ -850,7 +875,7 @@ body.no-scroll {
         </div>
     </div>
 
-    <div class="wc-lunar">(Tức ngày 23 tháng 11 năm Ất Tỵ)</div>
+    <div class="wc-lunar">(Nhằm ngày 23 tháng 11 năm Ất Tỵ)</div>
     </div> <div class="calendar-box" data-aos="fade-up">
         <div style="font-weight: 700; color: var(--primary); margin-bottom: 15px;">THÁNG 01 / 2026</div>
         <div class="cal-grid">
