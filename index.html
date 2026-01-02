@@ -601,7 +601,7 @@ body.no-scroll {
             .wc-title { font-size: 1.8rem; }
         }
         
-       /* --- GALLERY STYLE (CHẾ ĐỘ 1 CỘT - ẢNH TO RÕ) --- */
+       /* --- GALLERY STYLE --- */
 #gallery { 
     background: #fff5f5; 
     overflow: hidden; 
@@ -702,6 +702,52 @@ body.no-scroll {
         .vinyl-icon { color: white; font-size: 10px; }
         .spinning { animation: vinylSpin 3s linear infinite; }
         @keyframes vinylSpin { 100% { transform: rotate(360deg); } }
+
+        /* --- RSVP FORM STYLE --- */
+.rsvp-form {
+    max-width: 400px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 30px 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.rsvp-form input, 
+.rsvp-form select, 
+.rsvp-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: var(--font-main);
+    font-size: 0.95rem;
+    outline: none;
+    background: #fafafa;
+    transition: all 0.3s;
+}
+
+.rsvp-form input:focus, 
+.rsvp-form select:focus, 
+.rsvp-form textarea:focus {
+    border-color: var(--primary);
+    background: #fff;
+    box-shadow: 0 0 5px rgba(188, 136, 135, 0.2);
+}
+
+.submit-btn {
+    width: 100%;
+    margin-top: 10px;
+    border: none;
+}
+
+/* Tin nhắn thông báo thành công/lỗi */
+.msg-success { color: #4CAF50; font-weight: 600; }
+.msg-error { color: #f44336; font-weight: 600; }
 
         /* --- 8. GIFT BOX (QR CODE) --- */
         #gift { background: #fdfdfd; } /* Nền trắng kem nhẹ */
@@ -963,9 +1009,37 @@ body.no-scroll {
 
     <section id="rsvp">
         <div class="container">
-            <div style="text-align: center; margin-top: 50px;" data-aos="fade-up">
-                <div class="section-title" style="margin-bottom: 20px;">Xác Nhận tham gia</div>
-                <p style="color: #666; margin-bottom: 20px;">Sự hiện diện của bạn là niềm vinh hạnh của chúng mình</p>
+<div style="text-align: center; margin-top: 50px;" data-aos="fade-up">
+            <div class="section-title" style="margin-bottom: 20px;">Xác Nhận Tham Gia</div>
+            <p style="color: #666; margin-bottom: 30px;">
+                Sự hiện diện của bạn là niềm vinh hạnh của chúng mình!<br>
+            </p>
+
+            <form id="wedding-form" class="rsvp-form">
+                <div class="input-group">
+                    <input type="text" name="TenKhach" placeholder="Tên của bạn" required>
+                </div>
+                
+                <div class="input-group">
+                    <select name="SoLuong" required>
+                        <option value="" disabled selected>Bạn đi mấy người?</option>
+                        <option value="1">Mình đi 1 mình</option>
+                        <option value="2">Mình đi 2 người</option>
+                        <option value="3">Mình đi 3 người</option>
+                        <option value="4">Mình đi 4 người</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <textarea name="LoiNhan" rows="3" placeholder="Lời chúc gửi đến cô dâu chú rể..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-main submit-btn">
+                    <i class="fas fa-paper-plane"></i> Gửi Xác Nhận
+                </button>
+            </form>
+            <div id="form-message" style="margin-top: 15px; display: none;"></div>
+            </div>
                 <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
                     <a href="https://m.me/ngan.kim.17449" class="btn-main" style="background: #0084FF; box-shadow: 0 4px 10px rgba(0, 132, 255, 0.3); width: 80%;">
                         <i class="fab fa-facebook-messenger"></i> Nhắn tin Cô Dâu
@@ -1102,6 +1176,40 @@ const countdownInterval = setInterval(function() {
         // Xử lý khi hết giờ (Tùy chọn)
     }
 }, 1000);
+
+        /* --- XỬ LÝ GỬI FORM VỀ GOOGLE SHEET --- */
+// Dán link Web App URL bạn copy ở Bước 1 vào dòng dưới đây
+const scriptURL = 'HÃY_DÁN_LINK_GOOGLE_APPS_SCRIPT_CỦA_BẠN_VÀO_ĐÂY';
+
+const form = document.forms['wedding-form'];
+const msgBox = document.getElementById("form-message");
+const btnSubmit = document.querySelector(".submit-btn");
+
+form.addEventListener('submit', e => {
+    e.preventDefault();
+    
+    // Hiệu ứng đang gửi
+    btnSubmit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang gửi...';
+    btnSubmit.disabled = true;
+    msgBox.style.display = "none";
+
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+            // Gửi thành công
+            msgBox.style.display = "block";
+            msgBox.innerHTML = '<span class="msg-success"><i class="fas fa-check-circle"></i> Cảm ơn bạn! Chúng mình đã nhận được thông tin.</span>';
+            btnSubmit.innerHTML = '<i class="fas fa-check"></i> Đã Gửi Xong';
+            form.reset(); // Xóa trắng form
+        })
+        .catch(error => {
+            // Gửi thất bại
+            msgBox.style.display = "block";
+            msgBox.innerHTML = '<span class="msg-error">Có lỗi xảy ra! Bạn vui lòng thử lại hoặc nhắn tin trực tiếp nhé.</span>';
+            btnSubmit.innerHTML = '<i class="fas fa-paper-plane"></i> Gửi Lại';
+            btnSubmit.disabled = false;
+            console.error('Error!', error.message);
+        });
+});
         
     </script>
 </body>
