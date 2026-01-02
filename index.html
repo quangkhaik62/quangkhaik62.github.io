@@ -703,6 +703,35 @@ body.no-scroll {
         .spinning { animation: vinylSpin 3s linear infinite; }
         @keyframes vinylSpin { 100% { transform: rotate(360deg); } }
 
+        /* --- 8. GIFT BOX (QR CODE) --- */
+        #gift { background: #fdfdfd; } /* Nền trắng kem nhẹ */
+        .gift-grid { 
+            display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 30px; 
+        }
+        .gift-card {
+            background: white; padding: 30px; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); text-align: center;
+            flex: 1; min-width: 300px; max-width: 400px;
+            border: 1px solid rgba(188, 136, 135, 0.2); transition: transform 0.3s;
+        }
+        .gift-card:hover { transform: translateY(-5px); }
+        .qr-img { 
+            width: 200px; height: 200px; object-fit: contain; 
+            border: 1px solid #eee; padding: 10px; border-radius: 10px; margin-bottom: 15px;
+        }
+        .bank-title { font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 5px; }
+        .bank-name { font-size: 0.9rem; color: #888; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .copy-btn {
+            background: #f0f0f0; color: #555; padding: 8px 15px; border-radius: 5px;
+            font-size: 0.9rem; cursor: pointer; display: inline-block; margin-top: 10px;
+            transition: all 0.2s; border: 1px solid #ddd;
+        }
+        .copy-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        .copy-btn i { margin-right: 5px; }
+
+        /* --- FOOTER --- */
+        footer { background: #fff; padding: 40px 20px; text-align: center; color: #999; font-size: 0.8rem; }
+
         /* --- RSVP FORM STYLE --- */
 .rsvp-form {
     max-width: 400px;
@@ -748,35 +777,6 @@ body.no-scroll {
 /* Tin nhắn thông báo thành công/lỗi */
 .msg-success { color: #4CAF50; font-weight: 600; }
 .msg-error { color: #f44336; font-weight: 600; }
-
-        /* --- 8. GIFT BOX (QR CODE) --- */
-        #gift { background: #fdfdfd; } /* Nền trắng kem nhẹ */
-        .gift-grid { 
-            display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 30px; 
-        }
-        .gift-card {
-            background: white; padding: 30px; border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); text-align: center;
-            flex: 1; min-width: 300px; max-width: 400px;
-            border: 1px solid rgba(188, 136, 135, 0.2); transition: transform 0.3s;
-        }
-        .gift-card:hover { transform: translateY(-5px); }
-        .qr-img { 
-            width: 200px; height: 200px; object-fit: contain; 
-            border: 1px solid #eee; padding: 10px; border-radius: 10px; margin-bottom: 15px;
-        }
-        .bank-title { font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 5px; }
-        .bank-name { font-size: 0.9rem; color: #888; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
-        .copy-btn {
-            background: #f0f0f0; color: #555; padding: 8px 15px; border-radius: 5px;
-            font-size: 0.9rem; cursor: pointer; display: inline-block; margin-top: 10px;
-            transition: all 0.2s; border: 1px solid #ddd;
-        }
-        .copy-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
-        .copy-btn i { margin-right: 5px; }
-
-        /* --- FOOTER --- */
-        footer { background: #fff; padding: 40px 20px; text-align: center; color: #999; font-size: 0.8rem; }
     </style>
 </head>
 <body>
